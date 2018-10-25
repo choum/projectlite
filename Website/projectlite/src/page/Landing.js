@@ -1,8 +1,7 @@
 import React from "react";
 import ReactDom from "react-dom";
 
-import LandingContainer from "../component/Container/";
-import Header from "../component/Header"
+import { LandingContainer } from "../component/Container";
 
 class Landing extends React.Component {
   constructor(props) {
@@ -11,9 +10,7 @@ class Landing extends React.Component {
 
   render() {
     return (
-      <LandingContainer>
-
-      </LandingContainer>
+      <LandingContainer />
     );
   }
 };
