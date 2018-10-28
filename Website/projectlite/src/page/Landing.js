@@ -1,16 +1,23 @@
-import React from "react";
-import ReactDom from "react-dom";
+import React, { Component } from 'react';
 
-import { LandingContainer } from "../component/Container";
+import { RootContainer, SubContainer } from '../component/Container';
+import { Header } from '../component/Header';
 
-class Landing extends React.Component {
+class Landing extends Component {
   constructor(props) {
     super(props);
   }
 
   render() {
     return (
-      <LandingContainer />
+      <RootContainer >
+        <Header />
+        <SubContainer
+          h1Text="Project Lite."
+          pText="Explore lighting in a whole new way."
+          btnText="Learn More"
+        />
+      </RootContainer>
     );
   }
 };
