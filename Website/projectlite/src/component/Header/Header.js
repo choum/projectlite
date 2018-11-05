@@ -5,7 +5,7 @@ import './stylesHeader.css';
 const Header = () => {
   return (
     <div className="masthead clearfix">
-      <div className="container inner">
+      <div className="container">
         <h3 className="masthead-brand">Project Lite</h3>
         <nav>
           <ul className="nav masthead-nav">

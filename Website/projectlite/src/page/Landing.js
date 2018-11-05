@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 
-import { RootContainer, SubContainer } from '../component/Container';
+import { RootContainer } from '../component/Container';
 import { Header } from '../component/Header';
+import { Banner } from '../component/Banner';
 
 class Landing extends Component {
   constructor(props) {
@@ -12,7 +13,7 @@ class Landing extends Component {
     return (
       <RootContainer >
         <Header />
-        <SubContainer
+        <Banner
           h1Text="Project Lite."
           pText="Explore lighting in a whole new way."
           btnText="Learn More"
