@@ -1,6 +1,6 @@
 import React from 'react';
 
-const RootContainer = ({ children }) => {
+const Container = ({ children }) => {
     return (
         <div className="container">
             {children}
@@ -8,4 +8,4 @@ const RootContainer = ({ children }) => {
     );
 };
 
-export default RootContainer;
+export default Container;

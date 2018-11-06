@@ -5,7 +5,7 @@ import './stylesButton.css';
 
 const LinkButton = (props) => {
     return (
-        <a href={props.href} class='btn btn-lg btn-default'>{props.text}</a>
+        <a href={props.href} className='btn btn-lg btn-default'>{props.text}</a>
     );
 };
 
