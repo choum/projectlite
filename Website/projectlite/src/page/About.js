@@ -11,11 +11,13 @@ class About extends Component {
 
     render() {
         return (
-            <Container>
+            <React.Fragment>
                 <Header />
+                <Container>
 
+                </Container>
                 <Footer />
-            </Container>
+            </React.Fragment>
         );
     }
 

@@ -4,6 +4,7 @@ import * as serviceWorker from "./serviceWorker";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Landing from "./page/Landing";
+import About from './page/About';
 
 ReactDOM.render(<Landing />, document.getElementById("root"));
 
