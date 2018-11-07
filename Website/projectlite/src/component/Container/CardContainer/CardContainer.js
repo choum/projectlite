@@ -1,40 +1,60 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Card, CardHeader, CardBody, CardText } from 'reactstrap';
 
 import './stylesCardContainer.css';
 
-const CardContainer = (props) => {
-    return (
-        <div className="wrapper2">
-            <div className="row">
-                <div className="col-md-4">
+class CardContainer extends Component {
+    constructor(props) {
+        super(props);
+    }
+
+    renderCards() {
+        const { title, content } = this.props;
+        var cards = [];
+
+        for (var i = 0; i < title.length; i++) {
+            cards.push(
+                <div className="col-md-4" key={i}>
                     <Card>
-                        <CardHeader>{props.title[0]}</CardHeader>
+                        <CardHeader>{title[i]}</CardHeader>
                         <CardBody>
-                            <CardText>{props.content[0]}</CardText>
+                            <CardText>{content[i]}</CardText>
                         </CardBody>
                     </Card>
                 </div>
-                <div className="col-md-4">
-                    <Card>
-                        <CardHeader>{props.title[1]}</CardHeader>
-                        <CardBody>
-                            <CardText>{props.content[1]}</CardText>
-                        </CardBody>
-                    </Card>
-                </div>
-                <div className="col-md-4">
-                    <Card>
-                        <CardHeader>{props.title[2]}</CardHeader>
-                        <CardBody>
-                            <CardText>{props.content[2]}</CardText>
-                        </CardBody>
-                    </Card>
+            );
+        }
+
+        return (
+            <div className="wrapper2">
+                <div className="row">
+                    {cards}
                 </div>
             </div>
-        </div>
-    );
-};
+        );
+    }
+
+    renderCard() {
+        const { title, content } = this.props;
+        return (
+            <Card>
+                <CardBody>
+                    <h3 className="card-title">{title}</h3>
+                    <hr />
+                    <CardText>{content}</CardText>
+                </CardBody>
+            </Card>
+        );
+    }
+
+    render() {
+        return (
+            <React.Fragment>
+                {(this.props.title.length > 1) ? this.renderCards() : this.renderCard()}
+            </React.Fragment>
+        );
+    }
+}
 
 export default CardContainer;
