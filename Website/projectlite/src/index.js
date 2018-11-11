@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Landing from "./page/Landing";
 import About from './page/About';
 
-ReactDOM.render(<Landing />, document.getElementById("root"));
+ReactDOM.render(<About />, document.getElementById("root"));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

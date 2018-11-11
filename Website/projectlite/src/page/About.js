@@ -14,11 +14,14 @@ class About extends Component {
             <React.Fragment>
                 <Header />
                 <RootContainer>
-
-                    <Container>
-
+                    <Container className="aboutMargin">
+                        <CardContainer
+                            title={["About"]}
+                            content={[
+                                "About us"
+                            ]}
+                        />
                     </Container>
-
                 </RootContainer>
                 <Footer />
             </React.Fragment>
