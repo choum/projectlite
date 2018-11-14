@@ -8,7 +8,7 @@ import About from "./page/About";
 import Routes from "./Routes";
 import Registration from "./page/Registration";
 
-ReactDOM.render(<Registration />, document.getElementById("root"));
+ReactDOM.render(<Routes />, document.getElementById("root"));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
