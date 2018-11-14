@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 import Routes from "../../Routes";
 
@@ -13,19 +13,25 @@ const Header = () => {
         <nav>
           <ul className="nav masthead-nav">
             <li>
-              <Link to="/home">Home</Link>
+              <NavLink to="/home" activeClassName="active">
+                Home
+              </NavLink>
             </li>
-            <li className="active">
+            <li>
               <a href="features.html">Features</a>
             </li>
             <li>
               <a href="login.html">Login</a>
             </li>
             <li>
-              <Link to="/about">About</Link>
+              <NavLink to="/about" activeClassName="active">
+                About
+              </NavLink>
             </li>
             <li>
-              <Link to="/registration">Register</Link>
+              <NavLink to="/registration" activeClassName="active">
+                Register
+              </NavLink>
             </li>
           </ul>
         </nav>
