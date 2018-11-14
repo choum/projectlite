@@ -1,12 +1,3 @@
-/*.masthead {
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 100%;
-  background-color: #282828;
-  z-index: 999;
-}  */
-
 /*
 * Header
 */
@@ -56,6 +47,13 @@
   }
 }
 
+.container .cover {
+  text-align: center;
+  color: #fff;
+}
+
+/* end header */
+
 @media (min-width: 768px) {
   /* Pull out the header and footer */
   .masthead {
@@ -65,13 +63,6 @@
     background-color: #282828;
     z-index: 999;
   }
-  /* Start the vertical centering */
-  .site-wrapper-inner {
-    vertical-align: middle;
-  }
-}
 
-.container .cover {
-  text-align: center;
-  color: #fff;
+  /* removed .site-wrapper-inner */
 }

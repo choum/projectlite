@@ -1,17 +1,17 @@
-import React from 'react';
+import React from "react";
 
-import { Container } from '../Container';
+import { DefaultContainer } from "../Container";
 
-import './stylesFooter.css';
+import "./stylesFooter.css";
 
 const Footer = () => {
-    return (
-        <footer className="footer">
-            <Container>
-                <span>This is a footer.</span>
-            </Container>
-        </footer>
-    );
+  return (
+    <footer className="footer">
+      <DefaultContainer>
+        <span>This is a footer.</span>
+      </DefaultContainer>
+    </footer>
+  );
 };
 
 export default Footer;

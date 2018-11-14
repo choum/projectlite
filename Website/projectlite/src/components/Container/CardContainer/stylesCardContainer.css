@@ -2,6 +2,10 @@ hr {
   width: 70%;
 }
 
+main {
+  margin-top: 10%;
+}
+
 .wrapper2 {
   background-color: #504b43;
   width: 100%;
@@ -15,8 +19,4 @@ hr {
 
 .card-title {
   text-align: center;
-}
-
-.push-down {
-  margin-top: 10%;
 }

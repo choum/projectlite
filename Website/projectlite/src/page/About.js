@@ -3,7 +3,8 @@ import React, { Component } from "react";
 import {
   RootContainer,
   Container,
-  CardContainer
+  CardContainer,
+  MainContainer
 } from "../components/Container";
 
 class About extends Component {
@@ -13,9 +14,9 @@ class About extends Component {
 
   render() {
     return (
-      <RootContainer>
+      <MainContainer>
         <CardContainer title={["About"]} content={["About us"]} />
-      </RootContainer>
+      </MainContainer>
     );
   }
 }

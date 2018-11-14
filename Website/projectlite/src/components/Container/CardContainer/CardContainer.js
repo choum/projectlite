@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Card, CardHeader, CardBody, CardText } from "reactstrap";
 
 import "./stylesCardContainer.css";
+import { DefaultContainer } from "../index";
 
 class CardContainer extends Component {
   constructor(props) {
@@ -36,15 +37,17 @@ class CardContainer extends Component {
   renderCard() {
     const { title, content } = this.props;
     return (
-      <div className="push-down">
-        <Card>
-          <CardBody>
-            <h3 className="card-title">{title}</h3>
-            <hr />
-            <CardText>{content}</CardText>
-          </CardBody>
-        </Card>
-      </div>
+      <main>
+        <DefaultContainer>
+          <Card>
+            <CardBody>
+              <h3 className="card-title">{title}</h3>
+              <hr />
+              <CardText>{content}</CardText>
+            </CardBody>
+          </Card>
+        </DefaultContainer>
+      </main>
     );
   }
 

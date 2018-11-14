@@ -5,17 +5,18 @@ import Landing from "./page/Landing";
 import About from "./page/About";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
+import { WrapContainer } from "./components/Container";
 
 const Routes = () => {
   return (
     <Router>
       <React.Fragment>
-        <Header />
-
-        <Route exact path="/" component={Landing} />
-        <Route exact path="/home" component={Landing} />
-        <Route exact path="/about" component={About} />
-
+        <WrapContainer>
+          <Header />
+          <Route exact path="/" component={Landing} />
+          <Route exact path="/home" component={Landing} />
+          <Route exact path="/about" component={About} />
+        </WrapContainer>
         <Footer />
       </React.Fragment>
     </Router>

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import {
   RootContainer,
-  Container,
+  DefaultContainer,
   CardContainer
 } from "../components/Container";
 import { Banner } from "../components/Banner";
@@ -15,13 +15,13 @@ class Landing extends Component {
   render() {
     return (
       <RootContainer>
-        <Container>
+        <DefaultContainer>
           <Banner
             h1Text="Project Lite."
             pText="Explore lighting in a whole new way."
             btnText="Learn More"
           />
-        </Container>
+        </DefaultContainer>
         <CardContainer
           title={["Feature 1", "Feature 2", "Feature 3"]}
           content={[
