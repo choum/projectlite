@@ -16,15 +16,11 @@ class About extends Component {
 
   render() {
     return (
-      <React.Fragment>
-        <Header />
-        <RootContainer>
-          <Container className="aboutMargin">
-            <CardContainer title={["About"]} content={["About us"]} />
-          </Container>
-        </RootContainer>
-        <Footer />
-      </React.Fragment>
+      <RootContainer>
+        <Container>
+          <CardContainer title={["About"]} content={["About us"]} />
+        </Container>
+      </RootContainer>
     );
   }
 }
