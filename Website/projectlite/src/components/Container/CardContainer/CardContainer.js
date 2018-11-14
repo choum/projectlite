@@ -27,11 +27,7 @@ class CardContainer extends Component {
       );
     }
 
-    return (
-      <div className="wrapper2">
-        <div className="row">{cards}</div>
-      </div>
-    );
+    return <div className="row">{cards}</div>;
   }
 
   renderCard() {

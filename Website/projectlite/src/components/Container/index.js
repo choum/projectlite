@@ -3,11 +3,13 @@ import CardContainer from "./CardContainer/CardContainer";
 import RootContainer from "./RootContainer/RootContainer";
 import WrapContainer from "./WrapContainer/WrapContainer";
 import MainContainer from "./MainContainer/MainContainer";
+import FeaturesContainer from "./FeaturesContainer/FeaturesContainer";
 
 export {
   DefaultContainer,
   CardContainer,
   RootContainer,
   WrapContainer,
-  MainContainer
+  MainContainer,
+  FeaturesContainer
 };

@@ -1,16 +1,17 @@
-.wrapper {
-    display: table;
-    height: 600px;
-    width: 100%;
+.site-wrapper {
+  display: table;
+  height: 600px;
+  width: 100%;
 }
 
-.wrapper-inner {
-    vertical-align: middle;
-    display: table-cell;
+.site-wrapper-inner {
+  vertical-align: middle;
+  display: table-cell;
 }
 
 .content {
-    text-align: center;
-    color: #fff;
-    margin-top: 200px;
+  text-align: center;
+  color: #fff;
+  /*margin-top: 200px;*/
+  padding: 0 20px;
 }
