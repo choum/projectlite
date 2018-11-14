@@ -4,10 +4,10 @@ import {
   RootContainer,
   Container,
   CardContainer
-} from "../component/Container";
-import { Header } from "../component/Header";
-import { Banner } from "../component/Banner";
-import { Footer } from "../component/Footer";
+} from "../components/Container";
+import { Header } from "../components/Header";
+import { Banner } from "../components/Banner";
+import { Footer } from "../components/Footer";
 
 class Landing extends Component {
   constructor(props) {

@@ -1,3 +1,3 @@
-import LinkButton from './Button';
+import LinkButton from "./LinkButton";
 
 export { LinkButton };

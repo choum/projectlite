@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 
-import { Header } from "../component/Header";
-import { Footer } from "../component/Footer";
+import { Header } from "../components/Header";
+import { Footer } from "../components/Footer";
 import {
   RootContainer,
   Container,
   CardContainer
-} from "../component/Container";
+} from "../components/Container";
 
 class About extends Component {
   constructor(props) {
