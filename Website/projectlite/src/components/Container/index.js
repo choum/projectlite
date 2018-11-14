@@ -4,6 +4,7 @@ import RootContainer from "./RootContainer/RootContainer";
 import WrapContainer from "./WrapContainer/WrapContainer";
 import MainContainer from "./MainContainer/MainContainer";
 import FeaturesContainer from "./FeaturesContainer/FeaturesContainer";
+import FormContainer from "./FormContainer/FormContainer";
 
 export {
   DefaultContainer,
@@ -11,5 +12,6 @@ export {
   RootContainer,
   WrapContainer,
   MainContainer,
-  FeaturesContainer
+  FeaturesContainer,
+  FormContainer
 };

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { Container } from "../Container";
+import { CardContainer } from "../index";
 
 class FormContainer extends Component {
   constructor(props) {
@@ -8,7 +8,7 @@ class FormContainer extends Component {
   }
 
   render() {
-    return <div />;
+    return <div className="a">{this.props.children}</div>;
   }
 }
 

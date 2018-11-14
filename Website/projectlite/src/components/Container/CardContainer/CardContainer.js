@@ -10,7 +10,7 @@ class CardContainer extends Component {
     super(props);
   }
 
-  renderCards() {
+  renderFeatures() {
     const { title, content } = this.props;
     var cards = [];
 
@@ -30,7 +30,7 @@ class CardContainer extends Component {
     return <div className="row">{cards}</div>;
   }
 
-  renderCard() {
+  renderAbout() {
     const { title, content } = this.props;
     return (
       <main>
@@ -47,12 +47,33 @@ class CardContainer extends Component {
     );
   }
 
-  render() {
+  renderRegistration() {
+    const { title } = this.props;
     return (
-      <React.Fragment>
-        {this.props.title.length > 1 ? this.renderCards() : this.renderCard()}
-      </React.Fragment>
+      <Card>
+        <CardBody>
+          <h3 className="card-title">{title}</h3>
+          <form method="post">{this.props.children}</form>
+        </CardBody>
+      </Card>
     );
+  }
+
+  render() {
+    let type = this.props.type;
+    let cardDisplay;
+
+    if (type === "features") {
+      cardDisplay = this.renderFeatures();
+    } else if (type === "about") {
+      cardDisplay = this.renderAbout();
+    } else if (type === "registration") {
+      cardDisplay = this.renderRegistration();
+    } else {
+      cardDisplay = <p>error</p>;
+    }
+
+    return <React.Fragment>{cardDisplay}</React.Fragment>;
   }
 }
 
