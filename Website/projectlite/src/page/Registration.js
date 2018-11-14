@@ -6,6 +6,7 @@ import {
   CardContainer
 } from "../components/Container";
 import { SingleLineTextBox } from "../components/TextBox";
+import { DefaultButton } from "../components/Button";
 
 class Registration extends Component {
   constructor(props) {
@@ -16,31 +17,37 @@ class Registration extends Component {
     return (
       <MainContainer>
         <FormContainer>
-          <CardContainer type="registration" title="registration">
+          <CardContainer type="registration" title="Registration">
             <SingleLineTextBox
               label="Username"
+              id="username"
               type="text"
               name="RegistrationUsername"
               placeholder="Username"
+              required="true"
             />
             <SingleLineTextBox
               label="Email"
+              id="email"
               type="text"
               name="RegistrationEmail"
               placeholder="Email"
             />
             <SingleLineTextBox
               label="Password"
+              id="password"
               type="password"
               name="RegistrationPassword"
               placeholder="Password"
             />
             <SingleLineTextBox
               label="Confirm Password"
+              id="cpassword"
               type="password"
               name="RegistrationConfirmPassword"
               placeholder="Confirm Password"
             />
+            <DefaultButton text="Submit" />
           </CardContainer>
         </FormContainer>
       </MainContainer>

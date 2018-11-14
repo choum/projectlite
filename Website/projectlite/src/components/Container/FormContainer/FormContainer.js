@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { CardContainer } from "../index";
+import "./stylesFormContainer.css";
 
 class FormContainer extends Component {
   constructor(props) {

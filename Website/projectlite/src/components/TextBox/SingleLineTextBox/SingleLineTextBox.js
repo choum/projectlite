@@ -4,12 +4,13 @@ import { FormGroup, Label, Input } from "reactstrap";
 const SingleLineTextBox = props => {
   return (
     <FormGroup>
-      <Label for={props.label}>{props.label}</Label>
+      <Label for={props.id}>{props.label}</Label>
       <Input
         type={props.type}
         name={props.name}
-        id={props.label}
+        id={props.id}
         placeholder={props.placeholder}
+        required={props.required}
       />
     </FormGroup>
   );
