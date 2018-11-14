@@ -14,9 +14,7 @@ class About extends Component {
   render() {
     return (
       <RootContainer>
-        <Container>
-          <CardContainer title={["About"]} content={["About us"]} />
-        </Container>
+        <CardContainer title={["About"]} content={["About us"]} />
       </RootContainer>
     );
   }
