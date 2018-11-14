@@ -5,9 +5,7 @@ import {
   Container,
   CardContainer
 } from "../components/Container";
-import { Header } from "../components/Header";
 import { Banner } from "../components/Banner";
-import { Footer } from "../components/Footer";
 
 class Landing extends Component {
   constructor(props) {
