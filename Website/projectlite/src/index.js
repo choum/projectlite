@@ -3,13 +3,14 @@ import ReactDOM from "react-dom";
 import * as serviceWorker from "./serviceWorker";
 import "bootstrap/dist/css/bootstrap.min.css";
 
+import LightsBox from "./components/LightsBox";
 import Landing from "./page/Landing";
 import About from "./page/About";
 import Routes from "./Routes";
 import Registration from "./page/Registration";
 import ViewComponent from "./page/ViewComponent";
 
-ReactDOM.render(<ViewComponent />, document.getElementById("root"));
+ReactDOM.render(<Routes/>, document.getElementById("root"));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

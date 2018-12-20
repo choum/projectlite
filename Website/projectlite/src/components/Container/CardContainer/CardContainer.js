@@ -9,7 +9,28 @@ class CardContainer extends Component {
   constructor(props) {
     super(props);
   }
-
+  renderCardWithHeader() {
+    const { title, content } = this.props;
+    return (
+      <Card>
+        <CardHeader>{title}</CardHeader>
+        <CardBody>
+          <CardText>{this.props.children}</CardText>
+        </CardBody>
+      </Card>
+    );
+  }
+  renderCardBodyHeader() {
+    const { title, content } = this.props;
+    return (
+      <Card>
+        <CardBody>
+        <h3 className="card-title">{title}</h3>
+          <CardText>{this.props.children}</CardText>
+        </CardBody>
+      </Card>
+    );
+  }
   renderFeatures() {
     const { title, content } = this.props;
     var cards = [];
@@ -69,6 +90,10 @@ class CardContainer extends Component {
       cardDisplay = this.renderAbout();
     } else if (type === "registration") {
       cardDisplay = this.renderRegistration();
+    } else if (type === "bodyheader") {
+      cardDisplay = this.renderCardBodyHeader();
+    } else if (type === "card") {
+      cardDisplay = this.renderCardWithHeader();
     } else {
       cardDisplay = <p>error</p>;
     }
