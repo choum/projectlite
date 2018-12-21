@@ -1,26 +1,95 @@
 import React from "react";
-import { BorderCard } from "./Card";
-import "./LightBoxCSS.css";
-const LightsBox = ()=> (
-    <BorderCard >
-      <h2 className="name">Cluster Name</h2>
-      <div className="cluster">
-        <div className="row">
-          <div className="hexagon">
-          </div>
-          <div className="hexagon">
-          </div>
-        </div>
-      <div class="row" id="two">
-        <div className="hexagon" id="3">
-        </div>
-        <div className="hexagon" id="4">
-        </div>
-        <div className="hexagon" id="5">
-        </div>
-      </div>
-      </div>
-  </BorderCard>
-)
+import CardContainer from "./Container/CardContainer";
+import styled from "styled-components";
+const Hexagon = styled.div`
+  position: relative;
+  width: 100px;
+  height: 57.74px;
+  background-color: #f1f0e4;
+  margin: 28.87px 0;
+  border-left: solid 2px #646464;
+  border-right: solid 2px #646464;
+
+  &:before,
+  &:after {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    width: 70.71px;
+    height: 70.71px;
+    -webkit-transform: scaleY(0.5774) rotate(-45deg);
+    -ms-transform: scaleY(0.5774) rotate(-45deg);
+    transform: scaleY(0.5774) rotate(-45deg);
+    background-color: inherit;
+    left: 12.6447px;
+  }
+  &:before {
+    top: -35.3553px;
+    border-top: solid 2.8284px #646464;
+    border-right: solid 2.8284px #646464;
+  }
+
+  &:after {
+    bottom: -35.3553px;
+    border-bottom: solid 2.8284px #646464;
+    border-left: solid 2.8284px #646464;
+  }
+`;
+const ClearHexagon = styled.div`
+  position: relative;
+  width: 100px;
+  height: 57.74px;
+  background-color: #fff;
+  margin: 28.87px 0;
+  border-left: solid 1px #fff;
+  border-right: solid 1px #fff;
+
+  &:before,
+  &:after {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    width: 70.71px;
+    height: 70.71px;
+    -webkit-transform: scaleY(0.5774) rotate(-45deg);
+    -ms-transform: scaleY(0.5774) rotate(-45deg);
+    transform: scaleY(0.5774) rotate(-45deg);
+    background-color: inherit;
+    left: 12.6447px;
+  }
+
+  &:before {
+    top: -35.3553px;
+    border-top: solid 1.8284px #fff;
+    border-right: solid 1.8284px #fff;
+  }
+
+  &:after {
+    bottom: -35.3553px;
+    border-bottom: solid 1.8284px #fff;
+    border-left: solid 1.8284px #fff;
+  }
+`;
+const Row = styled.div`
+  padding: 0 !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+const LightsBox = () => (
+  <CardContainer type="card" title="Cluster Name">
+    <Row>
+      <Hexagon />
+      <Hexagon />
+    </Row>
+    <Row>
+      <ClearHexagon />
+      <ClearHexagon />
+      <Hexagon />
+      <Hexagon />
+      <Hexagon />
+    </Row>
+  </CardContainer>
+);
 
 export default LightsBox;
