@@ -34,8 +34,7 @@ const Hexagon = styled.div `
     border-bottom: solid 2.8284px #646464;
     border-left: solid 2.8284px #646464;
   }
-
-`
+`;
 const ClearHexagon = styled.div`
   position: relative;
   width: 100px;
@@ -70,8 +69,7 @@ const ClearHexagon = styled.div`
     border-bottom: solid 1.8284px #fff;
     border-left: solid 1.8284px #fff;
   }
-
-`
+`;
 const Row = styled.div`
   padding: 0 !important;
   display: flex;
@@ -98,6 +96,6 @@ const LightsBox = ()=> (
         <Hexagon />
       </NextRow>
   </CardContainer>
-)
+);
 
 export default LightsBox;

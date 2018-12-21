@@ -28,7 +28,8 @@ class ViewComponent extends Component {
   render() {
     return (
       <DefaultContainer>
-          <H1 ClusterName="Bathroom" />
+        <BorderCard>
+          <h1>Bathroom</h1>
           <Inline>
             <FontAwesomeIcon icon={faLightbulb} size="lg" />
             <Slider value={this.state.value} onChange={this.handleChange} />
