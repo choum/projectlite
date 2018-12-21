@@ -7,7 +7,7 @@ import { DefaultContainer } from "./index";
 const Title = styled.h3 `
   text-align:center;
 `
-const CardWrapper = styled.span `
+const CardWrapper = styled.div `
   hr {
     width: 70%;
   }
@@ -21,6 +21,8 @@ const CardWrapper = styled.span `
     margin-right: 0px;
     margin-left: 0px;
   }
+  margin: 3%;
+
 
 `
 class CardContainer extends Component {

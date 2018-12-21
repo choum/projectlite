@@ -1,7 +1,6 @@
 import React from "react";
 import CardContainer from "./Container/CardContainer";
 import styled from "styled-components";
-import "./LightBoxCSS.css";
 const Hexagon = styled.div `
   position: relative;
   width: 100px;
@@ -35,8 +34,7 @@ const Hexagon = styled.div `
     border-bottom: solid 2.8284px #646464;
     border-left: solid 2.8284px #646464;
   }
-
-`
+`;
 const ClearHexagon = styled.div`
   position: relative;
   width: 100px;
@@ -71,10 +69,15 @@ const ClearHexagon = styled.div`
     border-bottom: solid 1.8284px #fff;
     border-left: solid 1.8284px #fff;
   }
-
-`
+`;
 const Row = styled.div`
   padding: 0 !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+const NextRow = styled.div`
+  margin-top: -30px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -85,14 +88,14 @@ const LightsBox = ()=> (
           <Hexagon />
           <Hexagon />
         </Row>
-      <Row>
+      <NextRow>
         <ClearHexagon />
         <ClearHexagon />
         <Hexagon />
         <Hexagon />
         <Hexagon />
-      </Row>
+      </NextRow>
   </CardContainer>
-)
+);
 
 export default LightsBox;

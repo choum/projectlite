@@ -15,7 +15,7 @@ class About extends Component {
   render() {
     return (
       <MainContainer>
-        <CardContainer type="about" title={["About"]} content={["About us"]} />
+        <CardContainer type="bodyheader">About us</CardContainer>
       </MainContainer>
     );
   }

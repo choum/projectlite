@@ -1,14 +1,32 @@
 import React from "react";
 import PropTypes from "prop-types";
-
-import "./stylesBanner.css";
+import styled from "styled-components";
 
 import { LinkButton } from "../Button";
 import { DefaultContainer } from "../Container";
 
+const SiteWrapper = styled.div`
+  display: table;
+  height: 600px;
+  width: 100%;
+
+.site-wrapper-inner {
+  vertical-align: middle;
+  display: table-cell;
+}
+
+.content {
+  text-align: center;
+  color: #fff;
+  /*margin-top: 200px;*/
+  padding: 0 20px;
+}
+
+`
+
 const Banner = props => {
   return (
-    <div className="site-wrapper">
+    <SiteWrapper>
       <div className="site-wrapper-inner">
         <DefaultContainer>
           <div className="content">
@@ -20,7 +38,7 @@ const Banner = props => {
           </div>
         </DefaultContainer>
       </div>
-    </div>
+    </SiteWrapper>
   );
 };
 
