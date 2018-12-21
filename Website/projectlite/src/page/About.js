@@ -3,9 +3,9 @@ import React, { Component } from "react";
 import {
   RootContainer,
   Container,
-  CardContainer,
   MainContainer
 } from "../components/Container";
+import CardContainer from "../components/Container/CardContainer"
 
 class About extends Component {
   constructor(props) {

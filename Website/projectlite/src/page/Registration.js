@@ -2,11 +2,11 @@ import React, { Component } from "react";
 
 import {
   MainContainer,
-  FormContainer,
-  CardContainer
+  FormContainer
 } from "../components/Container";
 import { SingleLineTextBox } from "../components/TextBox";
 import { DefaultButton } from "../components/Button";
+import CardContainer from "../components/Container/CardContainer"
 
 class Registration extends Component {
   constructor(props) {
