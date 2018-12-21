@@ -4,7 +4,6 @@ import { faLightbulb } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
 
 import { DefaultContainer } from "../components/Container";
-import { BorderCard } from "../components/Card";
 import { H1 } from "../components/Text";
 import Switch from "../components/Switch/Switch";
 import Slider from "../components/Slider/Slider";
@@ -29,14 +28,12 @@ class ViewComponent extends Component {
   render() {
     return (
       <DefaultContainer>
-        <BorderCard>
           <H1 ClusterName="Bathroom" />
           <Inline>
             <FontAwesomeIcon icon={faLightbulb} size="lg" />
             <Slider value={this.state.value} onChange={this.handleChange} />
           </Inline>
           <Switch />
-        </BorderCard>
       </DefaultContainer>
     );
   }
