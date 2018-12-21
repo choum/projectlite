@@ -96,7 +96,7 @@ const Header = () => {
               <a href="features.html">Features</a>
             </li>
             <li>
-              <a href="login.html">Login</a>
+              <a href="/login">Login</a>
             </li>
             <li>
               <NavLink to="/about" activeClassName="active">
