@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import styled from "styled-components";
 import {
   RootContainer,
   DefaultContainer,
@@ -8,6 +8,8 @@ import {
 } from "../components/Container";
 import { Banner } from "../components/Banner";
 import CardContainer from "../components/Container/CardContainer"
+
+
 
 class Landing extends Component {
   constructor(props) {
@@ -23,15 +25,23 @@ class Landing extends Component {
           btnText="Learn More"
         />
         <FeaturesContainer>
-          <CardContainer
-            type="features"
-            title={["Feature 1", "Feature 2", "Feature 3"]}
-            content={[
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vel magna mauris. Mauris nulla eros, consectetur ac nulla et, tempor convallis nibh. Praesent eget lobortis quam. Quisque at porta justo. In eget    nunc leo. Cras convallis ornare ligula, non feugiat odio mattis id. Mauris leo orci, rhoncus ac lectus vel, porttitor mollis sapien. Quisque quis nibh non quam tincidunt feugiat.",
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vel magna mauris. Mauris nulla eros, consectetur ac nulla et, tempor convallis nibh. Praesent eget lobortis quam. Quisque at porta justo. In eget    nunc leo. Cras convallis ornare ligula, non feugiat odio mattis id. Mauris leo orci, rhoncus ac lectus vel, porttitor mollis sapien. Quisque quis nibh non quam tincidunt feugiat.",
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vel magna mauris. Mauris nulla eros, consectetur ac nulla et, tempor convallis nibh. Praesent eget lobortis quam. Quisque at porta justo. In eget nunc leo. Cras convallis ornare ligula, non feugiat odio mattis id. Mauris leo orci, rhoncus ac lectus vel, porttitor mollis sapien. Quisque quis nibh non quam tincidunt feugiat."
-            ]}
-          />
+          <div class="row">
+            <div class="col-md-4">
+              <CardContainer type="card" title="Feature 1">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vel magna mauris. Mauris nulla eros, consectetur ac nulla et, tempor convallis nibh. Praesent eget lobortis quam. Quisque at porta justo. In eget nunc leo. Cras convallis ornare ligula, non feugiat odio mattis id. Mauris leo orci, rhoncus ac lectus vel, porttitor mollis sapien. Quisque quis nibh non quam tincidunt feugiat.
+              </CardContainer>
+            </div>
+            <div class="col-md-4">
+              <CardContainer type="card" title="Feature 2">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vel magna mauris. Mauris nulla eros, consectetur ac nulla et, tempor convallis nibh. Praesent eget lobortis quam. Quisque at porta justo. In eget nunc leo. Cras convallis ornare ligula, non feugiat odio mattis id. Mauris leo orci, rhoncus ac lectus vel, porttitor mollis sapien. Quisque quis nibh non quam tincidunt feugiat.
+              </CardContainer>
+            </div>
+            <div class="col-md-4">
+              <CardContainer type="card" title="Feature 3">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vel magna mauris. Mauris nulla eros, consectetur ac nulla et, tempor convallis nibh. Praesent eget lobortis quam. Quisque at porta justo. In eget nunc leo. Cras convallis ornare ligula, non feugiat odio mattis id. Mauris leo orci, rhoncus ac lectus vel, porttitor mollis sapien. Quisque quis nibh non quam tincidunt feugiat.
+              </CardContainer>
+            </div>
+          </div>
         </FeaturesContainer>
       </MainContainer>
     );

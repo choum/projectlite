@@ -17,7 +17,7 @@ class Registration extends Component {
     return (
       <MainContainer>
         <FormContainer>
-          <CardContainer type="registration" title="Registration">
+          <CardContainer type="bodyheader" title="Registration">
             <SingleLineTextBox
               label="Username"
               id="username"
@@ -47,7 +47,7 @@ class Registration extends Component {
               name="RegistrationConfirmPassword"
               placeholder="Confirm Password"
             />
-            <DefaultButton text="Submit" />
+            <DefaultButton className="btn" text="Submit" />
           </CardContainer>
         </FormContainer>
       </MainContainer>
