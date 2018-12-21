@@ -1,14 +1,12 @@
-import DefaultContainer from "./DefaultContainer/DefaultContainer";
-import CardContainer from "./CardContainer/CardContainer";
-import RootContainer from "./RootContainer/RootContainer";
-import WrapContainer from "./WrapContainer/WrapContainer";
-import MainContainer from "./MainContainer/MainContainer";
-import FeaturesContainer from "./FeaturesContainer/FeaturesContainer";
-import FormContainer from "./FormContainer/FormContainer";
+import DefaultContainer from "./DefaultContainer";
+import RootContainer from "./RootContainer";
+import WrapContainer from "./WrapContainer";
+import MainContainer from "./MainContainer";
+import FeaturesContainer from "./FeaturesContainer";
+import FormContainer from "./FormContainer";
 
 export {
   DefaultContainer,
-  CardContainer,
   RootContainer,
   WrapContainer,
   MainContainer,
