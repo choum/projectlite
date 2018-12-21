@@ -8,7 +8,7 @@ import Landing from "./page/Landing";
 import About from "./page/About";
 import Routes from "./Routes";
 import Registration from "./page/Registration";
-import ViewComponent from "./page/ViewComponent";
+import Dashboard from "./page/Dashboard";
 
 ReactDOM.render(<Routes />, document.getElementById("root"));
 
