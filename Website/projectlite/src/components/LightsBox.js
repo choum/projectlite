@@ -1,7 +1,6 @@
 import React from "react";
 import CardContainer from "./Container/CardContainer";
 import styled from "styled-components";
-import "./LightBoxCSS.css";
 const Hexagon = styled.div `
   position: relative;
   width: 100px;
@@ -79,19 +78,25 @@ const Row = styled.div`
   justify-content: center;
   align-items: center;
 `
+const NextRow = styled.div`
+  margin-top: -30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
 const LightsBox = ()=> (
     <CardContainer type="card" title="Cluster Name">
         <Row>
           <Hexagon />
           <Hexagon />
         </Row>
-      <Row>
+      <NextRow>
         <ClearHexagon />
         <ClearHexagon />
         <Hexagon />
         <Hexagon />
         <Hexagon />
-      </Row>
+      </NextRow>
   </CardContainer>
 )
 
