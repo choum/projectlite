@@ -2,73 +2,68 @@ import React from "react";
 import CardContainer from "./Container/CardContainer";
 import styled from "styled-components";
 const Hexagon = styled.div `
-  position: relative;
-  width: 100px;
-  height: 57.74px;
-  background-color: #f1f0e4;
-  margin: 28.87px 0;
-  border-left: solid 2px #646464;
-  border-right: solid 2px #646464;
-
-  &:before,
-  &:after {
-    content: "";
+&:before {
+    content: " ";
+    width: 0; height: 0;
+    border-bottom: 30px solid #6C6;
+    border-left: 52px solid transparent;
+    border-right: 52px solid transparent;
     position: absolute;
-    z-index: 1;
-    width: 70.71px;
-    height: 70.71px;
-    -webkit-transform: scaleY(0.5774) rotate(-45deg);
-    -ms-transform: scaleY(0.5774) rotate(-45deg);
-    transform: scaleY(0.5774) rotate(-45deg);
-    background-color: inherit;
-    left: 12.6447px;
-  }
-  &:before {
-    top: -35.3553px;
-    border-top: solid 2.8284px #646464;
-    border-right: solid 2.8284px #646464;
-  }
+    top: -30px;
+}
 
-  &:after {
-    bottom: -35.3553px;
-    border-bottom: solid 2.8284px #646464;
-    border-left: solid 2.8284px #646464;
-  }
+    margin-top: 30px;
+    width: 104px;
+    height: 60px;
+    background-color: #6C6;
+    position: relative;
+
+&:after {
+    content: "";
+    width: 0;
+    position: absolute;
+    bottom: -30px;
+    border-top: 30px solid #6C6;
+    border-left: 52px solid transparent;
+    border-right: 52px solid transparent;
+}
+
 `;
 const ClearHexagon = styled.div`
   position: relative;
-  width: 100px;
-  height: 57.74px;
-  background-color: #fff;
-  margin: 28.87px 0;
-  border-left: solid 1px #fff;
-  border-right: solid 1px #fff;
+  width: 50px;
+  height: 28.87px;
+  background-color: #ffffff;
+  margin: 14.43px 0;
+  border-left: solid 2px #fdfdfd;
+  border-right: solid 2px #fdfdfd;
 
-  &:before,
-  &:after {
-    content: "";
-    position: absolute;
-    z-index: 1;
-    width: 70.71px;
-    height: 70.71px;
-    -webkit-transform: scaleY(0.5774) rotate(-45deg);
-    -ms-transform: scaleY(0.5774) rotate(-45deg);
-    transform: scaleY(0.5774) rotate(-45deg);
-    background-color: inherit;
-    left: 12.6447px;
-  }
+&:before,
+&:after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  width: 35.36px;
+  height: 35.36px;
+  -webkit-transform: scaleY(0.5774) rotate(-45deg);
+  -ms-transform: scaleY(0.5774) rotate(-45deg);
+  transform: scaleY(0.5774) rotate(-45deg);
+  background-color: inherit;
+  left: 5.3223px;
+}
 
-  &:before {
-    top: -35.3553px;
-    border-top: solid 1.8284px #fff;
-    border-right: solid 1.8284px #fff;
-  }
+&:before {
+  top: -17.6777px;
+  border-top: solid 2.8284px #fdfdfd;
+  border-right: solid 2.8284px #fdfdfd;
+}
 
-  &:after {
-    bottom: -35.3553px;
-    border-bottom: solid 1.8284px #fff;
-    border-left: solid 1.8284px #fff;
-  }
+&:after {
+  bottom: -17.6777px;
+  border-bottom: solid 2.8284px #fdfdfd;
+  border-left: solid 2.8284px #fdfdfd;
+}
+
 `;
 const Row = styled.div`
   padding: 0 !important;
@@ -77,26 +72,22 @@ const Row = styled.div`
   align-items: center;
 `
 const NextRow = styled.div`
-  margin-top: -30px;
+  margin-left: px;
   display: flex;
   justify-content: center;
   align-items: center;
 `
 const LightsBox = ()=> (
-  <CardContainer type="card" title="Clusters">
     <CardContainer type="bodyheader" title="Cluster Name">
         <Row>
           <Hexagon />
           <Hexagon />
         </Row>
-      <NextRow>
-        <ClearHexagon />
-        <ClearHexagon />
+      <Row>
         <Hexagon />
         <Hexagon />
         <Hexagon />
-      </NextRow>
-  </CardContainer>
+      </Row>
   </CardContainer>
 );
 

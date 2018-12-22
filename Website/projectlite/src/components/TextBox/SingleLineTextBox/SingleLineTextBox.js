@@ -6,11 +6,7 @@ const SingleLineTextBox = props => {
     <FormGroup>
       <Label for={props.id}>{props.label}</Label>
       <Input
-        type={props.type}
-        name={props.name}
-        id={props.id}
-        placeholder={props.placeholder}
-        required={props.required}
+		{... props}
       />
     </FormGroup>
   );

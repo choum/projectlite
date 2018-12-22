@@ -18,6 +18,7 @@ class Login extends Component {
       <MainContainer>
         <FormContainer>
           <CardContainer type="bodyheader" title="Login">
+            <form>
             <SingleLineTextBox
               label="Username"
               id="username"
@@ -34,6 +35,7 @@ class Login extends Component {
               placeholder="Password"
             />
             <DefaultButton className="btn" text="Submit" />
+            </form>
           </CardContainer>
         </FormContainer>
       </MainContainer>

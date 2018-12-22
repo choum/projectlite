@@ -11,7 +11,14 @@ import Registration from "./page/Registration";
 import Dashboard from "./page/Dashboard";
 import Login from "./page/Login";
 
-ReactDOM.render(<Routes />, document.getElementById("root"));
+import Firebase, { FirebaseContext } from "./components/Firebase";
+
+ReactDOM.render(
+  <FirebaseContext.Provider value={new Firebase()}>
+    <Routes />
+  </FirebaseContext.Provider>,
+  document.getElementById("root")
+);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
