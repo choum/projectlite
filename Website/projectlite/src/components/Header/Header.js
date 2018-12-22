@@ -4,6 +4,8 @@ import { NavLink } from "react-router-dom";
 import Routes from "../../Routes";
 import styled from "styled-components";
 
+import { FirebaseContext, withFirebase } from "../../components/Firebase";
+
 const Head = styled.div`
   .masthead-nav,
   .masthead-brand {
@@ -84,7 +86,7 @@ const Header = props => {
   return (
     <Head>
       <div className="masthead clearfix">
-        <div>{console.log(props.login)}</div>
+        <div>{console.log(props.firebase.getCurrentUser())}</div>
         <div className="container">
           <h3 className="masthead-brand">Project Lite</h3>
           <nav>
@@ -97,7 +99,7 @@ const Header = props => {
               <li>
                 <a href="features.html">Products</a>
               </li>
-              {!props.login && (
+              {!props.firebase.getCurrentUser() && (
                 <li>
                   <a href="/login">Login</a>
                 </li>
@@ -107,30 +109,34 @@ const Header = props => {
                   About
                 </NavLink>
               </li>
-              {!props.login && (
+              {!props.firebase.getCurrentUser() && (
                 <li>
                   <NavLink to="/registration" activeClassName="active">
                     Register
                   </NavLink>
                 </li>
               )}
-              {props.login && (
+              {props.firebase.getCurrentUser() && (
                 <li>
                   <NavLink to="/dashboard" activeClassName="active">
                     Dashboard
                   </NavLink>
                 </li>
               )}
-              {props.login && (
+              {props.firebase.getCurrentUser() && (
                 <li>
                   <NavLink to="/settings" activeClassName="active">
                     Settings
                   </NavLink>
                 </li>
               )}
-              {props.login && (
+              {props.firebase.getCurrentUser() && (
                 <li>
-                  <NavLink to="/signout" activeClassName="active">
+                  <NavLink
+                    to="/signout"
+                    activeClassName="active"
+                    onClick={props.firebase.doSignOut}
+                  >
                     Signout
                   </NavLink>
                 </li>
@@ -143,4 +149,4 @@ const Header = props => {
   );
 };
 
-export default Header;
+export default withFirebase(Header);

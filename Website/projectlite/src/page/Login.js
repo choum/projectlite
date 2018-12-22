@@ -1,12 +1,10 @@
 import React, { Component } from "react";
 
-import {
-  MainContainer,
-  FormContainer
-} from "../components/Container";
+import { MainContainer, FormContainer } from "../components/Container";
 import { SingleLineTextBox } from "../components/TextBox";
 import { DefaultButton } from "../components/Button";
-import CardContainer from "../components/Container/CardContainer"
+import CardContainer from "../components/Container/CardContainer";
+import { withFirebase } from "../components/Firebase";
 
 class Login extends Component {
   constructor(props) {
@@ -19,22 +17,22 @@ class Login extends Component {
         <FormContainer>
           <CardContainer type="bodyheader" title="Login">
             <form>
-            <SingleLineTextBox
-              label="Username"
-              id="username"
-              type="text"
-              name="LoginUsername"
-              placeholder="Username"
-              required="true"
-            />
-            <SingleLineTextBox
-              label="Password"
-              id="password"
-              type="password"
-              name="LoginPassword"
-              placeholder="Password"
-            />
-            <DefaultButton className="btn" text="Submit" />
+              <SingleLineTextBox
+                label="Username"
+                id="username"
+                type="text"
+                name="LoginUsername"
+                placeholder="Username"
+                required="true"
+              />
+              <SingleLineTextBox
+                label="Password"
+                id="password"
+                type="password"
+                name="LoginPassword"
+                placeholder="Password"
+              />
+              <DefaultButton className="btn" text="Submit" />
             </form>
           </CardContainer>
         </FormContainer>
@@ -43,4 +41,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default withFirebase(Login);

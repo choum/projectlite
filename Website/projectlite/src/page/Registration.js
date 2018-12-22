@@ -5,7 +5,7 @@ import { SingleLineTextBox } from "../components/TextBox";
 import { DefaultButton } from "../components/Button";
 import CardContainer from "../components/Container/CardContainer";
 
-import { FirebaseContext } from "../components/Firebase";
+import { withFirebase } from "../components/Firebase";
 
 class RegistrationBase extends Component {
   constructor(props) {
@@ -85,13 +85,6 @@ class RegistrationBase extends Component {
   }
 }
 
-const Registration = props => (
-  <FirebaseContext.Consumer>
-    {firebase => {
-      console.log(firebase);
-      return <RegistrationBase {...props} firebase={firebase} />;
-    }}
-  </FirebaseContext.Consumer>
-);
+const Registration = withFirebase(RegistrationBase);
 
 export default Registration;
