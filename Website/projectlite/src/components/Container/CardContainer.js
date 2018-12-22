@@ -22,9 +22,7 @@ const CardWrapper = styled.div `
     margin-left: 0px;
   }
   margin: 30px;
-  .card {
-    padding-bottom: 30px;
-  }
+
 
 `
 class CardContainer extends Component {

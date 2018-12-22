@@ -46,18 +46,18 @@ class Dashboard extends Component {
             {this.renderLightsBox()}
           </div>
           </CardContainer>
-            <CardContainer type="card" title="Quick Control">
-            <QuickControl
-              value={this.state.roomValue}
-              onChange={e =>
-                this.setState({ roomValue: e.target.value }, () =>
-                  console.log()
-                )
-              }
-            />
-            </CardContainer>
-          <div class="col-md-4">
           </div>
+          <div class="col-md-4">
+          <CardContainer type="card" title="Quick Control">
+          <QuickControl
+            value={this.state.roomValue}
+            onChange={e =>
+              this.setState({ roomValue: e.target.value }, () =>
+                console.log()
+              )
+            }
+          />
+          </CardContainer>
         </div>
       </div>
       </MainContainer>
