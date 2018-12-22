@@ -8,4 +8,7 @@ export default class Firebase {
     app.initializeApp(config);
     this.auth = app.auth();
   }
+
+  doCrateUser = (email, password) =>
+    this.auth.createUserWithEmailAndPassword(email, password);
 }

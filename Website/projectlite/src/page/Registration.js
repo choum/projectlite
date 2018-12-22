@@ -1,17 +1,33 @@
 import React, { Component } from "react";
 
-import {
-  MainContainer,
-  FormContainer
-} from "../components/Container";
+import { MainContainer, FormContainer } from "../components/Container";
 import { SingleLineTextBox } from "../components/TextBox";
 import { DefaultButton } from "../components/Button";
-import CardContainer from "../components/Container/CardContainer"
+import CardContainer from "../components/Container/CardContainer";
 
-class Registration extends Component {
+import { FirebaseContext } from "../components/Firebase";
+
+class RegistrationBase extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      email: "",
+      pass1: "",
+      pass2: "",
+      enabled: true
+    };
+    this.validate = this.validate.bind(this);
+    this.doSubmit = this.doSubmit.bind(this);
+    this.firebase = this.props.firebase;
   }
+
+  validate = () => {};
+
+  doSubmit = () => {
+    if (this.state.pass1 !== this.state.pass2) return;
+    this.setState({ enabled: false });
+    console.log(this.firebase.doCrateUser(this.state.email, this.state.pass1));
+  };
 
   render() {
     return (
@@ -19,19 +35,16 @@ class Registration extends Component {
         <FormContainer>
           <CardContainer type="bodyheader" title="Registration">
             <SingleLineTextBox
-              label="Username"
-              id="username"
-              type="text"
-              name="RegistrationUsername"
-              placeholder="Username"
-              required="true"
-            />
-            <SingleLineTextBox
               label="Email"
               id="email"
               type="text"
               name="RegistrationEmail"
               placeholder="Email"
+              disabled={!this.state.enabled}
+              //value={this.state.email}
+              onChange={e => {
+                this.setState({ email: e.target.value });
+              }}
             />
             <SingleLineTextBox
               label="Password"
@@ -39,6 +52,11 @@ class Registration extends Component {
               type="password"
               name="RegistrationPassword"
               placeholder="Password"
+              disabled={!this.state.enabled}
+              //value={this.state.pass1}
+              onChange={e => {
+                this.setState({ pass1: e.target.value });
+              }}
             />
             <SingleLineTextBox
               label="Confirm Password"
@@ -46,13 +64,34 @@ class Registration extends Component {
               type="password"
               name="RegistrationConfirmPassword"
               placeholder="Confirm Password"
+              disabled={!this.state.enabled}
+              //value={this.state.pass2}
+              onChange={e => {
+                this.setState({ pass2: e.target.value });
+              }}
             />
-            <DefaultButton className="btn" text="Submit" />
+            {this.state.pass1 !== this.state.pass2
+              ? "Passwords do not match"
+              : ""}
+            <DefaultButton
+              className="btn"
+              text="Submit"
+              onClick={this.doSubmit}
+            />
           </CardContainer>
         </FormContainer>
       </MainContainer>
     );
   }
 }
+
+const Registration = props => (
+  <FirebaseContext.Consumer>
+    {firebase => {
+      console.log(firebase);
+      return <RegistrationBase {...props} firebase={firebase} />;
+    }}
+  </FirebaseContext.Consumer>
+);
 
 export default Registration;
