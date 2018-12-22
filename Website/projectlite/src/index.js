@@ -9,6 +9,7 @@ import About from "./page/About";
 import Routes from "./Routes";
 import Registration from "./page/Registration";
 import Dashboard from "./page/Dashboard";
+import Login from "./page/Login";
 
 import Firebase, { FirebaseContext } from "./components/Firebase";
 
