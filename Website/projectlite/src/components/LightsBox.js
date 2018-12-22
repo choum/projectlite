@@ -83,7 +83,6 @@ const NextRow = styled.div`
   align-items: center;
 `
 const LightsBox = ()=> (
-  <CardContainer type="card" title="Clusters">
     <CardContainer type="bodyheader" title="Cluster Name">
         <Row>
           <Hexagon />
@@ -96,7 +95,6 @@ const LightsBox = ()=> (
         <Hexagon />
         <Hexagon />
       </NextRow>
-  </CardContainer>
   </CardContainer>
 );
 
