@@ -12,5 +12,7 @@ export default class Firebase {
   doCrateUser = (email, password) =>
     this.auth.createUserWithEmailAndPassword(email, password);
 
+  doSignOut = () => this.auth.signOut();
+
   getCurrentUser = () => this.auth.currentUser;
 }
