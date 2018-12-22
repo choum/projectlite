@@ -2,11 +2,11 @@ import React, { Component } from "react";
 
 import {
   MainContainer,
-  FormContainer,
-  CardContainer
+  FormContainer
 } from "../components/Container";
 import { SingleLineTextBox } from "../components/TextBox";
 import { DefaultButton } from "../components/Button";
+import CardContainer from "../components/Container/CardContainer"
 
 class Registration extends Component {
   constructor(props) {
@@ -17,7 +17,7 @@ class Registration extends Component {
     return (
       <MainContainer>
         <FormContainer>
-          <CardContainer type="registration" title="Registration">
+          <CardContainer type="bodyheader" title="Registration">
             <SingleLineTextBox
               label="Username"
               id="username"
@@ -47,7 +47,7 @@ class Registration extends Component {
               name="RegistrationConfirmPassword"
               placeholder="Confirm Password"
             />
-            <DefaultButton text="Submit" />
+            <DefaultButton className="btn" text="Submit" />
           </CardContainer>
         </FormContainer>
       </MainContainer>

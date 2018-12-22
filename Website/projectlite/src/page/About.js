@@ -3,9 +3,9 @@ import React, { Component } from "react";
 import {
   RootContainer,
   Container,
-  CardContainer,
   MainContainer
 } from "../components/Container";
+import CardContainer from "../components/Container/CardContainer"
 
 class About extends Component {
   constructor(props) {
@@ -15,7 +15,7 @@ class About extends Component {
   render() {
     return (
       <MainContainer>
-        <CardContainer type="about" title={["About"]} content={["About us"]} />
+        <CardContainer type="bodyheader">About us</CardContainer>
       </MainContainer>
     );
   }

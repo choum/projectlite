@@ -1,10 +1,30 @@
 import React, { Component } from "react";
+import styled from "styled-components";
 import PropTypes from "prop-types";
 import { Card, CardHeader, CardBody, CardText } from "reactstrap";
+import { DefaultContainer } from "./index";
 
-import "./stylesCardContainer.css";
-import { DefaultContainer } from "../index";
+const Title = styled.h3 `
+  text-align:center;
+`
+const CardWrapper = styled.div `
+  hr {
+    width: 70%;
+  }
 
+  main {
+    margin-top: 10%;
+  }
+
+  .row {
+    padding: 40px;
+    margin-right: 0px;
+    margin-left: 0px;
+  }
+  margin: 3%;
+
+
+`
 class CardContainer extends Component {
   constructor(props) {
     super(props);
@@ -12,23 +32,27 @@ class CardContainer extends Component {
   renderCardWithHeader() {
     const { title, content } = this.props;
     return (
+      <CardWrapper>
       <Card>
-        <CardHeader>{title}</CardHeader>
+        <CardHeader><Title>{title}</Title></CardHeader>
         <CardBody>
           <CardText>{this.props.children}</CardText>
         </CardBody>
       </Card>
+      </CardWrapper>
     );
   }
   renderCardBodyHeader() {
     const { title, content } = this.props;
     return (
+      <CardWrapper>
       <Card>
         <CardBody>
         <h3 className="card-title">{title}</h3>
           <CardText>{this.props.children}</CardText>
         </CardBody>
       </Card>
+      </CardWrapper>
     );
   }
   renderFeatures() {
