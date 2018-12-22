@@ -17,30 +17,49 @@ class Dashboard extends Component {
     };
   }
 
+  renderLightsBox() {
+    let lights = [];
+    var i = 3;
+    if (i % 2 ==  1) {
+      for (let k = 0; k < i-1; k++) {
+        lights.push(<div className="col-md-6"><LightsBox /></div>);
+
+      }
+      lights.push(<div className="col-md-12"><LightsBox /></div>);
+    } else {
+      for (let k = 0; k < i; k++) {
+        lights.push(<div className="col-md-6"><LightsBox /></div>);
+
+      }
+    }
+    return lights;
+
+  }
+
   render() {
     return (
       <MainContainer>
-        <div class="row">
-          <div class="col-md-8">
-            <CardContainer type="card" title="Clusters">
-              <LightsBox />
-              <LightsBox />
-              <LightsBox />
-            </CardContainer>
+      <div className="row">
+        <div className="col-md-8">
+          <CardContainer type="card" title="Clusters">
+          <div className="row">
+            {this.renderLightsBox()}
           </div>
-          <div class="col-md-4">
+          </CardContainer>
             <CardContainer type="card" title="Quick Control">
-              <QuickControl
-                value={this.state.roomValue}
-                onChange={e =>
-                  this.setState({ roomValue: e.target.value }, () =>
-                    console.log()
-                  )
-                }
-              />
+            <QuickControl
+              value={this.state.roomValue}
+              onChange={e =>
+                this.setState({ roomValue: e.target.value }, () =>
+                  console.log()
+                )
+              }
+            />
             </CardContainer>
+          <div class="col-md-4">
           </div>
         </div>
+      </div>
       </MainContainer>
     );
   }
