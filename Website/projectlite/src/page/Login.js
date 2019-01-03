@@ -4,6 +4,7 @@ import { MainContainer, FormContainer } from "../components/Container";
 import { SingleLineTextBox } from "../components/TextBox";
 import { DefaultButton } from "../components/Button";
 import CardContainer from "../components/Container/CardContainer";
+import { Redirect } from "react-router-dom";
 import { withFirebase } from "../components/Firebase";
 
 class Login extends Component {
@@ -12,7 +13,8 @@ class Login extends Component {
     this.state = {
       email: "",
       pass: "",
-      enabled: true
+      enabled: true,
+      toDashboard: false
     };
     this.validate = this.validate.bind(this);
     this.doSubmit = this.doSubmit.bind(this);
@@ -24,9 +26,13 @@ class Login extends Component {
   doSubmit = () => {
     this.setState({ enabled: false });
     console.log(this.firebase.doSignIn(this.state.email, this.state.pass));
+    this.setState({ toDashboard: true });
   };
 
   render() {
+    if (this.state.toDashboard === true) {
+      return <Redirect to="/dashboard" />;
+    }
     return (
       <MainContainer>
         <FormContainer>

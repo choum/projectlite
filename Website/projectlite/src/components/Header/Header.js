@@ -86,7 +86,6 @@ const Header = props => {
   return (
     <Head>
       <div className="masthead clearfix">
-        <div>{console.log(props.firebase.getCurrentUser())}</div>
         <div className="container">
           <h3 className="masthead-brand">Project Lite</h3>
           <nav>
@@ -132,11 +131,7 @@ const Header = props => {
               )}
               {props.firebase.getCurrentUser() && (
                 <li>
-                  <NavLink
-                    to="/signout"
-                    activeClassName="active"
-                    onClick={props.firebase.doSignOut}
-                  >
+                  <NavLink to="/signout" activeClassName="active">
                     Signout
                   </NavLink>
                 </li>

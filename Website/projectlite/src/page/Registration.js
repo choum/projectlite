@@ -4,6 +4,7 @@ import { MainContainer, FormContainer } from "../components/Container";
 import { SingleLineTextBox } from "../components/TextBox";
 import { DefaultButton } from "../components/Button";
 import CardContainer from "../components/Container/CardContainer";
+import { Redirect } from "react-router-dom";
 
 import { withFirebase } from "../components/Firebase";
 
@@ -14,7 +15,8 @@ class RegistrationBase extends Component {
       email: "",
       pass1: "",
       pass2: "",
-      enabled: true
+      enabled: true,
+      toDashboard: false
     };
     this.validate = this.validate.bind(this);
     this.doSubmit = this.doSubmit.bind(this);
@@ -27,9 +29,13 @@ class RegistrationBase extends Component {
     if (this.state.pass1 !== this.state.pass2) return;
     this.setState({ enabled: false });
     console.log(this.firebase.doCrateUser(this.state.email, this.state.pass1));
+    this.setState({ toDashboard: true });
   };
 
   render() {
+    if (this.state.toDashboard === true) {
+      return <Redirect to="/dashboard" />;
+    }
     return (
       <MainContainer>
         <FormContainer>

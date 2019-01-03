@@ -6,6 +6,7 @@ import About from "./page/About";
 import Registration from "./page/Registration";
 import Dashboard from "./page/Dashboard";
 import Login from "./page/Login";
+import Signout from "./page/Signout";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import { WrapContainer } from "./components/Container";
@@ -30,6 +31,7 @@ class Routes extends Component {
             <Route exact path="/registration" component={Registration} />
             <Route exact path="/dashboard" component={Dashboard} />
             <Route exact path="/login" component={Login} />
+            <Route exact path="/signout" component={Signout} />
           </WrapContainer>
           <Footer />
         </React.Fragment>
