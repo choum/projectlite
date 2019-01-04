@@ -4,6 +4,7 @@ import styled from "styled-components";
 const Features = styled.div `
   background-color: #504b43;
   width: 100%;
+  padding: 10px;
 `
 
 const FeaturesContainer = ({ children }) => {

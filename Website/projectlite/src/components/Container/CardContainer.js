@@ -21,7 +21,7 @@ const CardWrapper = styled.div `
     margin-right: 0px;
     margin-left: 0px;
   }
-  margin: 30px;
+  margin: 10px;
 
 
 `
