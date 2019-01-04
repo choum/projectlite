@@ -13,13 +13,14 @@ clear: both;
 background-color: #282828;
 padding: 20px;
 color: #fff;
+text-align: right;
 `
 
 const Footer = () => {
   return (
     <Foot className="footer">
       <DefaultContainer>
-        <span>This is a footer.</span>
+        <span>Project Lite 	&copy; 2019</span>
       </DefaultContainer>
     </Foot>
   );
