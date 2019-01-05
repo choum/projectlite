@@ -10,6 +10,7 @@ import Signout from "./page/Signout";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import { WrapContainer } from "./components/Container";
+import Emulator from "./page/Emulator";
 
 class Routes extends Component {
   constructor(props) {
@@ -32,6 +33,7 @@ class Routes extends Component {
             <Route exact path="/dashboard" component={Dashboard} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/signout" component={Signout} />
+            <Route exact path="/emu" component={Emulator} />
           </WrapContainer>
           <Footer />
         </React.Fragment>
