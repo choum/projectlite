@@ -11,5 +11,6 @@ export {
   WrapContainer,
   MainContainer,
   FeaturesContainer,
-  FormContainer
+  FormContainer,
+  SlimContainer
 };
