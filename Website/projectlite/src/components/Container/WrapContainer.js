@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const Wrap = styled.div`
-  min-height: 100%;
+  height: 100%;
 `
 
 const WrapContainer = ({ children }) => {
