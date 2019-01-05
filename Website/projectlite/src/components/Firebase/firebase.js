@@ -7,6 +7,10 @@ export default class Firebase {
   constructor() {
     firebase.initializeApp(config);
     this.auth = firebase.auth();
+    this.AuthStateChange = new CustomEvent();
+    this.auth.onAuthStateChanged(e => {
+      this.AuthStateChange.fire(e);
+    });
   }
 
   doCrateUser = (email, password) => {
@@ -29,5 +33,30 @@ export default class Firebase {
         return this.auth.signInWithEmailAndPassword(email, password);
       })
       .catch(console.log);
+  };
+}
+
+class CustomEvent {
+  constructor() {
+    this.Handlers = {};
+    this.Iterator = 1;
+    //this.fire = this.fire.bind(this);
+    this.RegisterHandler = this.RegisterHandler.bind(this);
+    this.UnregisterHandler = this.UnregisterHandler.bind(this);
+  }
+
+  fire(e) {
+    for (let [i, Handler] of Object.entries(this.Handlers)) {
+      Handler();
+    }
+  }
+
+  RegisterHandler = callback => {
+    this.Handlers[this.Iterator] = callback;
+    return this.Iterator++;
+  };
+
+  UnregisterHandler = key => {
+    delete this.Handlers[key];
   };
 }
