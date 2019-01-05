@@ -3,7 +3,8 @@ import {
   RootContainer,
   DefaultContainer,
   FeaturesContainer,
-  MainContainer
+  MainContainer,
+  SlimContainer
 } from "../components/Container";
 import LightsBox from "../components/LightsBox";
 import QuickControl from "../components/QuickControl";
@@ -42,6 +43,7 @@ class Dashboard extends Component {
   render() {
     return (
       <MainContainer>
+      <SlimContainer>
       <div className="row">
         <div className="col-md-8">
           <CardContainer type="card" title="Clusters">
@@ -49,8 +51,8 @@ class Dashboard extends Component {
             {this.renderLightsBox()}
           </div>
           </CardContainer>
-          </div>
-          <div className="col-md-4">
+        </div>
+        <div className="col-md-4">
           <CardContainer type="card" title="Quick Control">
           <QuickControl
             value={this.state.roomValue}
@@ -63,6 +65,7 @@ class Dashboard extends Component {
           </CardContainer>
         </div>
       </div>
+      </SlimContainer>
       </MainContainer>
     );
   }
