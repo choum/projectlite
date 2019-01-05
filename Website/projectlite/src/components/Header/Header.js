@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
 
 import Routes from "../../Routes";
@@ -82,66 +82,89 @@ const Head = styled.div`
 
 // @TODO if not logged in, Home | Products | Login | About | Register
 // @TODO if logged in, Home | Products | About | Dashboard | Settings | Signout
-const Header = props => {
-  return (
-    <Head>
-      <div className="masthead clearfix">
-        <div className="container">
-          <h3 className="masthead-brand">Project Lite</h3>
-          <nav>
-            <ul className="nav masthead-nav">
-              <li>
-                <NavLink to="/home" activeClassName="active">
-                  Home
-                </NavLink>
-              </li>
-              <li>
-                <a href="features.html">Products</a>
-              </li>
-              {!props.firebase.getCurrentUser() && (
+class Header extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      signedIn: false
+    };
+
+    this.firebase = this.props.firebase;
+    this.firebase.AuthStateChange.RegisterHandler(e => {
+      this.setState({
+        signedIn: this.firebase.getCurrentUser() != undefined
+      });
+      console.log(e);
+    });
+  }
+  render() {
+    return (
+      <Head>
+        <div className="masthead clearfix">
+          <div className="container">
+            <h3 className="masthead-brand">Project Lite</h3>
+            <nav>
+              <ul className="nav masthead-nav">
                 <li>
-                  <a href="/login">Login</a>
-                </li>
-              )}
-              <li>
-                <NavLink to="/about" activeClassName="active">
-                  About
-                </NavLink>
-              </li>
-              {!props.firebase.getCurrentUser() && (
-                <li>
-                  <NavLink to="/registration" activeClassName="active">
-                    Register
+                  <NavLink to="/home" activeClassName="active">
+                    Home
                   </NavLink>
                 </li>
-              )}
-              {props.firebase.getCurrentUser() && (
                 <li>
-                  <NavLink to="/dashboard" activeClassName="active">
-                    Dashboard
+                  <a href="features.html">Products</a>
+                </li>
+                {!this.state.signedIn && (
+                  <li>
+                    <NavLink to="/login" activeClassName="active">
+                      Login
+                    </NavLink>
+                  </li>
+                )}
+                <li>
+                  <NavLink to="/about" activeClassName="active">
+                    About
                   </NavLink>
                 </li>
-              )}
-              {props.firebase.getCurrentUser() && (
+                {!this.state.signedIn && (
+                  <li>
+                    <NavLink to="/registration" activeClassName="active">
+                      Register
+                    </NavLink>
+                  </li>
+                )}
+                {this.state.signedIn && (
+                  <li>
+                    <NavLink to="/dashboard" activeClassName="active">
+                      Dashboard
+                    </NavLink>
+                  </li>
+                )}
+                {this.state.signedIn && (
+                  <li>
+                    <NavLink to="/settings" activeClassName="active">
+                      Settings
+                    </NavLink>
+                  </li>
+                )}
+                {this.state.signedIn && (
+                  <li>
+                    <NavLink to="/signout" activeClassName="active">
+                      Signout
+                    </NavLink>
+                  </li>
+                )}
                 <li>
-                  <NavLink to="/settings" activeClassName="active">
-                    Settings
+                  <NavLink to="/emu" activeClassName="active">
+                    Emulator
                   </NavLink>
                 </li>
-              )}
-              {props.firebase.getCurrentUser() && (
-                <li>
-                  <NavLink to="/signout" activeClassName="active">
-                    Signout
-                  </NavLink>
-                </li>
-              )}
-            </ul>
-          </nav>
+              </ul>
+            </nav>
+          </div>
         </div>
-      </div>
-    </Head>
-  );
-};
+      </Head>
+    );
+  }
+}
 
 export default withFirebase(Header);
