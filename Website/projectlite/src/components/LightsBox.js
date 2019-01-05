@@ -5,7 +5,7 @@ import { HexGrid, Layout, Hexagon, Text, Pattern, Path, Hex } from 'react-hexgri
 
 const LightsBox = ()=> (
     <CardContainer type="bodyheader" title="Cluster Name">
-    <HexGrid width={'100%'} height={'auto'} viewBox="-57 -50 100 100">
+    <HexGrid width={'100%'} height={'100%'} viewBox="-57 -50 100 100">
       <Layout size={{ x: 10, y: 10 }} flat={true} spacing={1.1} origin={{ x: 0, y: 0 }}>
         <Hexagon q={0} r={0} s={0} />
                   {/* Using pattern (defined below) to fill the hexagon */}

@@ -20,17 +20,20 @@ class Dashboard extends Component {
   renderLightsBox() {
     let lights = [];
     var i = 3;
+    var j = 0;
     if (i % 2 ==  1) {
       for (let k = 0; k < i-1; k++) {
-        lights.push(<div className="col-md-6"><LightsBox /></div>);
-
+        lights.push(<div className="col-md-6" key={j}><LightsBox /></div>);
+        j++;
       }
-      lights.push(<div className="col-md-12"><LightsBox /></div>);
+      lights.push(<div className="col-md-12" key={j}><LightsBox /></div>);
+      j++;
     } else {
       for (let k = 0; k < i; k++) {
-        lights.push(<div className="col-md-6"><LightsBox /></div>);
+        lights.push(<div className="col-md-6" key={j}><LightsBox /></div>);
 
       }
+      j++;
     }
     return lights;
 
@@ -47,7 +50,7 @@ class Dashboard extends Component {
           </div>
           </CardContainer>
           </div>
-          <div class="col-md-4">
+          <div className="col-md-4">
           <CardContainer type="card" title="Quick Control">
           <QuickControl
             value={this.state.roomValue}
