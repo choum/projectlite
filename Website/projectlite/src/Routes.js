@@ -32,8 +32,8 @@ class Routes extends Component {
             <Route exact path="/dashboard" component={Dashboard} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/signout" component={Signout} />
+            <Footer />
           </WrapContainer>
-          <Footer />
         </React.Fragment>
       </Router>
     );
