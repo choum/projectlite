@@ -28,33 +28,33 @@ class Dashboard extends Component {
   renderLightsBox() {
     let cluster = Object.keys(lightData);
     let lights = [];
-    var clusterCount = 1;
-    var j = 0;
+    var clusterCount = 2;
+    var currentClusterIndex = 0;
     if (clusterCount % 2 == 1) {
-      let name = cluster[0];
+      let name = cluster[currentClusterIndex];
       for (let k = 0; k < clusterCount - 1; k++) {
         lights.push(
-          <div className="col-md-6" key={j}>
+          <div className="col-md-6" key={currentClusterIndex}>
             <LightsBox title={name} clusterData={lightData[name]} />
           </div>
         );
-        j++;
+        currentClusterIndex++;
       }
       lights.push(
-        <div className="col-md-12" key={j}>
+        <div className="col-md-12" key={currentClusterIndex}>
           <LightsBox title={name} clusterData={lightData[name]} />
         </div>
       );
-      j++;
+      currentClusterIndex++;
     } else {
       for (let k = 0; k < clusterCount; k++) {
-        let name = cluster[0];
+        let name = cluster[currentClusterIndex];
         lights.push(
-          <div className="col-md-6" key={j}>
+          <div className="col-md-6" key={currentClusterIndex}>
             <LightsBox title={name} clusterData={lightData[name]} />
           </div>
         );
-        j++;
+        currentClusterIndex++;
       }
     }
     return lights;
