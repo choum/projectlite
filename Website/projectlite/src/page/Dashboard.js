@@ -10,62 +10,77 @@ import LightsBox from "../components/LightsBox";
 import QuickControl from "../components/QuickControl";
 import CardContainer from "../components/Container/CardContainer";
 
+// DEV ONLY
+// implemention doesn't allow for hotswapping data
+import lightData from "../lightData.json";
+
 class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
       roomValue: 0
     };
+    console.log(JSON.stringify(lightData));
   }
 
+  // resize cluster size based on total cluster count to fit
+  // within cluster section of dashboard
   renderLightsBox() {
     let lights = [];
-    var i = 3;
+    var clusterCount = 2;
     var j = 0;
-    if (i % 2 ==  1) {
-      for (let k = 0; k < i-1; k++) {
-        lights.push(<div className="col-md-6" key={j}><LightsBox /></div>);
+    if (clusterCount % 2 == 1) {
+      for (let k = 0; k < clusterCount - 1; k++) {
+        lights.push(
+          <div className="col-md-6" key={j}>
+            <LightsBox />
+          </div>
+        );
         j++;
       }
-      lights.push(<div className="col-md-12" key={j}><LightsBox /></div>);
+      lights.push(
+        <div className="col-md-12" key={j}>
+          <LightsBox />
+        </div>
+      );
       j++;
     } else {
-      for (let k = 0; k < i; k++) {
-        lights.push(<div className="col-md-6" key={j}><LightsBox /></div>);
-
+      for (let k = 0; k < clusterCount; k++) {
+        lights.push(
+          <div className="col-md-6" key={j}>
+            <LightsBox />
+          </div>
+        );
+        j++;
       }
-      j++;
     }
     return lights;
-
   }
 
   render() {
     return (
       <MainContainer>
-      <SlimContainer>
-      <div className="row">
-        <div className="col-md-8">
-          <CardContainer type="card" title="Clusters">
+        <SlimContainer>
           <div className="row">
-            {this.renderLightsBox()}
+            <div className="col-md-8">
+              <CardContainer type="card" title="Clusters">
+                <div className="row">{this.renderLightsBox()}</div>
+              </CardContainer>
+            </div>
+            <div className="col-md-4">
+              <CardContainer type="card" title="Quick Control">
+                <QuickControl
+                  value={this.state.roomValue}
+                  onChange={e =>
+                    this.setState({ roomValue: e.target.value }, () =>
+                      console.log()
+                    )
+                  }
+                />
+              </CardContainer>
+            </div>
           </div>
-          </CardContainer>
-        </div>
-        <div className="col-md-4">
-          <CardContainer type="card" title="Quick Control">
-          <QuickControl
-            value={this.state.roomValue}
-            onChange={e =>
-              this.setState({ roomValue: e.target.value }, () =>
-                console.log()
-              )
-            }
-          />
-          </CardContainer>
-        </div>
-      </div>
-      </SlimContainer>
+        </SlimContainer>
       </MainContainer>
     );
   }
