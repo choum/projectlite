@@ -55,6 +55,7 @@ class Dashboard extends Component {
         <div className="col-md-4">
           <CardContainer type="card" title="Quick Control">
           <QuickControl
+            title="Bathroom"
             value={this.state.roomValue}
             onChange={e =>
               this.setState({ roomValue: e.target.value }, () =>
