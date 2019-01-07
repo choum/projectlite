@@ -13,6 +13,7 @@ import CardContainer from "../components/Container/CardContainer";
 // DEV ONLY
 // implemention doesn't allow for hotswapping data
 import lightData from "../lightData.json";
+import { stringify } from "querystring";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -20,35 +21,37 @@ class Dashboard extends Component {
     this.state = {
       roomValue: 0
     };
-    console.log(JSON.stringify(lightData));
   }
 
   // resize cluster size based on total cluster count to fit
   // within cluster section of dashboard
   renderLightsBox() {
+    let cluster = Object.keys(lightData);
     let lights = [];
-    var clusterCount = 2;
+    var clusterCount = 1;
     var j = 0;
     if (clusterCount % 2 == 1) {
+      let name = cluster[0];
       for (let k = 0; k < clusterCount - 1; k++) {
         lights.push(
           <div className="col-md-6" key={j}>
-            <LightsBox />
+            <LightsBox title={name} clusterData={lightData[name]} />
           </div>
         );
         j++;
       }
       lights.push(
         <div className="col-md-12" key={j}>
-          <LightsBox />
+          <LightsBox title={name} clusterData={lightData[name]} />
         </div>
       );
       j++;
     } else {
       for (let k = 0; k < clusterCount; k++) {
+        let name = cluster[0];
         lights.push(
           <div className="col-md-6" key={j}>
-            <LightsBox />
+            <LightsBox title={name} clusterData={lightData[name]} />
           </div>
         );
         j++;

@@ -15,10 +15,11 @@ const Border = styled.div`
   background-color: yellow;
 `;
 
-const LightsBox = () => (
-  <CardContainer type="bodyheader" title="Cluster Name">
+const LightsBox = ({title, clusterData}) => (
+  <CardContainer type="bodyheader" title={title}>
     <Border>
-      <HexGrid width={"100%"} height={"100%"} viewBox="-57 -50 100 100">
+      {console.log(clusterData)}
+      <HexGrid width={"100%"} height={"100%"}>
         <Layout
           size={{ x: 10, y: 10 }}
           flat={true}
