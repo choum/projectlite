@@ -12,8 +12,20 @@ import {
 } from "react-hexgrid";
 
 const Border = styled.div`
-  background-color: yellow;
+  svg g {
+    fill: #fff;
+    stroke: #666;
+    stroke-width: 1px;
+  }
+  hr {
+    width: 90%;
+    border-top: 1px solid rgba(0, 0, 0, 0.15);
+  }
+  h3 {
+  text-align:center;
+  }
 `;
+var i = 0;
 
 class LightsBox extends Component {
   constructor(props) {
@@ -25,22 +37,19 @@ class LightsBox extends Component {
     let layoutClusterData = Object.keys(this.props.clusterData.Layout);
     return layoutClusterData.map(function(location, index) {
       let coordinate = location.split(",").map(Number);
-      console.log(coordinate);
       return (
         <Hexagon
           key={index}
           q={coordinate[0]}
           s={coordinate[1]}
           r={coordinate[2]}
-          
         >
-          <Text>{location}</Text>
         </Hexagon>
       );
     });
   }
 
-  /* 
+  /*
   redblobgame cube coord to react-hexgrid
   x, y, z (redblobgame)  =  x, z, y (react-hexgrid)
 
@@ -51,8 +60,9 @@ class LightsBox extends Component {
     const { title, clusterData } = this.props;
 
     return (
+    <Border>
       <CardContainer type="bodyheader" title={title}>
-        <Border>
+        <hr />
           <HexGrid width={"100%"} height={"100%"}>
             <Layout
               size={{ x: 10, y: 10 }}
@@ -63,8 +73,8 @@ class LightsBox extends Component {
               {this.hexagonList()}
             </Layout>
           </HexGrid>
-        </Border>
       </CardContainer>
+    </Border>
     );
   }
 }
