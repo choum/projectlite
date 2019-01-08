@@ -1,18 +1,23 @@
 import firebase from "firebase/app";
 import "firebase/auth";
+import "firebase/database";
 
 const config = require("../../firebase.json");
 
 export default class Firebase {
   constructor() {
     firebase.initializeApp(config);
+
     this.auth = firebase.auth();
+    this.db = firebase.database();
+
     this.AuthStateChange = new CustomEvent();
     this.auth.onAuthStateChanged(e => {
       this.AuthStateChange.fire(e);
     });
   }
 
+  // Auth API
   doCrateUser = (email, password) => {
     this.auth
       .setPersistence(firebase.auth.Auth.Persistence.SESSION)
@@ -33,6 +38,14 @@ export default class Firebase {
         return this.auth.signInWithEmailAndPassword(email, password);
       })
       .catch(console.log);
+  };
+
+  // Database API
+  getCluster = (clusterID, section, callback) => {
+    let data = this.db.ref("clusters/" + clusterID + "/" + section);
+    data.on("value", function(snapshot) {
+      callback(snapshot.val());
+    });
   };
 }
 

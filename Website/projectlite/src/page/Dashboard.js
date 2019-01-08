@@ -10,6 +10,8 @@ import LightsBox from "../components/LightsBox";
 import QuickControl from "../components/QuickControl";
 import CardContainer from "../components/Container/CardContainer";
 
+import { withFirebase } from "../components/Firebase";
+
 // DEV ONLY
 // implemention doesn't allow for hotswapping data
 import lightData from "../lightData.json";
@@ -21,11 +23,16 @@ class Dashboard extends Component {
     this.state = {
       roomValue: 0
     };
+    this.firebase = this.props.firebase;
   }
 
   // resize cluster size based on total cluster count to fit
   // within cluster section of dashboard
   renderLightsBox() {
+    let data = this.firebase.getCluster("4mIdYE4s0z", "Layout", value => {
+      console.log("value" + value);
+    });
+    console.log("data: " + data);
     let cluster = Object.keys(lightData);
     let lights = [];
     var clusterCount = 2;
@@ -88,7 +95,7 @@ class Dashboard extends Component {
     );
   }
 }
-export default Dashboard;
+export default withFirebase(Dashboard);
 
 // handleChange = e => {
 //   this.setState({ value: e.target.value }, () => {
