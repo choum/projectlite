@@ -13,7 +13,7 @@ class Signout extends Component {
 
     this.doSO = this.doSO.bind(this);
 
-    setTimeout(this.doSO, 1000);
+    setTimeout(this.doSO, 100);
   }
 
   doSO = () => {
