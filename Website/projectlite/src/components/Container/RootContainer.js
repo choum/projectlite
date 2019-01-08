@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const Root = styled.div `
   padding-bottom: 60px;
-  min-height: 100%;
+  height: 100%;
 `
 
 const RootContainer = ({ children }) => {

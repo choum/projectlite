@@ -36,7 +36,7 @@ class CardContainer extends Component {
       <Card>
         <CardHeader><Title>{title}</Title></CardHeader>
         <CardBody>
-          <CardText>{this.props.children}</CardText>
+          {this.props.children}
         </CardBody>
       </Card>
       </CardWrapper>
@@ -49,7 +49,7 @@ class CardContainer extends Component {
       <Card>
         <CardBody>
         <h3 className="card-title">{title}</h3>
-          <CardText>{this.props.children}</CardText>
+          {this.props.children}
         </CardBody>
       </Card>
       </CardWrapper>
@@ -65,7 +65,7 @@ class CardContainer extends Component {
           <Card>
             <CardHeader>{title[i]}</CardHeader>
             <CardBody>
-              <CardText>{content[i]}</CardText>
+              {content[i]}
             </CardBody>
           </Card>
         </div>

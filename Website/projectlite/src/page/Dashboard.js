@@ -3,7 +3,8 @@ import {
   RootContainer,
   DefaultContainer,
   FeaturesContainer,
-  MainContainer
+  MainContainer,
+  SlimContainer
 } from "../components/Container";
 import LightsBox from "../components/LightsBox";
 import QuickControl from "../components/QuickControl";
@@ -20,17 +21,20 @@ class Dashboard extends Component {
   renderLightsBox() {
     let lights = [];
     var i = 3;
+    var j = 0;
     if (i % 2 ==  1) {
       for (let k = 0; k < i-1; k++) {
-        lights.push(<div className="col-md-6"><LightsBox /></div>);
-
+        lights.push(<div className="col-md-6" key={j}><LightsBox /></div>);
+        j++;
       }
-      lights.push(<div className="col-md-12"><LightsBox /></div>);
+      lights.push(<div className="col-md-12" key={j}><LightsBox /></div>);
+      j++;
     } else {
       for (let k = 0; k < i; k++) {
-        lights.push(<div className="col-md-6"><LightsBox /></div>);
+        lights.push(<div className="col-md-6" key={j}><LightsBox /></div>);
 
       }
+      j++;
     }
     return lights;
 
@@ -39,6 +43,7 @@ class Dashboard extends Component {
   render() {
     return (
       <MainContainer>
+      <SlimContainer>
       <div className="row">
         <div className="col-md-8">
           <CardContainer type="card" title="Clusters">
@@ -46,10 +51,11 @@ class Dashboard extends Component {
             {this.renderLightsBox()}
           </div>
           </CardContainer>
-          </div>
-          <div class="col-md-4">
+        </div>
+        <div className="col-md-4">
           <CardContainer type="card" title="Quick Control">
           <QuickControl
+            title="Bathroom"
             value={this.state.roomValue}
             onChange={e =>
               this.setState({ roomValue: e.target.value }, () =>
@@ -60,6 +66,7 @@ class Dashboard extends Component {
           </CardContainer>
         </div>
       </div>
+      </SlimContainer>
       </MainContainer>
     );
   }

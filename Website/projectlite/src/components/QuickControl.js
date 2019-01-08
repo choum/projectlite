@@ -20,8 +20,8 @@ const Box = styled.div`
 const offColor = "#CDCDCD";
 const onColor = "#41FE58";
 
-const QuickControl = ({ value, onChange }) => (
-    <CardContainer type="bodyheader" title="Room">
+const QuickControl = ({ value, onChange, title }) => (
+    <CardContainer type="bodyheader" title={title}>
       <Box>
         <FontAwesomeIcon
           icon={faLightbulb}
