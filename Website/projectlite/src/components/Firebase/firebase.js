@@ -1,5 +1,6 @@
 import firebase from "firebase/app";
 import "firebase/auth";
+import "firebase/database";
 
 const config = require("../../firebase.json");
 
@@ -7,11 +8,18 @@ export default class Firebase {
   constructor() {
     firebase.initializeApp(config);
     this.auth = firebase.auth();
+    this.db = firebase.database();
     this.AuthStateChange = new CustomEvent();
     this.auth.onAuthStateChanged(e => {
       this.AuthStateChange.fire(e);
     });
   }
+
+  SetClusterRef = (ClusterID, callback) => {
+    this.db.ref("clusters/" + ClusterID).on("value", e => {
+      if (e.exists()) callback(e.val());
+    });
+  };
 
   doCrateUser = (email, password) => {
     this.auth
