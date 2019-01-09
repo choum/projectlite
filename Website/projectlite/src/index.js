@@ -10,6 +10,7 @@ import Routes from "./Routes";
 import Registration from "./page/Registration";
 import Dashboard from "./page/Dashboard";
 import Login from "./page/Login";
+import HexagonProfile from "./page/HexagonProfile";
 
 import Firebase, { FirebaseContext } from "./components/Firebase";
 

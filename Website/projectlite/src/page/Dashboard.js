@@ -1,8 +1,5 @@
 import React, { Component } from "react";
 import {
-  RootContainer,
-  DefaultContainer,
-  FeaturesContainer,
   MainContainer,
   SlimContainer
 } from "../components/Container";
