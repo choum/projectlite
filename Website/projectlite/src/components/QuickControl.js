@@ -21,24 +21,18 @@ const offColor = "#CDCDCD";
 const onColor = "#41FE58";
 
 const QuickControl = ({ value, onChange, title }) => (
-    <CardContainer type="bodyheader" title={title}>
-      <Box>
-        <FontAwesomeIcon
-          icon={faLightbulb}
-          size="3x"
-          color={value < 1 ? offColor : onColor}
-        />
-        <div className="slider">
-          <Slider className="slider" value={value} onChange={onChange} />
-        </div>
-      </Box>
-    </CardContainer>
+  <CardContainer type="bodyheader" title={title}>
+    <Box>
+      <FontAwesomeIcon
+        icon={faLightbulb}
+        size="3x"
+        color={value < 1 ? offColor : onColor}
+      />
+      <div className="slider">
+        <Slider className="slider" value={value} onChange={onChange} />
+      </div>
+    </Box>
+  </CardContainer>
 );
 
 export default QuickControl;
-
-// handleChange = e => {
-//   this.setState({ value: e.target.value }, () => {
-//     console.log(this.state.value);
-//   });
-// };

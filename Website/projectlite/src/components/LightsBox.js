@@ -37,7 +37,6 @@ class LightsBox extends Component {
     let layoutClusterData = Object.keys(this.props.clusterData.Layout);
     return layoutClusterData.map(function(location, index) {
       let coordinate = location.split(",").map(Number);
-      //console.log(coordinate);
       return (
         <Hexagon
           key={index}

@@ -94,7 +94,6 @@ class Header extends Component {
       this.setState({
         signedIn: this.firebase.getCurrentUser() != undefined
       });
-      console.log(e);
     });
   }
   render() {

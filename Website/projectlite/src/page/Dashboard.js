@@ -36,7 +36,6 @@ class Dashboard extends Component {
         listOfClusters: val,
         isLayoutLoaded: true
       });
-      console.log(val);
     });
   }
 
@@ -105,11 +104,7 @@ class Dashboard extends Component {
               <CardContainer type="card" title="Quick Control">
                 <QuickControl
                   value={this.state.roomValue}
-                  onChange={e =>
-                    this.setState({ roomValue: e.target.value }, () =>
-                      console.log()
-                    )
-                  }
+                  onChange={e => this.setState({ roomValue: e.target.value })}
                 />
               </CardContainer>
             </div>
@@ -120,9 +115,3 @@ class Dashboard extends Component {
   }
 }
 export default withFirebase(Dashboard);
-
-// handleChange = e => {
-//   this.setState({ value: e.target.value }, () => {
-//     console.log(this.state.value);
-//   });
-// };

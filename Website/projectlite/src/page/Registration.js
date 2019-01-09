@@ -28,7 +28,7 @@ class RegistrationBase extends Component {
   doSubmit = () => {
     if (this.state.pass1 !== this.state.pass2) return;
     this.setState({ enabled: false });
-    console.log(this.firebase.doCrateUser(this.state.email, this.state.pass1));
+    this.firebase.doCrateUser(this.state.email, this.state.pass1);
     this.setState({ toDashboard: true });
   };
 

@@ -25,7 +25,7 @@ class Login extends Component {
 
   doSubmit = () => {
     this.setState({ enabled: false });
-    console.log(this.firebase.doSignIn(this.state.email, this.state.pass));
+    this.firebase.doSignIn(this.state.email, this.state.pass);
     this.setState({ toDashboard: true });
   };
 
