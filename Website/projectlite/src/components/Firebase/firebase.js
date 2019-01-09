@@ -41,8 +41,8 @@ export default class Firebase {
   };
 
   // Database API
-  getCluster = (clusterID, section, callback) => {
-    let data = this.db.ref("clusters/" + clusterID + "/" + section);
+  getCluster = callback => {
+    let data = this.db.ref("clusters/");
     data.on("value", function(snapshot) {
       callback(snapshot.val());
     });
