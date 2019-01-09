@@ -1,11 +1,5 @@
 import React, { Component } from "react";
-import {
-  RootContainer,
-  DefaultContainer,
-  FeaturesContainer,
-  MainContainer,
-  SlimContainer
-} from "../components/Container";
+import { MainContainer, SlimContainer } from "../components/Container";
 import LightsBox from "../components/LightsBox";
 import QuickControl from "../components/QuickControl";
 import CardContainer from "../components/Container/CardContainer";
@@ -23,6 +17,7 @@ class Dashboard extends Component {
     this.state = {
       roomValue: 0,
       listOfClusters: {},
+      quickControlValues: [],
       isLayoutLoaded: false
     };
     this.firebase = this.props.firebase;
@@ -34,6 +29,7 @@ class Dashboard extends Component {
     this.firebase.getCluster(val => {
       this.setState({
         listOfClusters: val,
+        quickControlValues: Array(Object.keys(val).length).fill(0),
         isLayoutLoaded: true
       });
     });
@@ -78,6 +74,40 @@ class Dashboard extends Component {
     return lights;
   }
 
+  onQuickControlChange(newValue, controlIndex) {
+    console.log(newValue);
+    this.setState(state => {
+      const quickControlValues = state.quickControlValues.map(
+        (value, index) => {
+          if (controlIndex === index) {
+            return newValue;
+          } else {
+            return value;
+          }
+        }
+      );
+      return {
+        quickControlValues
+      };
+    });
+  }
+
+  renderQuickControls() {
+    let clusterList = Object.keys(this.state.listOfClusters);
+    return clusterList.map(
+      function(clusterName, index) {
+        return (
+          <QuickControl
+            key={index}
+            title={clusterName}
+            value={this.state.quickControlValues[index]}
+            onChange={e => this.onQuickControlChange(e.target.value, index)}
+          />
+        );
+      }.bind(this)
+    );
+  }
+
   render() {
     if (!this.state.isLayoutLoaded) {
       return (
@@ -102,10 +132,7 @@ class Dashboard extends Component {
             </div>
             <div className="col-md-4">
               <CardContainer type="card" title="Quick Control">
-                <QuickControl
-                  value={this.state.roomValue}
-                  onChange={e => this.setState({ roomValue: e.target.value })}
-                />
+                {this.renderQuickControls()}
               </CardContainer>
             </div>
           </div>
