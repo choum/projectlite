@@ -6,6 +6,7 @@ const Main = styled.div `
   padding-bottom: 60px;
   margin-top: 73px;
   height: 100%;
+
 `
 
 const MainContainer = ({ children }) => {
