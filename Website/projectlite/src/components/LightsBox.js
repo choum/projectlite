@@ -1,15 +1,7 @@
 import React, { Component } from "react";
 import CardContainer from "./Container/CardContainer";
 import styled from "styled-components";
-import {
-  HexGrid,
-  Layout,
-  Hexagon,
-  Text,
-  Pattern,
-  Path,
-  Hex
-} from "react-hexgrid";
+import { HexGrid, Layout, Hexagon } from "react-hexgrid";
 
 const Border = styled.div`
   svg g {
@@ -25,7 +17,6 @@ const Border = styled.div`
     text-align: center;
   }
 `;
-var i = 0;
 
 class LightsBox extends Component {
   constructor(props) {
@@ -56,7 +47,7 @@ class LightsBox extends Component {
   pass in order of q={} s={} r={}
   */
   render() {
-    const { title, clusterData } = this.props;
+    const { title } = this.props;
 
     return (
       <Border>

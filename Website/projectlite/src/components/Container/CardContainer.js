@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import PropTypes from "prop-types";
 import { Card, CardHeader, CardBody, CardText } from "reactstrap";
 import { DefaultContainer } from "./index";
 
-const Title = styled.h3 `
-  text-align:center;
-`
-const CardWrapper = styled.div `
+const Title = styled.h3`
+  text-align: center;
+`;
+
+const CardWrapper = styled.div`
   hr {
     width: 70%;
   }
@@ -22,39 +22,40 @@ const CardWrapper = styled.div `
     margin-left: 0px;
   }
   margin: 10px;
-
-
-`
+`;
 class CardContainer extends Component {
   constructor(props) {
     super(props);
   }
+
   renderCardWithHeader() {
-    const { title, content } = this.props;
+    const { title } = this.props;
     return (
       <CardWrapper>
-      <Card>
-        <CardHeader><Title>{title}</Title></CardHeader>
-        <CardBody>
-          {this.props.children}
-        </CardBody>
-      </Card>
+        <Card>
+          <CardHeader>
+            <Title>{title}</Title>
+          </CardHeader>
+          <CardBody>{this.props.children}</CardBody>
+        </Card>
       </CardWrapper>
     );
   }
+
   renderCardBodyHeader() {
-    const { title, content } = this.props;
+    const { title } = this.props;
     return (
       <CardWrapper>
-      <Card>
-        <CardBody>
-        <h3 className="card-title">{title}</h3>
-          {this.props.children}
-        </CardBody>
-      </Card>
+        <Card>
+          <CardBody>
+            <h3 className="card-title">{title}</h3>
+            {this.props.children}
+          </CardBody>
+        </Card>
       </CardWrapper>
     );
   }
+
   renderFeatures() {
     const { title, content } = this.props;
     var cards = [];
@@ -64,9 +65,7 @@ class CardContainer extends Component {
         <div className="col-md-4" key={i}>
           <Card>
             <CardHeader>{title[i]}</CardHeader>
-            <CardBody>
-              {content[i]}
-            </CardBody>
+            <CardBody>{content[i]}</CardBody>
           </Card>
         </div>
       );

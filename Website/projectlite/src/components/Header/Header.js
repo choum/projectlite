@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
 
-import Routes from "../../Routes";
 import styled from "styled-components";
 
-import { FirebaseContext, withFirebase } from "../../components/Firebase";
+import { withFirebase } from "../../components/Firebase";
 
 const Head = styled.div`
   .masthead-nav,

@@ -1,11 +1,7 @@
 import React, { Component } from "react";
 import { withFirebase } from "../components/Firebase";
 
-import {
-  RootContainer,
-  Container,
-  MainContainer
-} from "../components/Container";
+import { MainContainer } from "../components/Container";
 import CardContainer from "../components/Container/CardContainer";
 
 class Emulator extends Component {

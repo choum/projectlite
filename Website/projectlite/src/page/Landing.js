@@ -1,11 +1,5 @@
 import React, { Component } from "react";
-import styled from "styled-components";
-import {
-  RootContainer,
-  DefaultContainer,
-  FeaturesContainer,
-  MainContainer
-} from "../components/Container";
+import { FeaturesContainer, MainContainer } from "../components/Container";
 import { Banner } from "../components/Banner";
 import CardContainer from "../components/Container/CardContainer";
 
