@@ -24,10 +24,6 @@ const CardWrapper = styled.div`
   margin: 10px;
 `;
 class CardContainer extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   renderCardWithHeader() {
     const { title } = this.props;
     return (

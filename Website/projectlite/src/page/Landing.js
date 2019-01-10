@@ -4,10 +4,6 @@ import { Banner } from "../components/Banner";
 import CardContainer from "../components/Container/CardContainer";
 
 class Landing extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <MainContainer>

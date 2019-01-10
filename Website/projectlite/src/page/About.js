@@ -10,10 +10,6 @@ import {
 import "react-vertical-timeline-component/style.min.css";
 
 class About extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <MainContainer>

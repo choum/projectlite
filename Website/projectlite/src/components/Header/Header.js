@@ -91,7 +91,7 @@ class Header extends Component {
     this.firebase = this.props.firebase;
     this.firebase.AuthStateChange.RegisterHandler(e => {
       this.setState({
-        signedIn: this.firebase.getCurrentUser() != undefined
+        signedIn: this.firebase.getCurrentUser() !== undefined
       });
     });
   }

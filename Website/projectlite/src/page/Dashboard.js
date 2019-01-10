@@ -6,8 +6,6 @@ import CardContainer from "../components/Container/CardContainer";
 
 import { withFirebase } from "../components/Firebase";
 
-import { stringify } from "querystring";
-
 class Dashboard extends Component {
   constructor(props) {
     super(props);
@@ -44,7 +42,7 @@ class Dashboard extends Component {
     let lights = [];
     var clusterCount = cluster.length;
     var currentClusterIndex = 0;
-    if (clusterCount % 2 == 1) {
+    if (clusterCount % 2 === 1) {
       for (let k = 0; k < clusterCount - 1; k++) {
         let name = cluster[currentClusterIndex];
         lights.push(

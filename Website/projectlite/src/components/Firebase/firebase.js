@@ -54,13 +54,12 @@ class CustomEvent {
   constructor() {
     this.Handlers = {};
     this.Iterator = 1;
-    //this.fire = this.fire.bind(this);
     this.RegisterHandler = this.RegisterHandler.bind(this);
     this.UnregisterHandler = this.UnregisterHandler.bind(this);
   }
 
   fire(e) {
-    for (let [i, Handler] of Object.entries(this.Handlers)) {
+    for (let [, Handler] of Object.entries(this.Handlers)) {
       Handler();
     }
   }
