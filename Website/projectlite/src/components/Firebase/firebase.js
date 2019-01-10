@@ -46,6 +46,7 @@ export default class Firebase {
     data.on("value", function(snapshot) {
       callback(snapshot.val());
     });
+    return data;
   };
 }
 

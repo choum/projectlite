@@ -19,11 +19,15 @@ class Dashboard extends Component {
     };
     this.firebase = this.props.firebase;
 
-    this.getLayout();
+    this.dbref = this.getLayout();
+  }
+
+  componentWillUnmount() {
+    this.dbref.off();
   }
 
   getLayout() {
-    this.firebase.getCluster(val => {
+    return this.firebase.getCluster(val => {
       this.setState({
         listOfClusters: val,
         quickControlValues: Array(Object.keys(val).length).fill(0),
@@ -104,19 +108,19 @@ class Dashboard extends Component {
     );
   }
 
-  render() {
-    if (!this.state.isLayoutLoaded) {
-      return (
-        <MainContainer>
-          <SlimContainer>
-            <CardContainer type="card" title="Clusters">
-              Loading...
-            </CardContainer>
-          </SlimContainer>
-        </MainContainer>
-      );
-    }
+  renderLoading() {
+    return (
+      <MainContainer>
+        <SlimContainer>
+          <CardContainer type="card" title="Clusters">
+            Loading...
+          </CardContainer>
+        </SlimContainer>
+      </MainContainer>
+    );
+  }
 
+  renderClusters() {
     return (
       <MainContainer>
         <SlimContainer>
@@ -135,6 +139,12 @@ class Dashboard extends Component {
         </SlimContainer>
       </MainContainer>
     );
+  }
+
+  render() {
+    return this.state.isLayoutLoaded
+      ? this.renderClusters()
+      : this.renderLoading();
   }
 }
 export default withFirebase(Dashboard);
