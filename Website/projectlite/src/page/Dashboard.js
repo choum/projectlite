@@ -6,9 +6,6 @@ import CardContainer from "../components/Container/CardContainer";
 
 import { withFirebase } from "../components/Firebase";
 
-// DEV ONLY
-// implemention doesn't allow for hotswapping data
-//import lightData from "../lightData.json";
 import { stringify } from "querystring";
 
 class Dashboard extends Component {
@@ -75,7 +72,6 @@ class Dashboard extends Component {
   }
 
   onQuickControlChange(newValue, controlIndex) {
-    console.log(newValue);
     this.setState(state => {
       const quickControlValues = state.quickControlValues.map(
         (value, index) => {
