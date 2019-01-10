@@ -11,6 +11,7 @@ background-color: #282828;
 padding: 20px;
 color: #fff;
 text-align: right;
+z-index: 999;
 `
 
 const Footer = () => {
