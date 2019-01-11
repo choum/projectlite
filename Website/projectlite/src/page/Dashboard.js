@@ -26,7 +26,7 @@ class Dashboard extends Component {
   }
 
   getLayout() {
-    return this.firebase.getCluster(val => {
+    return this.firebase.getClusters(val => {
       this.setState({
         listOfClusters: val,
         quickControlValues: Array(Object.keys(val).length).fill(0),

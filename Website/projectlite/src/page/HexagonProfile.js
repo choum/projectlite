@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import { MainContainer, SlimContainer } from "../components/Container";
-import CardContainer from "../components/Container/CardContainer";
 import { SideNav, Nav } from "react-sidenav";
 import Toggle from "react-toggle-component";
 import "react-toggle-component/styles.css";
+
+import { MainContainer, SlimContainer } from "../components/Container";
+import CardContainer from "../components/Container/CardContainer";
+import { withFirebase } from "../components/Firebase";
 
 const Navigation = styled.div`
   background-color: #282828;
@@ -32,8 +34,27 @@ class HexagonProfile extends Component {
     super(props);
     this.state = {
       toggleAdvance: false,
-      toggleOrientation: false
+      toggleOrientation: false,
+      clusterData: {},
+      isClusterLoaded: false
     };
+
+    this.firebase = this.props.firebase;
+    this.dbref = this.getData();
+  }
+
+  componentWillUnmount() {
+    this.dbref.off();
+  }
+
+  getData() {
+    console.log(this.props.match.params.id);
+    return this.firebase.getCluster(this.props.match.params.id, val => {
+      this.setState({
+        clusterData: val,
+        isClusterLoaded: true
+      });
+    });
   }
 
   renderTitle() {
@@ -128,10 +149,11 @@ class HexagonProfile extends Component {
   }
 
   renderCluster() {
+    console.log(this.state.clusterData);
     return (
       <div className="col-md-8">
         <SlimContainer>
-          <CardContainer type="bodyheader" title="Cluster: (uid here)">
+          <CardContainer type="bodyheader" title={this.state.clusterData.Name}>
             <Toggle
               label="Simple"
               labelRight="Advanced"
@@ -149,4 +171,4 @@ class HexagonProfile extends Component {
     return <MainContainer>{this.renderSideNav()}</MainContainer>;
   }
 }
-export default HexagonProfile;
+export default withFirebase(HexagonProfile);
