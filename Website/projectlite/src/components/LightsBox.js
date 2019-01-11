@@ -10,7 +10,7 @@ const Border = styled.div`
     stroke-width: 1px;
   }
 
-  svg g:hover * {
+  .card-body:hover svg g * {
     stroke: #4caf50;
     stroke-width: 1px;
   }
