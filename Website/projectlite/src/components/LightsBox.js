@@ -1,7 +1,9 @@
 import React, { Component } from "react";
-import CardContainer from "./Container/CardContainer";
 import styled from "styled-components";
 import { HexGrid, Layout, Hexagon } from "react-hexgrid";
+import { NavLink } from "react-router-dom";
+
+import CardContainer from "./Container/CardContainer";
 
 const Border = styled.div`
   svg g {
