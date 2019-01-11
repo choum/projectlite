@@ -24,13 +24,13 @@ const Border = styled.div`
   h3 {
     text-align: center;
   }
-`;
 
-const Clickable = styled.a`
-  display: block;
+  a {
+    color: black;
+  }
 
-  :hover {
-    cursor: pointer;
+  a:hover {
+    text-decoration: none;
   }
 `;
 
@@ -67,7 +67,7 @@ class LightsBox extends Component {
 
     return (
       <Border>
-        <Clickable>
+        <NavLink to="/hexagon-profile">
           <CardContainer type="bodyheader" title={title}>
             <hr />
             <HexGrid width={"100%"} height={"100%"}>
@@ -81,7 +81,7 @@ class LightsBox extends Component {
               </Layout>
             </HexGrid>
           </CardContainer>
-        </Clickable>
+        </NavLink>
       </Border>
     );
   }
