@@ -9,12 +9,26 @@ const Border = styled.div`
     stroke: #666;
     stroke-width: 1px;
   }
+
+  svg g:hover * {
+    stroke: #4caf50;
+    stroke-width: 1px;
+  }
+
   hr {
     width: 90%;
     border-top: 1px solid rgba(0, 0, 0, 0.15);
   }
   h3 {
     text-align: center;
+  }
+`;
+
+const Clickable = styled.a`
+  display: block;
+
+  :hover {
+    cursor: pointer;
   }
 `;
 
@@ -51,19 +65,21 @@ class LightsBox extends Component {
 
     return (
       <Border>
-        <CardContainer type="bodyheader" title={title}>
-          <hr />
-          <HexGrid width={"100%"} height={"100%"}>
-            <Layout
-              size={{ x: 10, y: 10 }}
-              flat={true}
-              spacing={1.1}
-              origin={{ x: 0, y: 0 }}
-            >
-              {this.hexagonList()}
-            </Layout>
-          </HexGrid>
-        </CardContainer>
+        <Clickable>
+          <CardContainer type="bodyheader" title={title}>
+            <hr />
+            <HexGrid width={"100%"} height={"100%"}>
+              <Layout
+                size={{ x: 10, y: 10 }}
+                flat={true}
+                spacing={1.1}
+                origin={{ x: 0, y: 0 }}
+              >
+                {this.hexagonList()}
+              </Layout>
+            </HexGrid>
+          </CardContainer>
+        </Clickable>
       </Border>
     );
   }
