@@ -31,9 +31,9 @@ ReactDOM.render(
           <Route path={ROUTES.REGISTRATION} component={Registration} />
           <Route path={ROUTES.DASHBOARD} component={Dashboard} />
           <Route path={ROUTES.LOGIN} component={Login} />
-          <Route path={ROUTES.HEXAGONPROFILE} component={HexagonProfile} />
           <Route path={ROUTES.SIGNOUT} component={Signout} />
           <Route path={ROUTES.EMULATOR} component={Emulator} />
+          <Route path={ROUTES.HEXAGONPROFILE} component={HexagonProfile} />
         </Switch>
         <Footer />
       </WrapContainer>

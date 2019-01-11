@@ -67,7 +67,7 @@ class LightsBox extends Component {
 
     return (
       <Border>
-        <NavLink to="/hexagon-profile">
+        <NavLink to={"/hexagon-profile/" + title}>
           <CardContainer type="bodyheader" title={title}>
             <hr />
             <HexGrid width={"100%"} height={"100%"}>
