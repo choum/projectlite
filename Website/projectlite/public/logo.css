@@ -4,8 +4,8 @@
  * ---------------------------------------------- */
 
 #logo {
-  -webkit-animation: flip-diagonal-1-bl 2s infinite;
-  animation: flip-diagonal-1-bl 2s infinite;
+  -webkit-animation: flip-diagonal-1-bl 2s;
+  animation: flip-diagonal-1-bl 2s;
 }
 
 @-webkit-keyframes flip-diagonal-1-bl {
@@ -13,9 +13,13 @@
     -webkit-transform: rotate3d(1, 1, 0, 0deg);
     transform: rotate3d(1, 1, 0, 0deg)
   }
-  100% {
+  50% {
     -webkit-transform: rotate3d(1, 1, 0, -180deg);
     transform: rotate3d(1, 1, 0, -180deg)
+  }
+  100% {
+    -webkit-transform: rotate3d(1, 1, 0, 0deg);
+    transform: rotate3d(1, 1, 0, 0deg)
   }
 }
 
@@ -24,8 +28,12 @@
     -webkit-transform: rotate3d(1, 1, 0, 0deg);
     transform: rotate3d(1, 1, 0, 0deg)
   }
-  100% {
+  50% {
     -webkit-transform: rotate3d(1, 1, 0, -180deg);
     transform: rotate3d(1, 1, 0, -180deg)
+  }
+  100% {
+    -webkit-transform: rotate3d(1, 1, 0, 0deg);
+    transform: rotate3d(1, 1, 0, 0deg)
   }
 }
