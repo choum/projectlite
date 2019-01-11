@@ -15,7 +15,13 @@ body {
   width: 100% !important;
 }
 
-element {
-  --bg: #282828;
-  --header: #f7f7f7;
+:root {
+  --background-color: #282828;
+  --secondary-color: #f7f7f7;
+  --hover-color: #84828F;
+  --outline-color: #A9A9A9;
+  --accent-yellow: #F3DE8A;
+  --accent-green: #CAE7B9;
+  --accent-red: #EB9486;
+  --accent-purple: #7E7F9A;
 }
