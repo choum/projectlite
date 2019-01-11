@@ -32,7 +32,8 @@ class HexagonProfile extends Component {
     super(props);
     this.state = {
       toggleAdvance: false,
-      toggleOrientation: false
+      toggleOrientation: false,
+      hexOrientation: "flat",
     };
   }
 

@@ -14,3 +14,12 @@ body {
   height: 100% !important;
   width: 100% !important;
 }
+
+.pointy svg {
+  display:inline-block;
+  transform: rotate(30deg) scale(0.80);
+  transform-origin: center;
+}
+.flat svg {
+  transform: scale(0.80);
+}

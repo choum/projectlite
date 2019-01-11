@@ -41,7 +41,7 @@ class CardContainer extends Component {
   renderCardBodyHeader() {
     const { title } = this.props;
     return (
-      <CardWrapper>
+      <CardWrapper className={this.props.className}>
         <Card>
           <CardBody>
             <h3 className="card-title">{title}</h3>
