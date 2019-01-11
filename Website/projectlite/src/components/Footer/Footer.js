@@ -7,11 +7,14 @@ const Foot = styled.footer`
 position: absolute;
 bottom: 0;
 width:100%;
-background-color: #282828;
+background-color: #F7F7F7;
 padding: 20px;
-color: #fff;
+color: #000;
 text-align: right;
 z-index: 999;
+  span {
+    font-size: 10pt;
+  }
 `
 
 const Footer = () => {

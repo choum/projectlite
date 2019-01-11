@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
 
 import styled from "styled-components";
-
 import { withFirebase } from "../../components/Firebase";
 
 const Head = styled.div`
@@ -10,6 +9,7 @@ const Head = styled.div`
   .masthead-brand {
     margin-top: 20px;
     margin-bottom: 20px;
+    font-weight: normal;
   }
 
   .masthead-nav > li {
@@ -23,8 +23,7 @@ const Head = styled.div`
     padding-right: 0;
     padding-left: 0;
     font-size: 16px;
-    font-weight: bold;
-    color: rgba(255, 255, 255, 0.75);
+    color: rgba(0, 0, 0, 0.75);
     border-bottom: 2px solid transparent;
   }
 
@@ -42,15 +41,15 @@ const Head = styled.div`
 } */
 
   .active {
-    color: #fff !important;
-    border-bottom-color: #fff !important;
+    color: #000 !important;
+    border-bottom-color: #000 !important;
   }
 
   @media (min-width: 768px) {
     .masthead-brand {
       float: left;
       vertical-align: middle;
-      color: #fff;
+      color: #000;
     }
     .masthead-nav {
       float: right;
@@ -60,7 +59,7 @@ const Head = styled.div`
 
   .container .cover {
     text-align: center;
-    color: #fff;
+    color: #000;
   }
 
   /* end header */
@@ -71,7 +70,7 @@ const Head = styled.div`
       position: fixed;
       top: 0;
       width: 100%;
-      background-color: #282828;
+      background-color: #F7F7F7;
       z-index: 999;
     }
 
@@ -100,6 +99,10 @@ class Header extends Component {
       <Head>
         <div className="masthead clearfix">
           <div className="container">
+          <svg id="logo" version="1.1" xmlns="http://www.w3.org/2000/svg" width="60" height="52" viewbox="0 0 60 51.96152422706631" stroke="#000" fill="#F7F7F7" style={{float: 'left', marginTop: '10px', marginRight: '5px'}}>
+            <path d="M0 25.980762113533157L15 0L45 0L60 25.980762113533157L45 51.96152422706631L15 51.96152422706631Z">
+            </path>
+          </svg>
             <h3 className="masthead-brand">Project Lite</h3>
             <nav>
               <ul className="nav masthead-nav">

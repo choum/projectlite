@@ -1,25 +1,23 @@
 import React from "react";
 import styled from "styled-components";
 
-const DefaultButton = styled.a`
+const DefaultButton = styled.button`
   padding: 10px 20px;
-  font-weight: bold;
+  font-weight: 500;
   color: #333 !important;
-  text-shadow: none;
   background-color: #fff;
   border: 1px solid #fff;
 
   &:hover,
   &:focus {
     color: #333;
-    text-shadow: none;
     background-color: #fff;
-    border: 1px solid #fff;
+    border: 1px solid #000;
   }
 `;
 
 const LinkButton = props => {
-  return <DefaultButton>{props.text}</DefaultButton>;
+  return <DefaultButton className="btn">{props.text}</DefaultButton>;
 };
 
 export default LinkButton;
