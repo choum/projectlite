@@ -8,6 +8,13 @@ import {
   VerticalTimelineElement
 } from "react-vertical-timeline-component";
 import "react-vertical-timeline-component/style.min.css";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPaperclip, faHome, faIndustry, faMobile, faBolt} from '@fortawesome/free-solid-svg-icons'
+
+const widthAdjust = {
+  width: '24px'
+}
+
 
 class About extends Component {
   render() {
@@ -32,7 +39,8 @@ class About extends Component {
         <VerticalTimeline>
           <VerticalTimelineElement
             className="vertical-timeline-element--work"
-            iconStyle={{ background: "white" }}
+            iconStyle={{ background: "#2C3D55" }}
+            icon={<FontAwesomeIcon icon={faBolt} size="3x" color="white" style={widthAdjust}/>}
           >
             <h3 className="vertical-timeline-element-title">
               Working Prototype
@@ -44,7 +52,8 @@ class About extends Component {
           </VerticalTimelineElement>
           <VerticalTimelineElement
             className="vertical-timeline-element--work"
-            iconStyle={{ background: "white" }}
+            iconStyle={{ background: "#3E4C5E" }}
+            icon={<FontAwesomeIcon icon={faMobile} size="3x" color="white" style={widthAdjust}/>}
           >
             <h3 className="vertical-timeline-element-title">
               Mobile Application
@@ -53,7 +62,8 @@ class About extends Component {
           </VerticalTimelineElement>
           <VerticalTimelineElement
             className="vertical-timeline-element--work"
-            iconStyle={{ background: "white" }}
+            iconStyle={{ background: "#536271" }}
+            icon={<FontAwesomeIcon icon={faIndustry} size="2x" color="white" style={widthAdjust}/>}
           >
             <h3 className="vertical-timeline-element-title">
               Small Scale Production
@@ -62,14 +72,16 @@ class About extends Component {
           </VerticalTimelineElement>
           <VerticalTimelineElement
             className="vertical-timeline-element--work"
-            iconStyle={{ background: "white" }}
+            iconStyle={{ background: "#6A687A" }}
+            icon={<FontAwesomeIcon icon={faPaperclip} size="2x" color="white" style={widthAdjust}/>}
           >
             <h3 className="vertical-timeline-element-title">Corner Clip</h3>
             <p>Shhh. It's a secret!</p>
           </VerticalTimelineElement>
           <VerticalTimelineElement
             className="vertical-timeline-element--work"
-            iconStyle={{ background: "white" }}
+            iconStyle={{ background: "#84828F" }}
+            icon={<FontAwesomeIcon icon={faHome} size="lg" color="white" style={widthAdjust}/>}
           >
             <h3 className="vertical-timeline-element-title">Home Panel</h3>
             <p>Shhh. It's a secret!</p>
