@@ -104,12 +104,14 @@ class Header extends Component {
             <nav>
               <ul className="nav masthead-nav">
                 <li>
-                  <NavLink to="/home" activeClassName="active">
+                  <NavLink exact to="/" activeClassName="active">
                     Home
                   </NavLink>
                 </li>
                 <li>
-                  <a href="features.html">Products</a>
+                  <NavLink to="/products" activeClassName="active">
+                    Products
+                  </NavLink>
                 </li>
                 {!this.state.signedIn && (
                   <li>

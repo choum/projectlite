@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import * as serviceWorker from "./serviceWorker";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import Firebase, { FirebaseContext } from "./components/Firebase";
 
@@ -25,15 +25,16 @@ ReactDOM.render(
     <Router>
       <WrapContainer>
         <Header login={true} />
-        <Route exact path="/" component={Landing} />
-        <Route exact path="/home" component={Landing} />
-        <Route exact path="/about" component={About} />
-        <Route exact path="/registration" component={Registration} />
-        <Route exact path="/dashboard" component={Dashboard} />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/hexagon" component={HexagonProfile} />
-        <Route exact path="/signout" component={Signout} />
-        <Route exact path="/emu" component={Emulator} />
+        <Switch>
+          <Route exact path={ROUTES.LANDING} component={Landing} />
+          <Route path={ROUTES.ABOUT} component={About} />
+          <Route path={ROUTES.REGISTRATION} component={Registration} />
+          <Route path={ROUTES.DASHBOARD} component={Dashboard} />
+          <Route path={ROUTES.LOGIN} component={Login} />
+          <Route path={ROUTES.HEXAGONPROFILE} component={HexagonProfile} />
+          <Route path={ROUTES.SIGNOUT} component={Signout} />
+          <Route path={ROUTES.EMULATOR} component={Emulator} />
+        </Switch>
         <Footer />
       </WrapContainer>
     </Router>
