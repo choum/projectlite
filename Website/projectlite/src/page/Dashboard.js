@@ -54,7 +54,11 @@ class Dashboard extends Component {
         let name = cluster[currentClusterIndex];
         lights.push(
           <div className="col-md-6" key={currentClusterIndex}>
-            <CardContainer type="cluster" title={name} UID={name}>
+            <CardContainer
+              type="cluster"
+              title={clusterList[name].Name}
+              UID={name}
+            >
               <HexLayout clusterData={clusterList[name]} />
             </CardContainer>
           </div>
@@ -64,8 +68,12 @@ class Dashboard extends Component {
       let name = cluster[currentClusterIndex];
       lights.push(
         <div className="col-md-12" key={currentClusterIndex}>
-          <CardContainer type="cluster" title={name} UID={name}>
-            <HexLayout title={name} clusterData={clusterList[name]} />
+          <CardContainer
+            type="cluster"
+            title={clusterList[name].Name}
+            UID={name}
+          >
+            <HexLayout clusterData={clusterList[name]} />
           </CardContainer>
         </div>
       );
@@ -75,8 +83,12 @@ class Dashboard extends Component {
         let name = cluster[currentClusterIndex];
         lights.push(
           <div className="col-md-6" key={currentClusterIndex}>
-            <CardContainer type="cluster" title={name} UID={name}>
-              <HexLayout title={name} clusterData={clusterList[name]} />
+            <CardContainer
+              type="cluster"
+              title={clusterList[name].Name}
+              UID={name}
+            >
+              <HexLayout clusterData={clusterList[name]} />
             </CardContainer>
           </div>
         );
@@ -107,13 +119,10 @@ class Dashboard extends Component {
     let clusterList = Object.keys(this.state.listOfClusters);
     return clusterList.map(
       function(clusterUID, index) {
-        //TODO pass names properly
-
-        let headerTitle = this.state.listOfClusters.clusterUID.Name;
         return (
           <QuickSlider
             key={index}
-            title={this.state.listOfClusters.clusterUID.Name}
+            title={this.state.listOfClusters[clusterUID].Name}
             value={this.state.quickControlValues[index]}
             onChange={e => this.onQuickControlChange(e.target.value, index)}
           />
