@@ -5,6 +5,7 @@ import MainContainer from "./MainContainer";
 import FeaturesContainer from "./FeaturesContainer";
 import FormContainer from "./FormContainer";
 import SlimContainer from "./SlimContainer";
+import CardContainer from "./CardContainer";
 
 export {
   DefaultContainer,
@@ -13,5 +14,6 @@ export {
   MainContainer,
   FeaturesContainer,
   FormContainer,
-  SlimContainer
+  SlimContainer,
+  CardContainer
 };

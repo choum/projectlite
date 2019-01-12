@@ -3,8 +3,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLightbulb } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
 
-import CardContainer from "../components/Container/CardContainer";
-import Slider from "../components/Slider/Slider";
+import { CardContainer } from "../Container";
+import { Slider } from "./index";
 
 const Box = styled.div`
   display: flex;

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { HexGrid, Layout, Hexagon } from "react-hexgrid";
 import { NavLink } from "react-router-dom";
 
-import CardContainer from "./Container/CardContainer";
+import { CardContainer } from "../Container";
 
 const Border = styled.div`
   svg g {
@@ -34,7 +34,7 @@ const Border = styled.div`
   }
 `;
 
-class LightsBox extends Component {
+class HexLayout extends Component {
   constructor(props) {
     super(props);
     this.hexagonList = this.hexagonList.bind(this);
@@ -87,4 +87,4 @@ class LightsBox extends Component {
   }
 }
 
-export default LightsBox;
+export default HexLayout;

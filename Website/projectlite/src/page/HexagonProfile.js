@@ -1,11 +1,16 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import { SideNav, Nav } from "react-sidenav";
+import { SideNav } from "react-sidenav";
 import Toggle from "react-toggle-component";
 import "react-toggle-component/styles.css";
 
-import { MainContainer, SlimContainer } from "../components/Container";
-import CardContainer from "../components/Container/CardContainer";
+import {
+  MainContainer,
+  SlimContainer,
+  CardContainer
+} from "../components/Container";
+import { HexLayout } from "../components/Layout";
+
 import { withFirebase } from "../components/Firebase";
 
 const Navigation = styled.div`
@@ -25,10 +30,7 @@ const ItemType = styled.h5`
 const Divider = styled.hr`
   border-color: white;
 `;
-const Wrapper = styled.span`
-  border-top: 3px solid white;
-  border-bottom: 3px solid white;
-`;
+
 class HexagonProfile extends Component {
   constructor(props) {
     super(props);
@@ -48,7 +50,6 @@ class HexagonProfile extends Component {
   }
 
   getData() {
-    console.log(this.props.match.params.id);
     return this.firebase.getCluster(this.props.match.params.id, val => {
       this.setState({
         clusterData: val,
@@ -57,103 +58,106 @@ class HexagonProfile extends Component {
     });
   }
 
-  renderTitle() {
-    if (this.state.toggleAdvance === true) {
-      return <MenuType>Advanced Customization</MenuType>;
-    } else {
-      return <MenuType>Simple Customization</MenuType>;
-    }
+  renderClusterLayout() {
+    return null;
   }
 
   renderSideNav() {
+    console.log(this.state.clusterData);
     return (
-      <div className="row">
-        <div className="col-md-2">
-          <Navigation>
-            <SideNav defaultSelectedPath="1">
-              <SlimContainer>
-                {this.renderTitle()}
-                <Divider />
-                <div className="effect-block">
-                  <ItemType>Effect:</ItemType>
-                  <select
-                    value={this.state.selectValue}
-                    onChange={e => {
-                      this.setState({
-                        selectValue: e.target.value
-                      });
-                    }}
-                    className="form-control"
-                  >
-                    <option>Static Color</option>
-                    <option>Wave</option>
-                  </select>
-                </div>
-                <Divider />
-                <div className="orientation-block">
-                  <ItemType>Orientation:</ItemType>
-                  <label>
-                    <input
-                      checked={!this.state.toggleOrientation}
-                      onChange={e =>
-                        this.setState({
-                          toggleOrientation: !this.state.toggleOrientation
-                        })
-                      }
-                      type="radio"
-                      name="options"
-                      id="option1"
-                      value="Flat"
-                    />
-                    Flat
-                  </label>
-                  <br />
-                  <label>
-                    <input
-                      checked={this.state.toggleOrientation}
-                      onChange={e =>
-                        this.setState({
-                          toggleOrientation: !this.state.toggleOrientation
-                        })
-                      }
-                      type="radio"
-                      name="options"
-                      id="option2"
-                      value="Pointy"
-                    />
-                    Pointy
-                  </label>
-                </div>
-                <Divider />
-                {this.state.selectValue === "Wave" &&
-                  this.state.toggleAdvance === true && (
-                    <div className="pick-block">
-                      <ItemType>Pick Order</ItemType>
-                      <button className="btn btn-light" value="Pick">
-                        Pick
-                      </button>
-                    </div>
+      <MainContainer>
+        <div className="row">
+          <div className="col-md-2">
+            <Navigation>
+              <SideNav defaultSelectedPath="1">
+                <SlimContainer>
+                  {this.state.toggleAdvance ? (
+                    <MenuType>Advanced Customization</MenuType>
+                  ) : (
+                    <MenuType>Simple Customization</MenuType>
                   )}
-              </SlimContainer>
-            </SideNav>
-          </Navigation>
+                  <Divider />
+                  <div className="effect-block">
+                    <ItemType>Effect:</ItemType>
+                    <select
+                      value={this.state.selectValue}
+                      onChange={e => {
+                        this.setState({
+                          selectValue: e.target.value
+                        });
+                      }}
+                      className="form-control"
+                    >
+                      <option>Static Color</option>
+                      <option>Wave</option>
+                    </select>
+                  </div>
+                  <Divider />
+                  <div className="orientation-block">
+                    <ItemType>Orientation:</ItemType>
+                    <label>
+                      <input
+                        checked={!this.state.toggleOrientation}
+                        onChange={e =>
+                          this.setState({
+                            toggleOrientation: !this.state.toggleOrientation
+                          })
+                        }
+                        type="radio"
+                        name="options"
+                        id="option1"
+                        value="Flat"
+                      />
+                      Flat
+                    </label>
+                    <br />
+                    <label>
+                      <input
+                        checked={this.state.toggleOrientation}
+                        onChange={e =>
+                          this.setState({
+                            toggleOrientation: !this.state.toggleOrientation
+                          })
+                        }
+                        type="radio"
+                        name="options"
+                        id="option2"
+                        value="Pointy"
+                      />
+                      Pointy
+                    </label>
+                  </div>
+                  <Divider />
+                  {this.state.selectValue === "Wave" &&
+                    this.state.toggleAdvance === true && (
+                      <div className="pick-block">
+                        <ItemType>Pick Order</ItemType>
+                        <button className="btn btn-light" value="Pick">
+                          Pick
+                        </button>
+                      </div>
+                    )}
+                </SlimContainer>
+              </SideNav>
+            </Navigation>
+          </div>
+          {this.renderCluster()}
+          <div className="col-md-2">
+            <Navigation>
+              <SideNav />
+            </Navigation>
+          </div>
         </div>
-        {this.renderCluster()}
-        <div className="col-md-2">
-          <Navigation>
-            <SideNav />
-          </Navigation>
-        </div>
-      </div>
+      </MainContainer>
     );
   }
 
   renderCluster() {
-    console.log(this.state.clusterData);
     return (
       <div className="col-md-8">
         <SlimContainer>
           <CardContainer type="bodyheader" title={this.state.clusterData.Name}>
+            {this.renderClusterLayout()}
             <Toggle
               label="Simple"
               labelRight="Advanced"
@@ -167,8 +171,22 @@ class HexagonProfile extends Component {
     );
   }
 
+  renderLoading() {
+    return (
+      <MainContainer>
+        <SlimContainer>
+          <CardContainer type="card" title="Clusters">
+            Loading...
+          </CardContainer>
+        </SlimContainer>
+      </MainContainer>
+    );
+  }
+
   render() {
-    return <MainContainer>{this.renderSideNav()}</MainContainer>;
+    return this.state.isClusterLoaded
+      ? this.renderSideNav()
+      : this.renderLoading();
   }
 }
 export default withFirebase(HexagonProfile);

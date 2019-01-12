@@ -1,9 +1,12 @@
 import React, { Component } from "react";
 
-import { MainContainer, SlimContainer } from "../components/Container";
-import LightsBox from "../components/LightsBox";
-import QuickControl from "../components/QuickControl";
-import CardContainer from "../components/Container/CardContainer";
+import {
+  MainContainer,
+  SlimContainer,
+  CardContainer
+} from "../components/Container";
+import { HexLayout } from "../components/Layout";
+import { QuickControl } from "../components/Slider";
 
 import { withFirebase } from "../components/Firebase";
 
@@ -48,7 +51,7 @@ class Dashboard extends Component {
         let name = cluster[currentClusterIndex];
         lights.push(
           <div className="col-md-6" key={currentClusterIndex}>
-            <LightsBox title={name} clusterData={clusterList[name]} />
+            <HexLayout title={name} clusterData={clusterList[name]} />
           </div>
         );
         currentClusterIndex++;
@@ -56,7 +59,7 @@ class Dashboard extends Component {
       let name = cluster[currentClusterIndex];
       lights.push(
         <div className="col-md-12" key={currentClusterIndex}>
-          <LightsBox title={name} clusterData={clusterList[name]} />
+          <HexLayout title={name} clusterData={clusterList[name]} />
         </div>
       );
       currentClusterIndex++;
@@ -65,7 +68,7 @@ class Dashboard extends Component {
         let name = cluster[currentClusterIndex];
         lights.push(
           <div className="col-md-6" key={currentClusterIndex}>
-            <LightsBox title={name} clusterData={clusterList[name]} />
+            <HexLayout title={name} clusterData={clusterList[name]} />
           </div>
         );
         currentClusterIndex++;
