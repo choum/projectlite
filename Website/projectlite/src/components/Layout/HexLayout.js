@@ -68,19 +68,16 @@ class HexLayout extends Component {
     return (
       <Border>
         <NavLink to={"/hexagon-profile/" + title}>
-          <CardContainer type="bodyheader" title={title}>
-            <hr />
-            <HexGrid width={"100%"} height={"100%"}>
-              <Layout
-                size={{ x: 10, y: 10 }}
-                flat={true}
-                spacing={1.1}
-                origin={{ x: 0, y: 0 }}
-              >
-                {this.hexagonList()}
-              </Layout>
-            </HexGrid>
-          </CardContainer>
+          <HexGrid width={"100%"} height={"100%"}>
+            <Layout
+              size={{ x: 10, y: 10 }}
+              flat={true}
+              spacing={1.1}
+              origin={{ x: 0, y: 0 }}
+            >
+              {this.hexagonList()}
+            </Layout>
+          </HexGrid>
         </NavLink>
       </Border>
     );

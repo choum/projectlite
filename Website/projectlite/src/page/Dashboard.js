@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { NavLink } from "react-router-dom";
 
 import {
   MainContainer,
@@ -51,7 +52,10 @@ class Dashboard extends Component {
         let name = cluster[currentClusterIndex];
         lights.push(
           <div className="col-md-6" key={currentClusterIndex}>
-            <HexLayout title={name} clusterData={clusterList[name]} />
+            <CardContainer type="bodyheader" title={name}>
+              <hr />
+              <HexLayout title={name} clusterData={clusterList[name]} />
+            </CardContainer>
           </div>
         );
         currentClusterIndex++;

@@ -129,7 +129,7 @@ class HexagonProfile extends Component {
                   </div>
                   <Divider />
                   {this.state.selectValue === "Wave" &&
-                    this.state.toggleAdvance === true && (
+                    this.state.toggleAdvance && (
                       <div className="pick-block">
                         <ItemType>Pick Order</ItemType>
                         <button className="btn btn-light" value="Pick">
@@ -156,7 +156,7 @@ class HexagonProfile extends Component {
     return (
       <div className="col-md-8">
         <SlimContainer>
-          <CardContainer type="bodyheader" title={this.state.clusterData.Name}>
+          <CardContainer type="bodyheader" title={"hello"}>
             {this.renderClusterLayout()}
             <Toggle
               label="Simple"
