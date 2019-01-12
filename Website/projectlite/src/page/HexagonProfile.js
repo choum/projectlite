@@ -61,10 +61,6 @@ class HexagonProfile extends Component {
     });
   }
 
-  renderClusterLayout() {
-    return null;
-  }
-
   renderSideNav() {
     console.log(this.state.clusterData);
     return (
@@ -159,7 +155,7 @@ class HexagonProfile extends Component {
     return (
       <div className="col-md-8">
         <SlimContainer>
-          <CardContainer type="bodyheader" title={"hello"}>
+          <CardContainer type="bodyheader" title={this.state.clusterData.Name}>
             {this.renderClusterLayout()}
             <Toggle
               label="Simple"
@@ -172,6 +168,10 @@ class HexagonProfile extends Component {
         </SlimContainer>
       </div>
     );
+  }
+
+  renderClusterLayout() {
+    return <HexLayout clusterData={this.state.clusterData} />;
   }
 
   renderLoading() {

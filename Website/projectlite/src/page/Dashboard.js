@@ -55,7 +55,7 @@ class Dashboard extends Component {
         lights.push(
           <div className="col-md-6" key={currentClusterIndex}>
             <CardContainer type="cluster" title={name} UID={name}>
-              <HexLayout title={name} clusterData={clusterList[name]} />
+              <HexLayout clusterData={clusterList[name]} />
             </CardContainer>
           </div>
         );
