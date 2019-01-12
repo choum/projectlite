@@ -106,11 +106,14 @@ class Dashboard extends Component {
   renderQuickControls() {
     let clusterList = Object.keys(this.state.listOfClusters);
     return clusterList.map(
-      function(clusterName, index) {
+      function(clusterUID, index) {
+        //TODO pass names properly
+
+        let headerTitle = this.state.listOfClusters.clusterUID.Name;
         return (
           <QuickSlider
             key={index}
-            title={clusterName}
+            title={this.state.listOfClusters.clusterUID.Name}
             value={this.state.quickControlValues[index]}
             onChange={e => this.onQuickControlChange(e.target.value, index)}
           />
