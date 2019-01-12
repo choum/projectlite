@@ -42,6 +42,9 @@ class HexagonProfile extends Component {
     };
 
     this.firebase = this.props.firebase;
+  }
+
+  componentDidMount() {
     this.dbref = this.getData();
   }
 

@@ -1,4 +1,4 @@
-import QuickControl from "./QuickControl";
+import QuickSlider from "./QuickSlider";
 import Slider from "./Slider";
 
-export { QuickControl, Slider };
+export { QuickSlider, Slider };

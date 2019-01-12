@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { NavLink } from "react-router-dom";
 
 import {
   MainContainer,
@@ -7,7 +6,7 @@ import {
   CardContainer
 } from "../components/Container";
 import { HexLayout } from "../components/Layout";
-import { QuickControl } from "../components/Slider";
+import { QuickSlider } from "../components/Slider";
 
 import { withFirebase } from "../components/Firebase";
 
@@ -20,8 +19,11 @@ class Dashboard extends Component {
       quickControlValues: [],
       isLayoutLoaded: false
     };
-    this.firebase = this.props.firebase;
 
+    this.firebase = this.props.firebase;
+  }
+
+  componentDidMount() {
     this.dbref = this.getLayout();
   }
 
@@ -52,8 +54,7 @@ class Dashboard extends Component {
         let name = cluster[currentClusterIndex];
         lights.push(
           <div className="col-md-6" key={currentClusterIndex}>
-            <CardContainer type="bodyheader" title={name}>
-              <hr />
+            <CardContainer type="cluster" title={name} UID={name}>
               <HexLayout title={name} clusterData={clusterList[name]} />
             </CardContainer>
           </div>
@@ -63,7 +64,9 @@ class Dashboard extends Component {
       let name = cluster[currentClusterIndex];
       lights.push(
         <div className="col-md-12" key={currentClusterIndex}>
-          <HexLayout title={name} clusterData={clusterList[name]} />
+          <CardContainer type="cluster" title={name} UID={name}>
+            <HexLayout title={name} clusterData={clusterList[name]} />
+          </CardContainer>
         </div>
       );
       currentClusterIndex++;
@@ -72,7 +75,9 @@ class Dashboard extends Component {
         let name = cluster[currentClusterIndex];
         lights.push(
           <div className="col-md-6" key={currentClusterIndex}>
-            <HexLayout title={name} clusterData={clusterList[name]} />
+            <CardContainer type="cluster" title={name} UID={name}>
+              <HexLayout title={name} clusterData={clusterList[name]} />
+            </CardContainer>
           </div>
         );
         currentClusterIndex++;
@@ -103,7 +108,7 @@ class Dashboard extends Component {
     return clusterList.map(
       function(clusterName, index) {
         return (
-          <QuickControl
+          <QuickSlider
             key={index}
             title={clusterName}
             value={this.state.quickControlValues[index]}

@@ -20,7 +20,7 @@ const Box = styled.div`
 const offColor = "#CDCDCD";
 const onColor = "#41FE58";
 
-const QuickControl = ({ value, onChange, title }) => (
+const QuickSlider = ({ value, onChange, title }) => (
   <CardContainer type="bodyheader" title={title}>
     <Box>
       <FontAwesomeIcon
@@ -35,4 +35,4 @@ const QuickControl = ({ value, onChange, title }) => (
   </CardContainer>
 );
 
-export default QuickControl;
+export default QuickSlider;

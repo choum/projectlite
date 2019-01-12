@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import { Card, CardHeader, CardBody, CardText } from "reactstrap";
 import { DefaultContainer } from "./index";
+import { NavLink } from "react-router-dom";
 
 const Title = styled.h3`
   text-align: center;
@@ -23,6 +24,36 @@ const CardWrapper = styled.div`
   }
   margin: 10px;
 `;
+
+const ClusterBorder = styled.div`
+  svg g {
+    fill: #fff;
+    stroke: #666;
+    stroke-width: 1px;
+  }
+
+  .card-body:hover svg g * {
+    stroke: #4caf50;
+    stroke-width: 1px;
+  }
+
+  hr {
+    width: 90%;
+    border-top: 1px solid rgba(0, 0, 0, 0.15);
+  }
+  h3 {
+    text-align: center;
+  }
+
+  a {
+    color: black;
+  }
+
+  a:hover {
+    text-decoration: none;
+  }
+`;
+
 class CardContainer extends Component {
   renderCardWithHeader() {
     const { title } = this.props;
@@ -99,11 +130,33 @@ class CardContainer extends Component {
     );
   }
 
+  renderClusterCard() {
+    const { title, UID } = this.props;
+    console.log(UID);
+    return (
+      <ClusterBorder>
+        <NavLink to={"/hexagon-profile/" + UID}>
+          <CardWrapper>
+            <Card>
+              <CardBody>
+                <h3 className="card-title">{title}</h3>
+                <hr />
+                {this.props.children}
+              </CardBody>
+            </Card>
+          </CardWrapper>
+        </NavLink>
+      </ClusterBorder>
+    );
+  }
+
   render() {
     let type = this.props.type;
     let cardDisplay;
 
-    if (type === "features") {
+    if (type === "cluster") {
+      cardDisplay = this.renderClusterCard();
+    } else if (type === "features") {
       cardDisplay = this.renderFeatures();
     } else if (type === "about") {
       cardDisplay = this.renderAbout();
