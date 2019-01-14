@@ -58,7 +58,7 @@ export default class Firebase {
   };
 
   setClusterOrientation = (ID, value) => {
-    let selection = this.db.ref("clusters/" + ID + "Orientation");
+    let selection = this.db.ref("clusters/" + ID);
     selection.update({ Orientation: value });
   };
 }

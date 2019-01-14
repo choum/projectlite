@@ -57,7 +57,7 @@ class HexagonProfile extends Component {
       {
         hexOrientation: !this.state.hexOrientation
       },
-      state =>
+      () =>
         this.firebase.setClusterOrientation(
           this.props.match.params.id,
           this.state.hexOrientation
