@@ -9,20 +9,18 @@ const Title = styled.h3`
 `;
 
 const CardWrapper = styled.div`
+  margin: 10px;
   hr {
     width: 70%;
   }
-
   main {
     margin-top: 10%;
   }
-
   .row {
     padding: 40px;
     margin-right: 0px;
     margin-left: 0px;
   }
-  margin: 10px;
 `;
 
 const ClusterBorder = styled.div`
@@ -31,16 +29,14 @@ const ClusterBorder = styled.div`
     stroke: #666;
     stroke-width: 1px;
   }
-
   svg {
-    transform: ${props => props.hexOrientation ? "scale(0.80)" : "rotate(30deg) scale(0.80)"};
+    transform: ${props =>
+      props.hexOrientation ? "scale(0.80)" : "rotate(30deg) scale(0.80)"};
   }
-
   .card-body:hover svg g * {
     stroke: #4caf50;
     stroke-width: 1px;
   }
-
   hr {
     width: 90%;
     border-top: 1px solid rgba(0, 0, 0, 0.15);
@@ -48,11 +44,9 @@ const ClusterBorder = styled.div`
   h3 {
     text-align: center;
   }
-
   a {
     color: black;
   }
-
   a:hover {
     text-decoration: none;
   }
@@ -62,7 +56,7 @@ class CardContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      hexOrientation: false,
+      hexOrientation: false
     };
   }
   renderCardWithHeader() {
