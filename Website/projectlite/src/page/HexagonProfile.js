@@ -63,7 +63,6 @@ class HexagonProfile extends Component {
   }
 
   renderSideNav() {
-    console.log(this.state.hexOrientation);
     return (
       <MainContainer>
         <div className="row">
@@ -161,22 +160,20 @@ class HexagonProfile extends Component {
             title={this.state.clusterData.Name}
             hexOrientation={this.state.hexOrientation}
           >
-            {this.renderClusterLayout()}
+            <HexLayout clusterData={this.state.clusterData} />
             <Toggle
               label="Simple"
               labelRight="Advanced"
               style={{ float: "right" }}
               checked={this.state.toggleAdvance}
-              onToggle={value => this.setState({ toggleAdvance: value })}
+              onToggle={value =>
+                this.setState({ toggleAdvance: !this.state.toggleAdvance })
+              }
             />
           </CardContainer>
         </SlimContainer>
       </div>
     );
-  }
-
-  renderClusterLayout() {
-    return <HexLayout clusterData={this.state.clusterData} />;
   }
 
   renderLoading() {

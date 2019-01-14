@@ -53,12 +53,6 @@ const ClusterBorder = styled.div`
 `;
 
 class CardContainer extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      hexOrientation: false
-    };
-  }
   renderCardWithHeader() {
     const { title } = this.props;
 
@@ -137,7 +131,6 @@ class CardContainer extends Component {
 
   renderClusterCard() {
     const { title, UID, hexOrientation } = this.props;
-    //console.log(hexOrientation);
     return (
       <ClusterBorder hexOrientation={hexOrientation}>
         <NavLink to={"/hexagon-profile/" + UID}>
