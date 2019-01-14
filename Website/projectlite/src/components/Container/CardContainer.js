@@ -10,9 +10,6 @@ const Title = styled.h3`
 
 const CardWrapper = styled.div`
   margin: 10px;
-  hr {
-    width: 70%;
-  }
   main {
     margin-top: 10%;
   }
@@ -20,6 +17,28 @@ const CardWrapper = styled.div`
     padding: 40px;
     margin-right: 0px;
     margin-left: 0px;
+  }
+  svg g {
+    fill: #fff;
+    stroke: #666;
+    stroke-width: 1px;
+  }
+  svg {
+    transform: ${props =>
+      props.hexOrientation ? "rotate(30deg) scale(0.80)" : "scale(0.80)"};
+  }
+  hr {
+    width: 90%;
+    border-top: 1px solid rgba(0, 0, 0, 0.15);
+  }
+  h3 {
+    text-align: center;
+  }
+  a {
+    color: black;
+  }
+  a:hover {
+    text-decoration: none;
   }
 `;
 
@@ -69,9 +88,9 @@ class CardContainer extends Component {
   }
 
   renderCardBodyHeader() {
-    const { title } = this.props;
+    const { title, hexOrientation } = this.props;
     return (
-      <CardWrapper className={this.props.className}>
+      <CardWrapper hexOrientation={hexOrientation}>
         <Card>
           <CardBody>
             <h3 className="card-title">{title}</h3>
@@ -100,34 +119,6 @@ class CardContainer extends Component {
     return <div className="row">{cards}</div>;
   }
 
-  renderAbout() {
-    const { title, content } = this.props;
-    return (
-      <main>
-        <DefaultContainer>
-          <Card>
-            <CardBody>
-              <h3 className="card-title">{title}</h3>
-              <hr />
-              <CardText>{content}</CardText>
-            </CardBody>
-          </Card>
-        </DefaultContainer>
-      </main>
-    );
-  }
-
-  renderRegistration() {
-    const { title } = this.props;
-    return (
-      <Card>
-        <CardBody>
-          <h3 className="card-title">{title}</h3>
-          <form method="post">{this.props.children}</form>
-        </CardBody>
-      </Card>
-    );
-  }
 
   renderClusterCard() {
     const { title, UID, hexOrientation } = this.props;

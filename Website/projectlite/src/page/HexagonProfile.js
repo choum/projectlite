@@ -161,7 +161,7 @@ class HexagonProfile extends Component {
       <div className="col-md-8">
         <SlimContainer>
           <CardContainer
-            type="cluster"
+            type="bodyheader"
             title={this.state.clusterData.Name}
             hexOrientation={this.state.hexOrientation}
           >
@@ -194,6 +194,7 @@ class HexagonProfile extends Component {
   }
 
   render() {
+    console.log(this.state.toggleAdvance);
     return this.state.isClusterLoaded
       ? this.renderSideNav()
       : this.renderLoading();
