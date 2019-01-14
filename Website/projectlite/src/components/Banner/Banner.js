@@ -33,7 +33,7 @@ const Banner = props => {
             <h1 className="cover-heading">{props.h1Text}</h1>
             <p className="lead">{props.pText}</p>
             <p className="lead">
-              <LinkButton href="features.html" text={props.btnText} />
+              <LinkButton className="btn" href="features.html" text={props.btnText} />
             </p>
           </div>
         </DefaultContainer>

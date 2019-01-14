@@ -5,7 +5,7 @@ html {
 }
 
 body {
-  background-color: #586f7c !important;
+  background-color: #282828 !important;
   height: 100% !important;
   width: 100% !important;
 }
@@ -13,4 +13,25 @@ body {
 #root {
   height: 100% !important;
   width: 100% !important;
+}
+
+.pointy svg {
+  display: inline-block;
+  transform: rotate(30deg) scale(0.80);
+  transform-origin: center;
+}
+
+.flat svg {
+  transform: scale(0.80);
+}
+
+:root {
+  --background-color: #282828;
+  --secondary-color: #f7f7f7;
+  --hover-color: #84828F;
+  --outline-color: #A9A9A9;
+  --accent-yellow: #F3DE8A;
+  --accent-green: #CAE7B9;
+  --accent-red: #EB9486;
+  --accent-purple: #7E7F9A;
 }

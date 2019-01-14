@@ -18,7 +18,7 @@ const Box = styled.div`
 `;
 
 const offColor = "#CDCDCD";
-const onColor = "#41FE58";
+const onColor = "#F3DE8A";
 
 const QuickSlider = ({ value, onChange, title }) => (
   <CardContainer type="bodyheader" title={title}>
