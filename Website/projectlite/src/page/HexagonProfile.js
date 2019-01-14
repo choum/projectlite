@@ -38,7 +38,9 @@ class HexagonProfile extends Component {
       toggleAdvance: false,
       toggleOrientation: false,
       clusterData: {},
-      isClusterLoaded: false
+      isClusterLoaded: false,
+      hexOrientation: false,
+      //false is pointy and true is flat for hexOrientation
     };
 
     this.firebase = this.props.firebase;
@@ -155,7 +157,7 @@ class HexagonProfile extends Component {
     return (
       <div className="col-md-8">
         <SlimContainer>
-          <CardContainer type="bodyheader" title={this.state.clusterData.Name}>
+          <CardContainer type="bodyheader" title={this.state.clusterData.Name} orientation={this.state.hexOrientation}>
             {this.renderClusterLayout()}
             <Toggle
               label="Simple"

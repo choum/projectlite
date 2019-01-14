@@ -17,7 +17,8 @@ class Dashboard extends Component {
       roomValue: 0,
       listOfClusters: {},
       quickControlValues: [],
-      isLayoutLoaded: false
+      isLayoutLoaded: false,
+      hexOrientation: false,
     };
 
     this.firebase = this.props.firebase;
@@ -58,6 +59,7 @@ class Dashboard extends Component {
               type="cluster"
               title={clusterList[name].Name}
               UID={name}
+              hexOrientation={this.state.hexOrientation}
             >
               <HexLayout clusterData={clusterList[name]} />
             </CardContainer>
@@ -87,6 +89,7 @@ class Dashboard extends Component {
               type="cluster"
               title={clusterList[name].Name}
               UID={name}
+              hexOrientation={this.state.hexOrientation}
             >
               <HexLayout clusterData={clusterList[name]} />
             </CardContainer>
