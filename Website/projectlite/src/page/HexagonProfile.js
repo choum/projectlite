@@ -36,11 +36,9 @@ class HexagonProfile extends Component {
     super(props);
     this.state = {
       toggleAdvance: false,
-      toggleOrientation: false,
       clusterData: {},
       isClusterLoaded: false,
-      hexOrientation: false,
-      //false is pointy and true is flat for hexOrientation
+      hexOrientation: false
     };
 
     this.firebase = this.props.firebase;
@@ -58,13 +56,14 @@ class HexagonProfile extends Component {
     return this.firebase.getCluster(this.props.match.params.id, val => {
       this.setState({
         clusterData: val,
+        hexOrientation: val.Orientation,
         isClusterLoaded: true
       });
     });
   }
 
   renderSideNav() {
-    console.log(this.state.clusterData);
+    console.log(this.state.hexOrientation);
     return (
       <MainContainer>
         <div className="row">
@@ -98,10 +97,10 @@ class HexagonProfile extends Component {
                     <ItemType>Orientation:</ItemType>
                     <label>
                       <input
-                        checked={!this.state.toggleOrientation}
+                        checked={!this.state.hexOrientation}
                         onChange={e =>
                           this.setState({
-                            toggleOrientation: !this.state.toggleOrientation
+                            toggleOrientation: !this.state.hexOrientation
                           })
                         }
                         type="radio"
@@ -114,10 +113,10 @@ class HexagonProfile extends Component {
                     <br />
                     <label>
                       <input
-                        checked={this.state.toggleOrientation}
+                        checked={this.state.hexOrientation}
                         onChange={e =>
                           this.setState({
-                            toggleOrientation: !this.state.toggleOrientation
+                            toggleOrientation: !this.state.hexOrientation
                           })
                         }
                         type="radio"
@@ -157,7 +156,11 @@ class HexagonProfile extends Component {
     return (
       <div className="col-md-8">
         <SlimContainer>
-          <CardContainer type="bodyheader" title={this.state.clusterData.Name} orientation={this.state.hexOrientation}>
+          <CardContainer
+            type="bodyheader"
+            title={this.state.clusterData.Name}
+            hexOrientation={this.state.hexOrientation}
+          >
             {this.renderClusterLayout()}
             <Toggle
               label="Simple"

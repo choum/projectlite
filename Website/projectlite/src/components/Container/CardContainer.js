@@ -31,7 +31,7 @@ const ClusterBorder = styled.div`
   }
   svg {
     transform: ${props =>
-      props.hexOrientation ? "scale(0.80)" : "rotate(30deg) scale(0.80)"};
+      props.hexOrientation ? "rotate(30deg) scale(0.80)" : "scale(0.80)"};
   }
   .card-body:hover svg g * {
     stroke: #4caf50;
@@ -137,7 +137,7 @@ class CardContainer extends Component {
 
   renderClusterCard() {
     const { title, UID, hexOrientation } = this.props;
-    console.log(hexOrientation);
+    //console.log(hexOrientation);
     return (
       <ClusterBorder hexOrientation={hexOrientation}>
         <NavLink to={"/hexagon-profile/" + UID}>
