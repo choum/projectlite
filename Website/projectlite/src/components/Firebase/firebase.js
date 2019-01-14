@@ -56,6 +56,11 @@ export default class Firebase {
     });
     return data;
   };
+
+  setClusterOrientation = (ID, value) => {
+    let selection = this.db.ref("clusters/" + ID + "Orientation");
+    selection.update({ Orientation: value });
+  };
 }
 
 class CustomEvent {

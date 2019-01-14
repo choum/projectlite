@@ -52,6 +52,19 @@ class HexagonProfile extends Component {
     this.dbref.off();
   }
 
+  toggleOrientation() {
+    this.setState(
+      {
+        hexOrientation: !this.state.hexOrientation
+      },
+      state =>
+        this.firebase.setClusterOrientation(
+          this.props.match.params.id,
+          this.state.hexOrientation
+        )
+    );
+  }
+
   getData() {
     return this.firebase.getCluster(this.props.match.params.id, val => {
       this.setState({
@@ -97,11 +110,7 @@ class HexagonProfile extends Component {
                     <label>
                       <input
                         checked={!this.state.hexOrientation}
-                        onChange={e =>
-                          this.setState({
-                            toggleOrientation: !this.state.hexOrientation
-                          })
-                        }
+                        onChange={e => this.toggleOrientation()}
                         type="radio"
                         name="options"
                         id="option1"
@@ -113,11 +122,7 @@ class HexagonProfile extends Component {
                     <label>
                       <input
                         checked={this.state.hexOrientation}
-                        onChange={e =>
-                          this.setState({
-                            toggleOrientation: !this.state.hexOrientation
-                          })
-                        }
+                        onChange={e => this.toggleOrientation()}
                         type="radio"
                         name="options"
                         id="option2"
@@ -156,7 +161,7 @@ class HexagonProfile extends Component {
       <div className="col-md-8">
         <SlimContainer>
           <CardContainer
-            type="bodyheader"
+            type="cluster"
             title={this.state.clusterData.Name}
             hexOrientation={this.state.hexOrientation}
           >
