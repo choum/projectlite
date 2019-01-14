@@ -15,6 +15,16 @@ body {
   width: 100% !important;
 }
 
+.pointy svg {
+  display: inline-block;
+  transform: rotate(30deg) scale(0.80);
+  transform-origin: center;
+}
+
+.flat svg {
+  transform: scale(0.80);
+}
+
 :root {
   --background-color: #282828;
   --secondary-color: #f7f7f7;

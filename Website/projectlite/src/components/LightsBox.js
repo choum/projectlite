@@ -22,6 +22,9 @@ class LightsBox extends Component {
   constructor(props) {
     super(props);
     this.hexagonList = this.hexagonList.bind(this);
+    this.state = {
+      hexOrientation: 'flat',
+    };
   }
 
   hexagonList() {
@@ -48,10 +51,9 @@ class LightsBox extends Component {
   */
   render() {
     const { title } = this.props;
-
     return (
       <Border>
-        <CardContainer type="bodyheader" title={title}>
+        <CardContainer type="bodyheader" title={title} className={this.state.hexOrientation}>
           <hr />
           <HexGrid width={"100%"} height={"100%"}>
             <Layout
