@@ -18,10 +18,6 @@ const CardWrapper = styled.div`
     margin-right: 0px;
     margin-left: 0px;
   }
-  .card-body:hover svg g * {
-    stroke: #4caf50;
-    stroke-width: 1px;
-  }
   svg g {
     fill: #fff;
     stroke: #666;
@@ -46,6 +42,13 @@ const CardWrapper = styled.div`
   }
 `;
 
+const ClickableWrapper = styled(CardWrapper)`
+  .card-body:hover svg g * {
+    stroke: #4caf50;
+    stroke-width: 1px;
+  }
+`;
+
 class CardContainer extends Component {
   renderCardWithHeader() {
     const { title } = this.props;
@@ -67,7 +70,7 @@ class CardContainer extends Component {
       <CardWrapper hexOrientation={hexOrientation}>
         {nav && (
           <NavLink to={"/hexagon-profile/" + UID}>
-            <CardWrapper>
+            <ClickableWrapper>
               <Card>
                 <CardBody>
                   <h3 className="card-title">{title}</h3>
@@ -75,7 +78,7 @@ class CardContainer extends Component {
                   {this.props.children}
                 </CardBody>
               </Card>
-            </CardWrapper>
+            </ClickableWrapper>
           </NavLink>
         )}
         {!nav && (
