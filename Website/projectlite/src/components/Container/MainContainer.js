@@ -4,7 +4,6 @@ import styled from "styled-components";
 const Main = styled.div `
   overflow: hidden;
   padding-bottom: 60px;
-  margin-top: 73px;
   height: 100%;
 
 `

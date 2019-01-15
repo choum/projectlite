@@ -2,9 +2,9 @@ import React from "react";
 import styled from "styled-components";
 
 const Slim = styled.div `
-  padding-left: 4%;
-  padding-right: 4%;
-  padding-top: 5%;
+  padding-left: 3%;
+  padding-right: 3%;
+  padding-top: 2%;
 `
 
 const SlimContainer = ({ children }) => {

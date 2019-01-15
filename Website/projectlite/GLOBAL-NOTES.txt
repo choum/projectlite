@@ -1,4 +1,0 @@
-hexOrientation {
-  true: pointy
-  false: flat
-}

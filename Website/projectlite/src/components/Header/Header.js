@@ -10,11 +10,13 @@ const Head = styled.div`
     margin-top: 20px;
     margin-bottom: 20px;
     font-weight: normal;
+    display:block;
   }
 
   .masthead-nav > li {
     margin-top: 3px;
     display: inline-block;
+
   }
   .masthead-nav > li + li {
     margin-left: 20px;
@@ -27,54 +29,52 @@ const Head = styled.div`
     border-bottom: 2px solid transparent;
   }
 
-  /* .masthead-nav > li > a:hover,
-.masthead-nav > li > a:focus {
-  background-color: transparent;
-  border-bottom-color: #a9a9a9;
-  border-bottom-color: rgba(255, 255, 255, 0.25);
-} */
-  /* .masthead-nav > .active > a,
-.masthead-nav > .active > a:hover,
-.masthead-nav > .active > a:focus {
-  color: #fff;
-  border-bottom-color: #fff;
-} */
+  .row {
+    width: 100%
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
 
   .active {
     color: #000 !important;
     border-bottom-color: #000 !important;
   }
 
-  @media (min-width: 768px) {
     .masthead-brand {
       float: left;
       vertical-align: middle;
       color: #000;
+      display:block;
     }
     .masthead-nav {
       float: right;
       vertical-align: middle;
+      display:block;
     }
-  }
-
   .container .cover {
     text-align: center;
     color: #000;
+    display:block;
   }
 
   /* end header */
 
-  @media (min-width: 768px) {
     /* Pull out the header and footer */
     .masthead {
       position: fixed;
       top: 0;
       width: 100%;
       background-color: #F7F7F7;
-      z-index: 999;
-    }
-
+      overflow:hidden;
+      display:block;
     /* removed .site-wrapper-inner */
+  }
+  .item-list {
+    float:right;
+  }
+  .logo {
+    float: left;
   }
 `;
 
@@ -97,14 +97,16 @@ class Header extends Component {
   render() {
     return (
       <Head>
-        <div className="masthead clearfix">
-          <div className="container">
-          <svg id="logo" version="1.1" xmlns="http://www.w3.org/2000/svg" width="60" height="52" viewbox="0 0 60 51.96152422706631" stroke="#000" fill="#F7F7F7" style={{float: 'left', marginTop: '10px', marginRight: '5px'}}>
+        <nav className="navbar navbar-light bg-light">
+        <div className="row">
+        <div className="col-md-5">
+          <svg id="logo" version="1.1" xmlns="http://www.w3.org/2000/svg" width="60" height="52" viewBox="0 0 60 51.96152422706631" stroke="#000" fill="#F7F7F7" style={{float: 'left', marginTop: '10px', marginRight: '5px'}}>
             <path d="M0 25.980762113533157L15 0L45 0L60 25.980762113533157L45 51.96152422706631L15 51.96152422706631Z">
             </path>
           </svg>
-            <h3 className="masthead-brand">Project Lite</h3>
-            <nav>
+          <h3 className="masthead-brand">Project Lite</h3>
+          </div>
+          <div className="col-md-7">
               <ul className="nav masthead-nav">
                 <li>
                   <NavLink exact to="/" activeClassName="active">
@@ -162,9 +164,9 @@ class Header extends Component {
                   </NavLink>
                 </li>
               </ul>
-            </nav>
-          </div>
-        </div>
+            </div>
+            </div>
+        </nav>
       </Head>
     );
   }
