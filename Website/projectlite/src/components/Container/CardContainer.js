@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import { Card, CardHeader, CardBody, CardText } from "reactstrap";
-import { DefaultContainer } from "./index";
+import { Card, CardHeader, CardBody } from "reactstrap";
 import { NavLink } from "react-router-dom";
 
 const Title = styled.h3`
