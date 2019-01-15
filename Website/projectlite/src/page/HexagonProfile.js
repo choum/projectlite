@@ -38,7 +38,8 @@ class HexagonProfile extends Component {
       toggleAdvance: false,
       clusterData: {},
       isClusterLoaded: false,
-      hexOrientation: false
+      hexOrientation: false,
+      selected: "firfe"
     };
 
     this.firebase = this.props.firebase;
@@ -148,7 +149,11 @@ class HexagonProfile extends Component {
           {this.renderCluster()}
           <div className="col-md-2">
             <Navigation>
-              <SideNav />
+              <SideNav>
+                <SlimContainer>
+                  <MenuType>{this.state.selected}</MenuType>
+                </SlimContainer>
+              </SideNav>
             </Navigation>
           </div>
         </div>
