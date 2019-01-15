@@ -55,7 +55,8 @@ class Dashboard extends Component {
         lights.push(
           <div className="col-md-6" key={currentClusterIndex}>
             <CardContainer
-              type="cluster"
+              nav
+              type="bodyheader"
               title={clusterList[name].Name}
               UID={name}
               hexOrientation={this.state.listOfClusters[name].Orientation}
@@ -70,7 +71,8 @@ class Dashboard extends Component {
       lights.push(
         <div className="col-md-12" key={currentClusterIndex}>
           <CardContainer
-            type="cluster"
+            nav
+            type="bodyheader"
             title={clusterList[name].Name}
             UID={name}
             hexOrientation={this.state.listOfClusters[name].Orientation}
@@ -86,7 +88,8 @@ class Dashboard extends Component {
         lights.push(
           <div className="col-md-6" key={currentClusterIndex}>
             <CardContainer
-              type="cluster"
+              nav
+              type="bodyheader"
               title={clusterList[name].Name}
               UID={name}
               hexOrientation={this.state.listOfClusters[name].Orientation}

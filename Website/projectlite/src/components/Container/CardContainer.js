@@ -18,43 +18,18 @@ const CardWrapper = styled.div`
     margin-right: 0px;
     margin-left: 0px;
   }
-  svg g {
-    fill: #fff;
-    stroke: #666;
-    stroke-width: 1px;
-  }
-  svg {
-    transform: ${props =>
-      props.hexOrientation ? "rotate(30deg) scale(0.80)" : "scale(0.80)"};
-  }
-  hr {
-    width: 90%;
-    border-top: 1px solid rgba(0, 0, 0, 0.15);
-  }
-  h3 {
-    text-align: center;
-  }
-  a {
-    color: black;
-  }
-  a:hover {
-    text-decoration: none;
-  }
-`;
-
-const ClusterBorder = styled.div`
-  svg g {
-    fill: #fff;
-    stroke: #666;
-    stroke-width: 1px;
-  }
-  svg {
-    transform: ${props =>
-      props.hexOrientation ? "rotate(30deg) scale(0.80)" : "scale(0.80)"};
-  }
   .card-body:hover svg g * {
     stroke: #4caf50;
     stroke-width: 1px;
+  }
+  svg g {
+    fill: #fff;
+    stroke: #666;
+    stroke-width: 1px;
+  }
+  svg {
+    transform: ${props =>
+      props.hexOrientation ? "rotate(30deg) scale(0.80)" : "scale(0.80)"};
   }
   hr {
     width: 90%;
@@ -74,7 +49,6 @@ const ClusterBorder = styled.div`
 class CardContainer extends Component {
   renderCardWithHeader() {
     const { title } = this.props;
-
     return (
       <CardWrapper>
         <Card>
@@ -88,15 +62,32 @@ class CardContainer extends Component {
   }
 
   renderCardBodyHeader() {
-    const { title, hexOrientation } = this.props;
+    const { title, UID, hexOrientation, nav } = this.props;
     return (
       <CardWrapper hexOrientation={hexOrientation}>
-        <Card>
-          <CardBody>
-            <h3 className="card-title">{title}</h3>
-            {this.props.children}
-          </CardBody>
-        </Card>
+        {nav && (
+          <NavLink to={"/hexagon-profile/" + UID}>
+            <CardWrapper>
+              <Card>
+                <CardBody>
+                  <h3 className="card-title">{title}</h3>
+                  <hr />
+                  {this.props.children}
+                </CardBody>
+              </Card>
+            </CardWrapper>
+          </NavLink>
+        )}
+        {!nav && (
+          <CardWrapper>
+            <Card>
+              <CardBody>
+                <h3 className="card-title">{title}</h3>
+                {this.props.children}
+              </CardBody>
+            </Card>
+          </CardWrapper>
+        )}
       </CardWrapper>
     );
   }
@@ -119,33 +110,11 @@ class CardContainer extends Component {
     return <div className="row">{cards}</div>;
   }
 
-
-  renderClusterCard() {
-    const { title, UID, hexOrientation } = this.props;
-    return (
-      <ClusterBorder hexOrientation={hexOrientation}>
-        <NavLink to={"/hexagon-profile/" + UID}>
-          <CardWrapper>
-            <Card>
-              <CardBody>
-                <h3 className="card-title">{title}</h3>
-                <hr />
-                {this.props.children}
-              </CardBody>
-            </Card>
-          </CardWrapper>
-        </NavLink>
-      </ClusterBorder>
-    );
-  }
-
   render() {
     let type = this.props.type;
     let cardDisplay;
 
-    if (type === "cluster") {
-      cardDisplay = this.renderClusterCard();
-    } else if (type === "features") {
+    if (type === "features") {
       cardDisplay = this.renderFeatures();
     } else if (type === "about") {
       cardDisplay = this.renderAbout();
