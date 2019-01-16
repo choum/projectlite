@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Hexagon } from "react-hexgrid";
 
 import {
   MainContainer,
@@ -42,21 +41,6 @@ class Dashboard extends Component {
     });
   }
 
-  hexagonMap(clusterLayout) {
-    let hexCoordinates = Object.keys(clusterLayout);
-    return hexCoordinates.map(function(location, index) {
-      let coordinate = location.split(",").map(Number);
-      return (
-        <Hexagon
-          key={index}
-          q={coordinate[0]}
-          s={coordinate[1]}
-          r={coordinate[2]}
-        />
-      );
-    });
-  }
-
   // resize cluster size based on total cluster count to fit
   // within cluster section of dashboard
   renderLightsBox() {
@@ -77,7 +61,7 @@ class Dashboard extends Component {
               UID={uID}
               hexOrientation={clusterList[uID].Orientation}
             >
-              <HexLayout>{this.hexagonMap(clusterList[uID].Layout)}</HexLayout>
+              <HexLayout layout={clusterList[uID].Layout} />
             </CardContainer>
           </div>
         );
@@ -93,7 +77,7 @@ class Dashboard extends Component {
             UID={uID}
             hexOrientation={clusterList[uID].Orientation}
           >
-            <HexLayout>{this.hexagonMap(clusterList[uID].Layout)}</HexLayout>
+            <HexLayout layout={clusterList[uID].Layout} />
           </CardContainer>
         </div>
       );
@@ -110,7 +94,7 @@ class Dashboard extends Component {
               UID={uID}
               hexOrientation={clusterList[uID].Orientation}
             >
-              <HexLayout>{this.hexagonMap(clusterList[uID].Layout)}</HexLayout>
+              <HexLayout layout={clusterList[uID].Layout} />
             </CardContainer>
           </div>
         );
@@ -120,7 +104,7 @@ class Dashboard extends Component {
     return lights;
   }
 
-  onQuickControlChange(newValue, controlIndex) {
+  onChangeQuickControl(newValue, controlIndex) {
     this.setState(state => {
       const quickControlValues = state.quickControlValues.map(
         (value, index) => {
@@ -146,7 +130,7 @@ class Dashboard extends Component {
             key={index}
             title={this.state.listOfClusters[clusterUID].Name}
             value={this.state.quickControlValues[index]}
-            onChange={e => this.onQuickControlChange(e.target.value, index)}
+            onChange={e => this.onChangeQuickControl(e.target.value, index)}
           />
         );
       }.bind(this)

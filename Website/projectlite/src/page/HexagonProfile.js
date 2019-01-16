@@ -173,7 +173,7 @@ class HexagonProfile extends Component {
             title={this.state.clusterData.Name}
             hexOrientation={this.state.hexOrientation}
           >
-            <SelectableHexagon />
+            <HexLayout layout={this.state.clusterData.Layout} />
             <Toggle
               label="Simple"
               labelRight="Advanced"
