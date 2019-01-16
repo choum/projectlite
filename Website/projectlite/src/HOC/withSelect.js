@@ -1,20 +1,24 @@
-import * as React from "react";
+import React from "react";
 
-export default function withSelect(Component, data) {
+export default function withSelect(Component, clusterData) {
   return class WithSelect extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
-        select: false
+        isSelected: false
       };
     }
 
+    onClick() {
+      this.setState({ isSelected: !this.state.isSelected });
+    }
+
     render() {
-      console.log(this.state.value);
+      console.log(this.state.isSelected);
       return (
-        <input type="checkbox" value="clicked">
-          <Component {...this.props} />
-        </input>
+        <button onClick={e => this.onClick()}>
+          <Component {...this.props} clusterData={clusterData} />
+        </button>
       );
     }
   };

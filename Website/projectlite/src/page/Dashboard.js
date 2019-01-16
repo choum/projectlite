@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Hexagon } from "react-hexgrid";
 
 import {
   MainContainer,
@@ -41,60 +42,75 @@ class Dashboard extends Component {
     });
   }
 
+  hexagonMap(clusterLayout) {
+    let hexCoordinates = Object.keys(clusterLayout);
+    return hexCoordinates.map(function(location, index) {
+      let coordinate = location.split(",").map(Number);
+      return (
+        <Hexagon
+          key={index}
+          q={coordinate[0]}
+          s={coordinate[1]}
+          r={coordinate[2]}
+        />
+      );
+    });
+  }
+
   // resize cluster size based on total cluster count to fit
   // within cluster section of dashboard
   renderLightsBox() {
     let clusterList = this.state.listOfClusters;
-    let cluster = Object.keys(this.state.listOfClusters);
+    let clusterUIDList = Object.keys(this.state.listOfClusters);
     let lights = [];
-    var clusterCount = cluster.length;
+    var clusterCount = clusterUIDList.length;
     var currentClusterIndex = 0;
     if (clusterCount % 2 === 1) {
       for (let k = 0; k < clusterCount - 1; k++) {
-        let name = cluster[currentClusterIndex];
+        let uID = clusterUIDList[currentClusterIndex];
         lights.push(
           <div className="col-md-6" key={currentClusterIndex}>
             <CardContainer
               nav
               type="bodyheader"
-              title={clusterList[name].Name}
-              UID={name}
-              hexOrientation={this.state.listOfClusters[name].Orientation}
+              title={clusterList[uID].Name}
+              UID={uID}
+              hexOrientation={clusterList[uID].Orientation}
             >
-              <HexLayout clusterData={clusterList[name]} />
+              <HexLayout>{this.hexagonMap(clusterList[uID].Layout)}</HexLayout>
             </CardContainer>
           </div>
         );
         currentClusterIndex++;
       }
-      let name = cluster[currentClusterIndex];
+      let uID = clusterUIDList[currentClusterIndex];
       lights.push(
         <div className="col-md-12" key={currentClusterIndex}>
           <CardContainer
             nav
             type="bodyheader"
-            title={clusterList[name].Name}
-            UID={name}
-            hexOrientation={this.state.listOfClusters[name].Orientation}
+            title={clusterList[uID].Name}
+            UID={uID}
+            hexOrientation={clusterList[uID].Orientation}
           >
-            <HexLayout clusterData={clusterList[name]} />
+            <HexLayout>{this.hexagonMap(clusterList[uID].Layout)}</HexLayout>
           </CardContainer>
         </div>
       );
       currentClusterIndex++;
     } else {
       for (let k = 0; k < clusterCount; k++) {
-        let name = cluster[currentClusterIndex];
+        let uID = clusterUIDList[currentClusterIndex];
         lights.push(
           <div className="col-md-6" key={currentClusterIndex}>
             <CardContainer
               nav
               type="bodyheader"
-              title={clusterList[name].Name}
-              UID={name}
-              hexOrientation={this.state.listOfClusters[name].Orientation}
+              title={clusterList[uID].Name}
+              UID={uID}
+              hexOrientation={clusterList[uID].Orientation}
             >
-              <HexLayout clusterData={clusterList[name]} />
+              <HexLayout>{this.hexagonMap(clusterList[uID].Layout)}</HexLayout>
             </CardContainer>
           </div>
         );

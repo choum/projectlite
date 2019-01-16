@@ -163,7 +163,7 @@ class HexagonProfile extends Component {
   }
 
   renderCluster() {
-    const SelectableHexagon = withSelect(HexLayout);
+    const SelectableHexagon = withSelect(HexLayout, this.state.clusterData);
 
     return (
       <div className="col-md-8">
@@ -173,7 +173,7 @@ class HexagonProfile extends Component {
             title={this.state.clusterData.Name}
             hexOrientation={this.state.hexOrientation}
           >
-            <HexLayout clusterData={this.state.clusterData} />
+            <SelectableHexagon />
             <Toggle
               label="Simple"
               labelRight="Advanced"
