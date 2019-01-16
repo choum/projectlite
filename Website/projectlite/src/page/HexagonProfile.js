@@ -11,6 +11,7 @@ import {
 } from "../components/Container";
 import { HexLayout } from "../components/Layout";
 
+import { withSelect } from "../HOC";
 import { withFirebase } from "../components/Firebase";
 
 const Navigation = styled.div`
@@ -162,6 +163,8 @@ class HexagonProfile extends Component {
   }
 
   renderCluster() {
+    const SelectableHexagon = withSelect(HexLayout);
+
     return (
       <div className="col-md-8">
         <SlimContainer>
