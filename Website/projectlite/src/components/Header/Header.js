@@ -1,9 +1,10 @@
+
 import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
 
 import styled from "styled-components";
 import { withFirebase } from "../../components/Firebase";
-
+import { bubble as Menu } from 'react-burger-menu';
 const Head = styled.div`
   .masthead-nav,
   .masthead-brand {
@@ -76,6 +77,98 @@ const Head = styled.div`
   .logo {
     float: left;
   }
+  ul {
+    margin-top: 0px;
+  }
+
+  .bm-burger-button {
+  position: absolute;
+  width: 36px;
+  height: 30px;
+  left: 18px;
+  top: 22px;
+}
+
+/* Color/shape of burger icon bars */
+.bm-burger-bars {
+  background: #373a47;
+
+}
+.bm-burger-bars-hover {
+  background: #a90000;
+}
+
+/* Position and sizing of clickable cross button */
+.bm-cross-button {
+  height: 24px;
+  width: 24px;
+}
+
+/* Color/shape of close button cross */
+.bm-cross {
+  background: #bdc3c7;
+}
+
+/*
+Sidebar wrapper styles
+Note: Beware of modifying this element as it can break the animations - you should not need to touch it in most cases
+*/
+.bm-menu-wrap {
+  position: fixed;
+  height: 100%;
+}
+
+/* General sidebar styles */
+.bm-menu {
+  background: #282828;
+  padding: 2.5em 1.5em 0;
+  font-size: 1.15em;
+}
+
+/* Morph shape necessary with bubble or elastic */
+.bm-morph-shape {
+  fill: #282828;
+}
+
+/* Wrapper for item list */
+.bm-item-list {
+  padding: 0.8em;
+}
+
+/* Individual item */
+.bm-item {
+  display: inline-block;
+}
+
+/* Styling of overlay */
+.bm-overlay {
+  background: rgba(0, 0, 0, 0.3);
+}
+.menu-item {
+  color: #fff !important;
+  font-size: 16pt;
+  padding: 0.3em;
+}
+.navbar {
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+@media (min-width: 894px) {
+  .outer-container {
+    display: none;
+  }
+}
+@media (max-width: 894px) {
+  .navbar {
+    display: none;
+  }
+  .bm-burger-bars {
+    background: #b3b3cc;
+  }
+}
+.outer-container {
+  height: 73px;
+}
 `;
 
 // @TODO if not logged in, Home | Products | Login | About | Register
@@ -91,30 +184,64 @@ class Header extends Component {
     this.firebase.AuthStateChange.RegisterHandler(e => {
       this.setState({
         signedIn: this.firebase.getCurrentUser() !== undefined
+
       });
     });
   }
   render() {
     return (
       <Head>
+      <div className="outer-container">
+      <Menu left isOpen={ false }>
+        <NavLink exact to="/" className="menu-item">
+          Home
+        </NavLink>
+        <NavLink to="/products" className="menu-item">
+          Products
+        </NavLink>
+          <NavLink to="/about" className="menu-item">
+            About
+          </NavLink>
+        {!this.state.signedIn && (
+            <NavLink to="/login" className="menu-item">
+              Login
+            </NavLink>
+        )}
+        {!this.state.signedIn && (
+            <NavLink to="/registration" className="menu-item">
+              Register
+            </NavLink>
+        )}
+        {this.state.signedIn && (
+            <NavLink to="/settings" className="menu-item">
+              Settings
+            </NavLink>
+        )}
+        {this.state.signedIn && (
+            <NavLink to="/signout" className="menu-item">
+              Signout
+            </NavLink>
+        )}
+        </Menu>
+        </div>
         <nav className="navbar navbar-light bg-light">
         <div className="row">
-        <div className="col-md-5">
+        <div className="col-md-4">
           <svg id="logo" version="1.1" xmlns="http://www.w3.org/2000/svg" width="60" height="52" viewBox="0 0 60 51.96152422706631" stroke="#000" fill="#F7F7F7" style={{float: 'left', marginTop: '10px', marginRight: '5px'}}>
             <path d="M0 25.980762113533157L15 0L45 0L60 25.980762113533157L45 51.96152422706631L15 51.96152422706631Z">
             </path>
           </svg>
           <h3 className="masthead-brand">Project Lite</h3>
           </div>
-          <div className="col-md-7">
+          <div className="col-md-8">
               <ul className="nav masthead-nav">
                 <li>
-                  <NavLink exact to="/" activeClassName="active">
+                  <NavLink exact to="/">
                     Home
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/products" activeClassName="active">
+                  <NavLink to="/products">
                     Products
                   </NavLink>
                 </li>
@@ -166,6 +293,7 @@ class Header extends Component {
               </ul>
             </div>
             </div>
+
         </nav>
       </Head>
     );

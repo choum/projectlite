@@ -10,6 +10,7 @@
     "firebase": "^5.7.1",
     "prop-types": "^15.6.2",
     "react": "^16.7.0",
+    "react-burger-menu": "^2.6.1",
     "react-dom": "^16.7.0",
     "react-hexgrid": "^1.0.3",
     "react-router-dom": "^4.3.1",
