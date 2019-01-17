@@ -5,8 +5,6 @@ const Features = styled.div `
   background-color: #504b43;
   width: 100%;
   padding: 10px;
-
-  margin-bottom: 60px;
   bottom: 0;
 `
 
