@@ -1,18 +1,31 @@
 import React from "react";
 import { HexGrid, Layout, Hexagon } from "react-hexgrid";
 
-const getHexagonMap = clusterLayout => {
+const getHexagonMap = (clusterLayout, selectable, onClick) => {
   let hexCoordinates = Object.keys(clusterLayout);
   return hexCoordinates.map(function(location, index) {
     let coordinate = location.split(",").map(Number);
-    return (
-      <Hexagon
-        key={index}
-        q={coordinate[0]}
-        s={coordinate[1]}
-        r={coordinate[2]}
-      />
-    );
+    if (selectable) {
+      return (
+        <a onClick={onClick}>
+          <Hexagon
+            key={index}
+            q={coordinate[0]}
+            s={coordinate[1]}
+            r={coordinate[2]}
+          />
+        </a>
+      );
+    } else {
+      return (
+        <Hexagon
+          key={index}
+          q={coordinate[0]}
+          s={coordinate[1]}
+          r={coordinate[2]}
+        />
+      );
+    }
   });
 };
 
@@ -23,7 +36,7 @@ const getHexagonMap = clusterLayout => {
   workaround: pass and format props in cube form so
   pass in order of q={} s={} r={}
   */
-const HexLayout = ({ layout, selectable }) => (
+const HexLayout = ({ layout, selectable, onClick }) => (
   <HexGrid width={"100%"} height={"100%"}>
     <Layout
       size={{ x: 10, y: 10 }}
@@ -31,7 +44,7 @@ const HexLayout = ({ layout, selectable }) => (
       spacing={1.1}
       origin={{ x: 0, y: 0 }}
     >
-      {getHexagonMap(layout)}
+      {getHexagonMap(layout, selectable, onClick)}
     </Layout>
   </HexGrid>
 );

@@ -77,6 +77,10 @@ class HexagonProfile extends Component {
     });
   }
 
+  onPress() {
+    console.log("button pressed");
+  }
+
   renderSideNav() {
     return (
       <MainContainer>
@@ -163,8 +167,6 @@ class HexagonProfile extends Component {
   }
 
   renderCluster() {
-    const SelectableHexagon = withSelect(HexLayout, this.state.clusterData);
-
     return (
       <div className="col-md-8">
         <SlimContainer>
@@ -173,7 +175,11 @@ class HexagonProfile extends Component {
             title={this.state.clusterData.Name}
             hexOrientation={this.state.hexOrientation}
           >
-            <HexLayout layout={this.state.clusterData.Layout} />
+            <HexLayout
+              layout={this.state.clusterData.Layout}
+              selectable
+              onClick={e => this.onPress()}
+            />
             <Toggle
               label="Simple"
               labelRight="Advanced"
