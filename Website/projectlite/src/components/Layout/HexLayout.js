@@ -7,13 +7,8 @@ const getHexagonMap = (clusterLayout, selectable, onClick) => {
     let coordinate = location.split(",").map(Number);
     if (selectable) {
       return (
-        <a onClick={onClick}>
-          <Hexagon
-            key={index}
-            q={coordinate[0]}
-            s={coordinate[1]}
-            r={coordinate[2]}
-          />
+        <a onClick={() => onClick(location)} key={index}>
+          <Hexagon q={coordinate[0]} s={coordinate[1]} r={coordinate[2]} />
         </a>
       );
     } else {
@@ -35,18 +30,37 @@ const getHexagonMap = (clusterLayout, selectable, onClick) => {
 
   workaround: pass and format props in cube form so
   pass in order of q={} s={} r={}
-  */
-const HexLayout = ({ layout, selectable, onClick }) => (
-  <HexGrid width={"100%"} height={"100%"}>
-    <Layout
-      size={{ x: 10, y: 10 }}
-      flat={true}
-      spacing={1.1}
-      origin={{ x: 0, y: 0 }}
-    >
-      {getHexagonMap(layout, selectable, onClick)}
-    </Layout>
-  </HexGrid>
-);
+*/
+const HexLayout = ({ layout, selectable, onClick, onClear }) => {
+  if (onClear) {
+    return (
+      <a>
+        <HexGrid width={"100%"} height={"100%"}>
+          <Layout
+            size={{ x: 10, y: 10 }}
+            flat={true}
+            spacing={1.1}
+            origin={{ x: 0, y: 0 }}
+          >
+            {getHexagonMap(layout, selectable, onClick)}
+          </Layout>
+        </HexGrid>
+      </a>
+    );
+  } else {
+    return (
+      <HexGrid width={"100%"} height={"100%"}>
+        <Layout
+          size={{ x: 10, y: 10 }}
+          flat={true}
+          spacing={1.1}
+          origin={{ x: 0, y: 0 }}
+        >
+          {getHexagonMap(layout, selectable, onClick)}
+        </Layout>
+      </HexGrid>
+    );
+  }
+};
 
 export default HexLayout;
