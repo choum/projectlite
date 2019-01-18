@@ -167,7 +167,7 @@ class HexagonProfile extends Component {
               <SideNav>
                 <SlimContainer>
                   <Wrap>{JSON.stringify(this.state.isSelected)}</Wrap>
-                  <button>Clear</button>
+                  <button onClick={e => this.onClickClear()}>Clear</button>
                 </SlimContainer>
               </SideNav>
             </Navigation>
@@ -183,6 +183,15 @@ class HexagonProfile extends Component {
     isSelected[hexID]
       ? (isSelected[hexID] = false)
       : (isSelected[hexID] = true);
+    this.setState({ isSelected: isSelected });
+  }
+
+  onClickClear() {
+    let clusterKeys = Object.keys(this.state.isSelected);
+    let isSelected = {};
+    for (let i = 0; i < clusterKeys.length; i++) {
+      isSelected[clusterKeys[i]] = false;
+    }
     this.setState({ isSelected: isSelected });
   }
 
