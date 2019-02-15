@@ -8,7 +8,6 @@ import Firebase, { FirebaseContext } from "./components/Firebase";
 
 import Landing from "./page/Landing";
 import About from "./page/About";
-import Registration from "./page/Registration";
 import Dashboard from "./page/Dashboard";
 import Login from "./page/Login";
 import Signout from "./page/Signout";
@@ -29,7 +28,6 @@ ReactDOM.render(
         <Switch>
           <Route exact path={ROUTES.LANDING} component={Landing} />
           <Route path={ROUTES.ABOUT} component={About} />
-          <Route path={ROUTES.REGISTRATION} component={Registration} />
           <Route path={ROUTES.DASHBOARD} component={Dashboard} />
           <Route path={ROUTES.LOGIN} component={Login} />
           <Route path={ROUTES.SIGNOUT} component={Signout} />
