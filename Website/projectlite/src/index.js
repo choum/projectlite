@@ -17,6 +17,7 @@ import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import { WrapContainer } from "./components/Container";
 import Emulator from "./page/Emulator";
+import Settings from "./page/Settings";
 
 import * as ROUTES from "./constants/routes";
 
@@ -34,6 +35,7 @@ ReactDOM.render(
           <Route path={ROUTES.SIGNOUT} component={Signout} />
           <Route path={ROUTES.EMULATOR} component={Emulator} />
           <Route path={ROUTES.HEXAGONPROFILE} component={HexagonProfile} />
+          <Route path={ROUTES.SETTINGS} component={Settings}/>
         </Switch>
         <Footer />
       </WrapContainer>

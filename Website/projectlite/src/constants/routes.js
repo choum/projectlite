@@ -6,5 +6,5 @@ export const DASHBOARD = "/dashboard";
 export const LOGIN = "/login";
 export const SIGNOUT = "/sign-out";
 export const HEXAGONPROFILE = "/hexagon-profile/:id";
-
+export const SETTINGS = "/settings";
 export const EMULATOR = "/emu";
