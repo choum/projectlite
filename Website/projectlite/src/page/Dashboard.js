@@ -45,56 +45,56 @@ class Dashboard extends Component {
   // within cluster section of dashboard
   renderLightsBox() {
     let clusterList = this.state.listOfClusters;
-    let cluster = Object.keys(this.state.listOfClusters);
+    let clusterUIDList = Object.keys(this.state.listOfClusters);
     let lights = [];
-    var clusterCount = cluster.length;
+    var clusterCount = clusterUIDList.length;
     var currentClusterIndex = 0;
     if (clusterCount % 2 === 1) {
       for (let k = 0; k < clusterCount - 1; k++) {
-        let name = cluster[currentClusterIndex];
+        let uID = clusterUIDList[currentClusterIndex];
         lights.push(
           <div className="col-md-6" key={currentClusterIndex}>
             <CardContainer
               nav
               type="bodyheader"
-              title={clusterList[name].Name}
-              UID={name}
-              hexOrientation={this.state.listOfClusters[name].Orientation}
+              title={clusterList[uID].Name}
+              UID={uID}
+              hexOrientation={clusterList[uID].Orientation}
             >
-              <HexLayout clusterData={clusterList[name]} />
+              <HexLayout layout={clusterList[uID].Layout} />
             </CardContainer>
           </div>
         );
         currentClusterIndex++;
       }
-      let name = cluster[currentClusterIndex];
+      let uID = clusterUIDList[currentClusterIndex];
       lights.push(
         <div className="col-md-12" key={currentClusterIndex}>
           <CardContainer
             nav
             type="bodyheader"
-            title={clusterList[name].Name}
-            UID={name}
-            hexOrientation={this.state.listOfClusters[name].Orientation}
+            title={clusterList[uID].Name}
+            UID={uID}
+            hexOrientation={clusterList[uID].Orientation}
           >
-            <HexLayout clusterData={clusterList[name]} />
+            <HexLayout layout={clusterList[uID].Layout} />
           </CardContainer>
         </div>
       );
       currentClusterIndex++;
     } else {
       for (let k = 0; k < clusterCount; k++) {
-        let name = cluster[currentClusterIndex];
+        let uID = clusterUIDList[currentClusterIndex];
         lights.push(
           <div className="col-md-6" key={currentClusterIndex}>
             <CardContainer
               nav
               type="bodyheader"
-              title={clusterList[name].Name}
-              UID={name}
-              hexOrientation={this.state.listOfClusters[name].Orientation}
+              title={clusterList[uID].Name}
+              UID={uID}
+              hexOrientation={clusterList[uID].Orientation}
             >
-              <HexLayout clusterData={clusterList[name]} />
+              <HexLayout layout={clusterList[uID].Layout} />
             </CardContainer>
           </div>
         );
@@ -104,7 +104,7 @@ class Dashboard extends Component {
     return lights;
   }
 
-  onQuickControlChange(newValue, controlIndex) {
+  onChangeQuickControl(newValue, controlIndex) {
     this.setState(state => {
       const quickControlValues = state.quickControlValues.map(
         (value, index) => {
@@ -130,7 +130,7 @@ class Dashboard extends Component {
             key={index}
             title={this.state.listOfClusters[clusterUID].Name}
             value={this.state.quickControlValues[index]}
-            onChange={e => this.onQuickControlChange(e.target.value, index)}
+            onChange={e => this.onChangeQuickControl(e.target.value, index)}
           />
         );
       }.bind(this)

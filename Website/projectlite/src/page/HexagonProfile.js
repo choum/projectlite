@@ -30,6 +30,9 @@ const ItemType = styled.h5`
 const Divider = styled.hr`
   border-color: white;
 `;
+const Wrap = styled.p`
+  word-wrap: break-word;
+`;
 
 class HexagonProfile extends Component {
   constructor(props) {
@@ -38,7 +41,9 @@ class HexagonProfile extends Component {
       toggleAdvance: false,
       clusterData: {},
       isClusterLoaded: false,
-      hexOrientation: false
+      hexOrientation: false,
+      isSelected: {},
+      selected: "firfe"
     };
 
     this.firebase = this.props.firebase;
@@ -67,12 +72,23 @@ class HexagonProfile extends Component {
 
   getData() {
     return this.firebase.getCluster(this.props.match.params.id, val => {
+      let isSelected = {};
+      let clusterKeys = Object.keys(val.Layout);
+      for (let i = 0; i < clusterKeys.length; i++) {
+        isSelected[clusterKeys[i]] = false;
+      }
+
       this.setState({
         clusterData: val,
         hexOrientation: val.Orientation,
-        isClusterLoaded: true
+        isClusterLoaded: true,
+        isSelected: isSelected
       });
     });
+  }
+
+  onPress() {
+    console.log("button pressed");
   }
 
   renderSideNav() {
@@ -148,12 +164,35 @@ class HexagonProfile extends Component {
           {this.renderCluster()}
           <div className="col-md-2">
             <Navigation>
-              <SideNav />
+              <SideNav>
+                <SlimContainer>
+                  <Wrap>{JSON.stringify(this.state.isSelected)}</Wrap>
+                  <button onClick={e => this.onClickClear()}>Clear</button>
+                </SlimContainer>
+              </SideNav>
             </Navigation>
           </div>
         </div>
       </MainContainer>
     );
+  }
+
+  onClickSelect(hexID) {
+    console.log(hexID);
+    let isSelected = this.state.isSelected;
+    isSelected[hexID]
+      ? (isSelected[hexID] = false)
+      : (isSelected[hexID] = true);
+    this.setState({ isSelected: isSelected });
+  }
+
+  onClickClear() {
+    let clusterKeys = Object.keys(this.state.isSelected);
+    let isSelected = {};
+    for (let i = 0; i < clusterKeys.length; i++) {
+      isSelected[clusterKeys[i]] = false;
+    }
+    this.setState({ isSelected: isSelected });
   }
 
   renderCluster() {
@@ -165,7 +204,11 @@ class HexagonProfile extends Component {
             title={this.state.clusterData.Name}
             hexOrientation={this.state.hexOrientation}
           >
-            <HexLayout clusterData={this.state.clusterData} />
+            <HexLayout
+              layout={this.state.clusterData.Layout}
+              selectable
+              onClick={hexID => this.onClickSelect(hexID)}
+            />
             <Toggle
               label="Simple"
               labelRight="Advanced"
@@ -194,7 +237,6 @@ class HexagonProfile extends Component {
   }
 
   render() {
-    console.log(this.state.toggleAdvance);
     return this.state.isClusterLoaded
       ? this.renderSideNav()
       : this.renderLoading();

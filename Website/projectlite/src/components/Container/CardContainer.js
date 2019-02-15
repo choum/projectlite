@@ -25,6 +25,8 @@ const CardWrapper = styled.div`
   svg {
     transform: ${props =>
       props.hexOrientation ? "rotate(30deg) scale(0.80)" : "scale(0.80)"};
+    transition: 1s;
+    -webkit-transition: 1s;
   }
   hr {
     width: 90%;
