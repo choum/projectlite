@@ -184,6 +184,7 @@ class HexagonProfile extends Component {
       ? (isSelected[hexID] = false)
       : (isSelected[hexID] = true);
     this.setState({ isSelected: isSelected });
+
   }
 
   onClickClear() {
