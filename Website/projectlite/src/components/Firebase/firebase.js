@@ -31,12 +31,7 @@ export default class Firebase {
   };
 
   doSignInWithEmailAndPassword = (email, password) => {
-    this.auth
-      .setPersistence(firebase.auth.Auth.Persistence.SESSION)
-      .then(() => {
-        return this.auth.signInWithEmailAndPassword(email, password);
-      })
-      .catch(console.log);
+    return this.auth.signInWithEmailAndPassword(email, password);
   };
 
   // ********* Database API *********

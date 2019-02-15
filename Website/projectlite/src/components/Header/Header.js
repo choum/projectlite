@@ -223,11 +223,6 @@ class Header extends Component {
                 Sign Up
               </NavLink>
             )}
-            {!this.state.signedIn && (
-              <NavLink to="/registration" className="menu-item">
-                Register
-              </NavLink>
-            )}
             {this.state.signedIn && (
               <NavLink to="/settings" className="menu-item">
                 Settings
@@ -275,13 +270,6 @@ class Header extends Component {
                     </NavLink>
                   </li>
                 )}
-                {!this.state.signedIn && (
-                  <li>
-                    <NavLink to="/sign-up" activeClassName="active">
-                      Sign Up
-                    </NavLink>
-                  </li>
-                )}
                 <li>
                   <NavLink to="/about" activeClassName="active">
                     About
@@ -289,8 +277,8 @@ class Header extends Component {
                 </li>
                 {!this.state.signedIn && (
                   <li>
-                    <NavLink to="/registration" activeClassName="active">
-                      Register
+                    <NavLink to="/sign-up" activeClassName="active">
+                      Sign Up
                     </NavLink>
                   </li>
                 )}
