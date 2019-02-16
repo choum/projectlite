@@ -24,12 +24,9 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = { ...INITIAL_STATE };
-    this.validate = this.validate.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.firebase = this.props.firebase;
   }
-
-  validate = () => {};
 
   onChange = event => {
     this.setState({ [event.target.name]: event.target.value });
@@ -51,6 +48,8 @@ class Login extends Component {
   render() {
     const { email, pass, error, toDashboard } = this.state;
 
+    const isInvalid = pass === "" || email === "";
+
     if (toDashboard === true) {
       return <Redirect to="/dashboard" />;
     }
@@ -59,6 +58,7 @@ class Login extends Component {
       <MainContainer>
         <FormContainer>
           <CardContainer type="bodyheader" title="Login">
+            {error && <Error>Your username or password was incorrect</Error>}
             <SingleLineTextBox
               label="Email"
               id="email"
@@ -80,11 +80,11 @@ class Login extends Component {
               onChange={this.onChange}
             />
             <DefaultButton
-              className="btn"
+              disabled={isInvalid}
+              className={isInvalid ? "btn" : "btn"}
               text="Submit"
               onClick={this.onSubmit}
             />
-            {error && <Error>{error}</Error>}
           </CardContainer>
         </FormContainer>
       </MainContainer>

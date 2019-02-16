@@ -42,6 +42,10 @@ const Head = styled.div`
     border-bottom-color: #000 !important;
   }
 
+  .active:hover {
+    text-decoration: none;
+  }
+
   .masthead-brand {
     float: left;
     vertical-align: middle;
