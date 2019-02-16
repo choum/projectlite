@@ -48,8 +48,6 @@ class Login extends Component {
   render() {
     const { email, pass, error, toDashboard } = this.state;
 
-    const isInvalid = pass === "" || email === "";
-
     if (toDashboard === true) {
       return <Redirect to="/dashboard" />;
     }
@@ -79,12 +77,7 @@ class Login extends Component {
               required={true}
               onChange={this.onChange}
             />
-            <DefaultButton
-              disabled={isInvalid}
-              className={isInvalid ? "btn" : "btn"}
-              text="Submit"
-              onClick={this.onSubmit}
-            />
+            <DefaultButton text="Submit" onClick={this.onSubmit} />
           </CardContainer>
         </FormContainer>
       </MainContainer>

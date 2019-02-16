@@ -1,3 +1,5 @@
 import Header from "./Header";
+import HeaderDesktop from "./HeaderDesktop";
+import HeaderMobile from "./HeaderMobile";
 
-export { Header };
+export { Header, HeaderDesktop, HeaderMobile };
