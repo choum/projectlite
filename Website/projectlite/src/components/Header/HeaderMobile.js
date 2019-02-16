@@ -1,8 +1,9 @@
-import React, { Component } from "react";
+import React from "react";
 import { NavLink } from "react-router-dom";
-
 import styled from "styled-components";
 import { bubble as Menu } from "react-burger-menu";
+
+import { AuthUserContext } from "../Session";
 
 const Head = styled.div`
   .bm-burger-button {
@@ -84,55 +85,58 @@ const Head = styled.div`
   }
 `;
 
-// @TODO if not logged in, Home | Products | Login | About | Register
-// @TODO if logged in, Home | Products | About | Dashboard | Settings | Signout
-class HeaderMobile extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      signedIn: false
-    };
-  }
+const HeaderMobile = () => (
+  <AuthUserContext.Consumer>
+    {authUser => (authUser ? <HeaderMobileAuth /> : <HeaderMobileNonAuth />)}
+  </AuthUserContext.Consumer>
+);
 
-  render() {
-    return (
-      <Head>
-        <div className="outer-container">
-          <Menu left isOpen={false}>
-            <NavLink exact to="/" className="menu-item">
-              Home
-            </NavLink>
-            <NavLink to="/products" className="menu-item">
-              Products
-            </NavLink>
-            <NavLink to="/about" className="menu-item">
-              About
-            </NavLink>
-            {!this.state.signedIn && (
-              <NavLink to="/login" className="menu-item">
-                Login
-              </NavLink>
-            )}
-            {!this.state.signedIn && (
-              <NavLink to="/sign-up" className="menu-item">
-                Sign Up
-              </NavLink>
-            )}
-            {this.state.signedIn && (
-              <NavLink to="/settings" className="menu-item">
-                Settings
-              </NavLink>
-            )}
-            {this.state.signedIn && (
-              <NavLink to="/signout" className="menu-item">
-                Signout
-              </NavLink>
-            )}
-          </Menu>
-        </div>
-      </Head>
-    );
-  }
-}
+const HeaderMobileAuth = () => (
+  <Head>
+    <div className="outer-container">
+      <Menu left isOpen={false}>
+        <NavLink exact to="/" className="menu-item">
+          Home
+        </NavLink>
+        <NavLink to="/products" className="menu-item">
+          Products
+        </NavLink>
+        <NavLink to="/about" className="menu-item">
+          About
+        </NavLink>
+        <NavLink to="/settings" className="menu-item">
+          Settings
+        </NavLink>
+        <NavLink to="/sign-out" className="menu-item">
+          Signout
+        </NavLink>
+      </Menu>
+    </div>
+  </Head>
+);
+
+const HeaderMobileNonAuth = () => (
+  <Head>
+    <div className="outer-container">
+      <Menu left isOpen={false}>
+        <NavLink exact to="/" className="menu-item">
+          Home
+        </NavLink>
+        <NavLink to="/products" className="menu-item">
+          Products
+        </NavLink>
+        <NavLink to="/about" className="menu-item">
+          About
+        </NavLink>
+        <NavLink to="/login" className="menu-item">
+          Login
+        </NavLink>
+        <NavLink to="/sign-up" className="menu-item">
+          Sign Up
+        </NavLink>
+      </Menu>
+    </div>
+  </Head>
+);
 
 export default HeaderMobile;

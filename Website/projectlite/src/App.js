@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import HexagonProfile from "./page/HexagonProfile";
@@ -6,7 +6,7 @@ import Landing from "./page/Landing";
 import About from "./page/About";
 import Dashboard from "./page/Dashboard";
 import Login from "./page/Login";
-import Signout from "./page/Signout";
+import SignOut from "./page/SignOut";
 import Emulator from "./page/Emulator";
 import SignUp from "./page/SignUp";
 
@@ -15,37 +15,25 @@ import { Footer } from "./components/Footer";
 import { WrapContainer } from "./components/Container";
 
 import * as ROUTES from "./constants/routes";
+import { withAuthentication } from "./components/Session";
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      authUser: null
-    };
-  }
+const App = () => (
+  <Router>
+    <WrapContainer>
+      <Header />
+      <Switch>
+        <Route exact path={ROUTES.LANDING} component={Landing} />
+        <Route path={ROUTES.ABOUT} component={About} />
+        <Route path={ROUTES.DASHBOARD} component={Dashboard} />
+        <Route path={ROUTES.LOGIN} component={Login} />
+        <Route path={ROUTES.SIGNOUT} component={SignOut} />
+        <Route path={ROUTES.SIGNUP} component={SignUp} />
+        <Route path={ROUTES.EMULATOR} component={Emulator} />
+        <Route path={ROUTES.HEXAGONPROFILE} component={HexagonProfile} />
+      </Switch>
+      <Footer />
+    </WrapContainer>
+  </Router>
+);
 
-  render() {
-    return (
-      <Router>
-        <Router>
-          <WrapContainer>
-            <Header authUser={this.state.authUser} />
-            <Switch>
-              <Route exact path={ROUTES.LANDING} component={Landing} />
-              <Route path={ROUTES.ABOUT} component={About} />
-              <Route path={ROUTES.DASHBOARD} component={Dashboard} />
-              <Route path={ROUTES.LOGIN} component={Login} />
-              <Route path={ROUTES.SIGNOUT} component={Signout} />
-              <Route path={ROUTES.SIGNUP} component={SignUp} />
-              <Route path={ROUTES.EMULATOR} component={Emulator} />
-              <Route path={ROUTES.HEXAGONPROFILE} component={HexagonProfile} />
-            </Switch>
-            <Footer />
-          </WrapContainer>
-        </Router>
-      </Router>
-    );
-  }
-}
-
-export default App;
+export default withAuthentication(App);
