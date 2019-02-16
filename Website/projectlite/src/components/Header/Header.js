@@ -2,23 +2,22 @@ import React, { Component } from "react";
 
 import { HeaderMobile, HeaderDesktop } from "./index";
 
-import { withFirebase } from "../../components/Firebase";
-import { auth } from "firebase";
-
-// @TODO if not logged in, Home | Products | Login | About | Register
-// @TODO if logged in, Home | Products | About | Dashboard | Settings | Signout
-
 class Header extends Component {
   constructor(props) {
     super(props);
     this.state = {
       showHeaderDesktop: true
     };
+    this.resize = this.resize.bind(this);
   }
 
   componentDidMount() {
-    window.addEventListener("resize", this.resize.bind(this));
+    window.addEventListener("resize", this.resize);
     this.resize();
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.resize);
   }
 
   resize() {
@@ -27,8 +26,14 @@ class Header extends Component {
   }
 
   render() {
-    return this.state.showHeaderDesktop ? <HeaderDesktop /> : <HeaderMobile />;
+    let authUser = this.props.authUser;
+
+    return this.state.showHeaderDesktop ? (
+      <HeaderDesktop authUser={authUser} />
+    ) : (
+      <HeaderMobile authUser={authUser} />
+    );
   }
 }
 
-export default withFirebase(Header);
+export default Header;

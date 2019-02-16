@@ -1,7 +1,8 @@
-import React, { Component } from "react";
+import React from "react";
 import { NavLink } from "react-router-dom";
-
 import styled from "styled-components";
+
+import { AuthUserContext } from "../Session";
 
 const Head = styled.div`
   .masthead-nav,
@@ -96,97 +97,124 @@ const Head = styled.div`
 
 // @TODO if not logged in, Home | Products | Login | About | Register
 // @TODO if logged in, Home | Products | About | Dashboard | Settings | Signout
-class HeaderDesktop extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      signedIn: false
-    };
-  }
+const HeaderDesktop = () => (
+  <AuthUserContext.Consumer>
+    {authUser => (authUser ? <HeaderDesktopAuth /> : <HeaderDesktopNonAuth />)}
+  </AuthUserContext.Consumer>
+);
 
-  render() {
-    return (
-      <Head>
-        <nav className="navbar navbar-light bg-light">
-          <div className="row">
-            <div className="col-md-4">
-              <svg
-                id="logo"
-                version="1.1"
-                xmlns="http://www.w3.org/2000/svg"
-                width="60"
-                height="52"
-                viewBox="0 0 60 51.96152422706631"
-                stroke="#000"
-                fill="#F7F7F7"
-                style={{ float: "left", marginTop: "10px", marginRight: "5px" }}
-              >
-                <path d="M0 25.980762113533157L15 0L45 0L60 25.980762113533157L45 51.96152422706631L15 51.96152422706631Z" />
-              </svg>
-              <h3 className="masthead-brand">Project Lite</h3>
-            </div>
-            <div className="col-md-8">
-              <ul className="nav masthead-nav">
-                <li>
-                  <NavLink exact to="/">
-                    Home
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink to="/products">Products</NavLink>
-                </li>
-                {!this.state.signedIn && (
-                  <li>
-                    <NavLink to="/login" activeClassName="active">
-                      Login
-                    </NavLink>
-                  </li>
-                )}
-                <li>
-                  <NavLink to="/about" activeClassName="active">
-                    About
-                  </NavLink>
-                </li>
-                {!this.state.signedIn && (
-                  <li>
-                    <NavLink to="/sign-up" activeClassName="active">
-                      Sign Up
-                    </NavLink>
-                  </li>
-                )}
-                {this.state.signedIn && (
-                  <li>
-                    <NavLink to="/dashboard" activeClassName="active">
-                      Dashboard
-                    </NavLink>
-                  </li>
-                )}
-                {this.state.signedIn && (
-                  <li>
-                    <NavLink to="/settings" activeClassName="active">
-                      Settings
-                    </NavLink>
-                  </li>
-                )}
-                {this.state.signedIn && (
-                  <li>
-                    <NavLink to="/signout" activeClassName="active">
-                      Signout
-                    </NavLink>
-                  </li>
-                )}
-                <li>
-                  <NavLink to="/emu" activeClassName="active">
-                    Emulator
-                  </NavLink>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </nav>
-      </Head>
-    );
-  }
-}
+const HeaderDesktopAuth = () => (
+  <Head>
+    <nav className="navbar navbar-light bg-light">
+      <div className="row">
+        <div className="col-md-4">
+          <svg
+            id="logo"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+            width="60"
+            height="52"
+            viewBox="0 0 60 51.96152422706631"
+            stroke="#000"
+            fill="#F7F7F7"
+            style={{ float: "left", marginTop: "10px", marginRight: "5px" }}
+          >
+            <path d="M0 25.980762113533157L15 0L45 0L60 25.980762113533157L45 51.96152422706631L15 51.96152422706631Z" />
+          </svg>
+          <h3 className="masthead-brand">Project Lite</h3>
+        </div>
+        <div className="col-md-8">
+          <ul className="nav masthead-nav">
+            <li>
+              <NavLink exact to="/">
+                Home
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/products">Products</NavLink>
+            </li>
+            <li>
+              <NavLink to="/about" activeClassName="active">
+                About
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/dashboard" activeClassName="active">
+                Dashboard
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/settings" activeClassName="active">
+                Settings
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/sign-out" activeClassName="active">
+                Signout
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/emu" activeClassName="active">
+                Emulator
+              </NavLink>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </Head>
+);
+
+const HeaderDesktopNonAuth = () => (
+  <Head>
+    <nav className="navbar navbar-light bg-light">
+      <div className="row">
+        <div className="col-md-4">
+          <svg
+            id="logo"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+            width="60"
+            height="52"
+            viewBox="0 0 60 51.96152422706631"
+            stroke="#000"
+            fill="#F7F7F7"
+            style={{ float: "left", marginTop: "10px", marginRight: "5px" }}
+          >
+            <path d="M0 25.980762113533157L15 0L45 0L60 25.980762113533157L45 51.96152422706631L15 51.96152422706631Z" />
+          </svg>
+          <h3 className="masthead-brand">Project Lite</h3>
+        </div>
+        <div className="col-md-8">
+          <ul className="nav masthead-nav">
+            <li>
+              <NavLink exact to="/">
+                Home
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/products">Products</NavLink>
+            </li>
+            <li>
+              <NavLink to="/login" activeClassName="active">
+                Login
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/about" activeClassName="active">
+                About
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/sign-up" activeClassName="active">
+                Sign Up
+              </NavLink>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </Head>
+);
 
 export default HeaderDesktop;
