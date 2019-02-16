@@ -9,6 +9,7 @@ import Login from "./page/Login";
 import SignOut from "./page/SignOut";
 import Emulator from "./page/Emulator";
 import SignUp from "./page/SignUp";
+import ForgotPassword from "./page/ForgotPassword";
 
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
@@ -30,6 +31,7 @@ const App = () => (
         <Route path={ROUTES.SIGNUP} component={SignUp} />
         <Route path={ROUTES.EMULATOR} component={Emulator} />
         <Route path={ROUTES.HEXAGONPROFILE} component={HexagonProfile} />
+        <Route path={ROUTES.FORGOTPASSWORD} component={ForgotPassword} />
       </Switch>
       <Footer />
     </WrapContainer>
