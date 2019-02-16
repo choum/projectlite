@@ -2,10 +2,13 @@ import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import styled from "styled-components";
 
-import { MainContainer, FormContainer } from "../components/Container";
+import {
+  MainContainer,
+  FormContainer,
+  CardContainer
+} from "../components/Container";
 import { SingleLineTextBox } from "../components/TextBox";
 import { DefaultButton } from "../components/Button";
-import CardContainer from "../components/Container/CardContainer";
 
 import { withFirebase } from "../components/Firebase";
 
