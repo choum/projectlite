@@ -9,7 +9,7 @@ const getHexagonMap = (clusterLayout, selectable, onClick) => {
     if (selectable) {
       return (
         <a onClick={() => onClick(location)} key={index} id={longCoord}>
-          <Hexagon q={coordinate[0]} s={coordinate[1]} r={coordinate[2]} />
+          <Hexagon q={coordinate[0]} s={coordinate[1]} r={coordinate[2]}/>
         </a>
       );
     } else {
