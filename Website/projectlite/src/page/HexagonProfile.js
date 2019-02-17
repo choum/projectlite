@@ -168,6 +168,7 @@ class HexagonProfile extends Component {
                 <SlimContainer>
                   <Wrap>{JSON.stringify(this.state.isSelected)}</Wrap>
                   <button onClick={e => this.onClickClear()}>Clear</button>
+                  {this.renderRightSideNav()}
                 </SlimContainer>
               </SideNav>
             </Navigation>
@@ -189,6 +190,15 @@ class HexagonProfile extends Component {
       } else { //not selected then default color
         polygon.style.stroke = "#666";
       }
+    }
+  }
+  renderRightSideNav() {
+    let allFalse= Object.keys(this.state.isSelected).every((k) => !this.state.isSelected[k]);
+    let isAdvanced = this.state.toggleAdvance;
+    if (!allFalse && isAdvanced) {
+      return (
+        <p>Color</p>
+      );
     }
   }
   onClickSelect(hexID) {
