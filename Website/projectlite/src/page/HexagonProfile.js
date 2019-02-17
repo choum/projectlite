@@ -176,17 +176,9 @@ class HexagonProfile extends Component {
       </MainContainer>
     );
   }
-
-  onClickSelect(hexID) {
-    console.log(hexID);
-    let isSelected = this.state.isSelected;
-    isSelected[hexID]
-      ? (isSelected[hexID] = false)
-      : (isSelected[hexID] = true);
-
+  pickColor() {
     //get keys/ids
     let clusterKeys = Object.keys(this.state.isSelected);
-
     //go through all ids
     for (let i = 0; i < clusterKeys.length; i++) {
       let element = document.getElementById(clusterKeys[i]); //store the html here
@@ -198,6 +190,14 @@ class HexagonProfile extends Component {
         polygon.style.stroke = "#666";
       }
     }
+  }
+  onClickSelect(hexID) {
+    console.log(hexID);
+    let isSelected = this.state.isSelected;
+    isSelected[hexID]
+      ? (isSelected[hexID] = false)
+      : (isSelected[hexID] = true);
+    this.pickColor();
     this.setState({ isSelected: isSelected });
   }
 
