@@ -183,8 +183,22 @@ class HexagonProfile extends Component {
     isSelected[hexID]
       ? (isSelected[hexID] = false)
       : (isSelected[hexID] = true);
-    this.setState({ isSelected: isSelected });
 
+    //get keys/ids
+    let clusterKeys = Object.keys(this.state.isSelected);
+
+    //go through all ids
+    for (let i = 0; i < clusterKeys.length; i++) {
+      let element = document.getElementById(clusterKeys[i]); //store the html here
+      let polygon = element.querySelector("polygon"); //look through the html snippet for a polygon element
+
+      if (this.state.isSelected[clusterKeys[i]] == true) { //if selected turn green
+        polygon.style.stroke= "green";
+      } else { //not selected then default color
+        polygon.style.stroke = "#666";
+      }
+    }
+    this.setState({ isSelected: isSelected });
   }
 
   onClickClear() {
@@ -192,8 +206,12 @@ class HexagonProfile extends Component {
     let isSelected = {};
     for (let i = 0; i < clusterKeys.length; i++) {
       isSelected[clusterKeys[i]] = false;
+
     }
     this.setState({ isSelected: isSelected });
+  }
+  test() {
+
   }
 
   renderCluster() {
@@ -209,6 +227,7 @@ class HexagonProfile extends Component {
               layout={this.state.clusterData.Layout}
               selectable
               onClick={hexID => this.onClickSelect(hexID)}
+              selected={this.state.isSelected}
             />
             <Toggle
               label="Simple"
