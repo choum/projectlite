@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import styled from "styled-components";
 
 import {
@@ -10,6 +10,7 @@ import {
 import { SingleLineTextBox } from "../components/TextBox";
 import { DefaultButton } from "../components/Button";
 
+import * as ROUTES from "../constants/routes";
 import { withFirebase } from "../components/Firebase";
 
 const Error = styled.div`
@@ -81,6 +82,10 @@ class Login extends Component {
               onChange={this.onChange}
             />
             <DefaultButton text="Submit" onClick={this.onSubmit} />
+            <div style={{ textAlign: "center" }}>
+              <br />
+              <Link to={ROUTES.FORGOTPASSWORD}>Forgot Password?</Link>
+            </div>
           </CardContainer>
         </FormContainer>
       </MainContainer>

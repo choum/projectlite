@@ -8,7 +8,7 @@ import {
 import { HexLayout } from "../components/Layout";
 import { QuickSlider } from "../components/Slider";
 
-import { withFirebase } from "../components/Firebase";
+import { withAuthorization } from "../components/Session";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -176,4 +176,7 @@ class Dashboard extends Component {
       : this.renderLoading();
   }
 }
-export default withFirebase(Dashboard);
+
+const condition = authUser => !!authUser;
+
+export default withAuthorization(condition)(Dashboard);

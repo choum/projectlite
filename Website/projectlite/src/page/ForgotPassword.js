@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
 import styled from "styled-components";
 
 import {
@@ -11,14 +10,6 @@ import { SingleLineTextBox } from "../components/TextBox";
 import { DefaultButton } from "../components/Button";
 
 import { withFirebase } from "../components/Firebase";
-
-const ForgotPassword = () => (
-  <MainContainer>
-    <CardContainer type="bodyheader" title="Account Recovery">
-      <ForgotPasswordFormBase />
-    </CardContainer>
-  </MainContainer>
-);
 
 const Error = styled.p`
   color: red;
@@ -40,7 +31,7 @@ class ForgotPasswordFormBase extends Component {
     const { email } = this.state;
 
     this.firebase
-      .doPassword(email)
+      .doPasswordReset(email)
       .then(() => {
         this.setState({ ...INITIAL_STATE });
       })
@@ -57,7 +48,7 @@ class ForgotPasswordFormBase extends Component {
     const { email, error } = this.state;
 
     return (
-      <FormContainer>
+      <React.Fragment>
         {error && (
           <Error>Ahhh something went wrong!! Litepods releasing...</Error>
         )}
@@ -68,12 +59,23 @@ class ForgotPasswordFormBase extends Component {
           placeholder="Email"
           value={email}
           required={true}
-          onchange={this.onChange}
+          onChange={this.onChange}
         />
         <DefaultButton text="Reset My Password" onClick={this.onSubmit} />
-      </FormContainer>
+      </React.Fragment>
     );
   }
 }
 
+const ForgotPassword = () => (
+  <MainContainer>
+    <FormContainer>
+      <CardContainer type="bodyheader" title="Account Recovery">
+        <ForgotPasswordForm />
+      </CardContainer>
+    </FormContainer>
+  </MainContainer>
+);
+
+const ForgotPasswordForm = withFirebase(ForgotPasswordFormBase);
 export default ForgotPassword;
