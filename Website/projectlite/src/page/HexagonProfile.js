@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { SideNav } from "react-sidenav";
 import Toggle from "react-toggle-component";
 import "react-toggle-component/styles.css";
+import { SketchPicker } from 'react-color';
 
 import {
   MainContainer,
@@ -43,7 +44,8 @@ class HexagonProfile extends Component {
       isClusterLoaded: false,
       hexOrientation: false,
       isSelected: {},
-      selected: "firfe"
+      selected: "firfe",
+      hexColor: ""
     };
 
     this.firebase = this.props.firebase;
@@ -187,18 +189,43 @@ class HexagonProfile extends Component {
 
       if (this.state.isSelected[clusterKeys[i]] == true) { //if selected turn green
         polygon.style.stroke= "green";
+        console.log(this.state.color);
       } else { //not selected then default color
         polygon.style.stroke = "#666";
       }
     }
   }
+  handleChange(color, event) {
+    this.setState({
+      hexColor: Object.values(color)[1] //trying to change the state of the color
+    });
+    console.log(color);
+    console.log(this.state.hexColor);
+  }
+
   renderRightSideNav() {
     let allFalse= Object.keys(this.state.isSelected).every((k) => !this.state.isSelected[k]);
     let isAdvanced = this.state.toggleAdvance;
     if (!allFalse && isAdvanced) {
       return (
-        <p>Color</p>
+        <SlimContainer>
+          <p>Color</p>
+          <p>Color wheel goes here</p>
+          {this.state.selectValue === "Wave" &&
+            <p>test</p>
+          }
+          <hr />
+        </SlimContainer>
       );
+    } else if (!allFalse && !isAdvanced) {
+      return (
+        <div>
+          <p>Pick a color and watch the magic!</p>
+          <SketchPicker onChange={ this.handleChange }/>
+        </div>
+      );
+    } else {
+      return ("");
     }
   }
   onClickSelect(hexID) {
@@ -218,11 +245,10 @@ class HexagonProfile extends Component {
       isSelected[clusterKeys[i]] = false;
 
     }
+    this.pickColor();
     this.setState({ isSelected: isSelected });
   }
-  test() {
 
-  }
 
   renderCluster() {
     return (
