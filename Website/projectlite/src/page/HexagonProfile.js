@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { SideNav } from "react-sidenav";
 import Toggle from "react-toggle-component";
 import "react-toggle-component/styles.css";
-import { SketchPicker } from 'react-color';
+import { SketchPicker } from "react-color";
 
 import {
   MainContainer,
@@ -49,6 +49,7 @@ class HexagonProfile extends Component {
     };
 
     this.firebase = this.props.firebase;
+    this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
@@ -187,33 +188,39 @@ class HexagonProfile extends Component {
       let element = document.getElementById(clusterKeys[i]); //store the html here
       let polygon = element.querySelector("polygon"); //look through the html snippet for a polygon element
 
-      if (this.state.isSelected[clusterKeys[i]] == true) { //if selected turn green
-        polygon.style.stroke= "green";
+      if (this.state.isSelected[clusterKeys[i]] == true) {
+        //if selected turn green
+        polygon.style.stroke = "green";
         console.log(this.state.color);
-      } else { //not selected then default color
+      } else {
+        //not selected then default color
         polygon.style.stroke = "#666";
       }
     }
   }
+
   handleChange(color, event) {
+    // this.setState({
+    //   hexColor: Object.values(color)[1] //trying to change the state of the color
+    // });
     this.setState({
-      hexColor: Object.values(color)[1] //trying to change the state of the color
+      hexColor: color.hex //trying to change the state of the color
     });
-    console.log(color);
+    console.log(color.hex);
     console.log(this.state.hexColor);
   }
 
   renderRightSideNav() {
-    let allFalse= Object.keys(this.state.isSelected).every((k) => !this.state.isSelected[k]);
+    let allFalse = Object.keys(this.state.isSelected).every(
+      k => !this.state.isSelected[k]
+    );
     let isAdvanced = this.state.toggleAdvance;
     if (!allFalse && isAdvanced) {
       return (
         <SlimContainer>
           <p>Color</p>
           <p>Color wheel goes here</p>
-          {this.state.selectValue === "Wave" &&
-            <p>test</p>
-          }
+          {this.state.selectValue === "Wave" && <p>test</p>}
           <hr />
         </SlimContainer>
       );
@@ -221,13 +228,14 @@ class HexagonProfile extends Component {
       return (
         <div>
           <p>Pick a color and watch the magic!</p>
-          <SketchPicker onChange={ this.handleChange }/>
+          <SketchPicker onChange={this.handleChange} />
         </div>
       );
     } else {
-      return ("");
+      return "";
     }
   }
+
   onClickSelect(hexID) {
     console.log(hexID);
     let isSelected = this.state.isSelected;
@@ -243,12 +251,10 @@ class HexagonProfile extends Component {
     let isSelected = {};
     for (let i = 0; i < clusterKeys.length; i++) {
       isSelected[clusterKeys[i]] = false;
-
     }
     this.pickColor();
     this.setState({ isSelected: isSelected });
   }
-
 
   renderCluster() {
     return (
