@@ -188,10 +188,13 @@ class HexagonProfile extends Component {
       let element = document.getElementById(clusterKeys[i]); //store the html here
       let polygon = element.querySelector("polygon"); //look through the html snippet for a polygon element
 
-      if (this.state.isSelected[clusterKeys[i]] == true) {
+      if (this.state.isSelected[clusterKeys[i]] == true && this.state.hexColor == "") {
         //if selected turn green
         polygon.style.stroke = "green";
         console.log(this.state.color);
+      } else if(this.state.isSelected[clusterKeys[i]] == true && !(this.state.hexColor == "")) {
+        polygon.style.fill = this.state.hexColor;
+        polygon.style.stroke = "green";
       } else {
         //not selected then default color
         polygon.style.stroke = "#666";
@@ -200,14 +203,12 @@ class HexagonProfile extends Component {
   }
 
   handleChange(color, event) {
-    // this.setState({
-    //   hexColor: Object.values(color)[1] //trying to change the state of the color
-    // });
     this.setState({
       hexColor: color.hex //trying to change the state of the color
     });
     console.log(color.hex);
     console.log(this.state.hexColor);
+    this.pickColor();
   }
 
   renderRightSideNav() {
