@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { SideNav } from "react-sidenav";
 import Toggle from "react-toggle-component";
 import "react-toggle-component/styles.css";
-import { SketchPicker } from "react-color";
+import { ChromePicker } from "react-color";
 
 import {
   MainContainer,
@@ -45,7 +45,8 @@ class HexagonProfile extends Component {
       hexOrientation: false,
       isSelected: {},
       selected: "firfe",
-      hexColor: ""
+      hexColor: "",
+      rgbColor: ""
     };
 
     this.firebase = this.props.firebase;
@@ -185,29 +186,31 @@ class HexagonProfile extends Component {
     let clusterKeys = Object.keys(this.state.isSelected);
     //go through all ids
     for (let i = 0; i < clusterKeys.length; i++) {
+      let k = 0;
       let element = document.getElementById(clusterKeys[i]); //store the html here
       let polygon = element.querySelector("polygon"); //look through the html snippet for a polygon element
-
-      if (this.state.isSelected[clusterKeys[i]] == true && this.state.hexColor == "") {
-        //if selected turn green
-        polygon.style.stroke = "green";
-        console.log(this.state.color);
-      } else if(this.state.isSelected[clusterKeys[i]] == true && !(this.state.hexColor == "")) {
-        polygon.style.fill = this.state.hexColor;
+      if (this.state.isSelected[clusterKeys[i]] === true) {
         polygon.style.stroke = "green";
       } else {
         //not selected then default color
         polygon.style.stroke = "#666";
       }
+      if(this.state.isSelected[clusterKeys[i]] === true && !(this.state.hexColor === "")) {
+        if (!(this.state.rgbColor == polygon.style.fill)) {
+          polygon.style.fill = this.state.hexColor;
+        }
+      }
     }
+    this.state.hexColor = "";
   }
 
+
   handleChange(color, event) {
+    let rgbColor = "rgb(" + color.rgb.r + ", " + color.rgb.g + ", " + color.rgb.b + ")";
     this.setState({
-      hexColor: color.hex //trying to change the state of the color
+      hexColor: color.hex, //trying to change the state of the color
+      rgbColor: rgbColor
     });
-    console.log(color.hex);
-    console.log(this.state.hexColor);
     this.pickColor();
   }
 
@@ -229,7 +232,7 @@ class HexagonProfile extends Component {
       return (
         <div>
           <p>Pick a color and watch the magic!</p>
-          <SketchPicker onChange={this.handleChange} />
+          <ChromePicker color={this.state.hexColor} onChangeComplete={this.handleChange} />
         </div>
       );
     } else {
@@ -253,7 +256,6 @@ class HexagonProfile extends Component {
     for (let i = 0; i < clusterKeys.length; i++) {
       isSelected[clusterKeys[i]] = false;
     }
-    this.pickColor();
     this.setState({ isSelected: isSelected });
   }
 
