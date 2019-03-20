@@ -186,7 +186,6 @@ class HexagonProfile extends Component {
     let clusterKeys = Object.keys(this.state.isSelected);
     //go through all ids
     for (let i = 0; i < clusterKeys.length; i++) {
-      let k = 0;
       let element = document.getElementById(clusterKeys[i]); //store the html here
       let polygon = element.querySelector("polygon"); //look through the html snippet for a polygon element
       if (this.state.isSelected[clusterKeys[i]] === true) {
@@ -196,12 +195,12 @@ class HexagonProfile extends Component {
         polygon.style.stroke = "#666";
       }
       if(this.state.isSelected[clusterKeys[i]] === true && !(this.state.hexColor === "")) {
-        if (!(this.state.rgbColor == polygon.style.fill)) {
+        if (!(this.state.rgbColor === polygon.style.fill)) {
           polygon.style.fill = this.state.hexColor;
         }
       }
     }
-    this.state.hexColor = "";
+    this.setState({hexColor : ""});
   }
 
 
