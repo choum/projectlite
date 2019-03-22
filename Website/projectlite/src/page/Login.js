@@ -1,69 +1,91 @@
 import React, { Component } from "react";
+import { Redirect, Link } from "react-router-dom";
+import styled from "styled-components";
 
-import { MainContainer, FormContainer } from "../components/Container";
+import {
+  MainContainer,
+  FormContainer,
+  CardContainer
+} from "../components/Container";
 import { SingleLineTextBox } from "../components/TextBox";
 import { DefaultButton } from "../components/Button";
-import CardContainer from "../components/Container/CardContainer";
-import { Redirect } from "react-router-dom";
+
+import * as ROUTES from "../constants/routes";
 import { withFirebase } from "../components/Firebase";
+
+const Error = styled.div`
+  color: red;
+`;
+
+const INITIAL_STATE = {
+  email: "",
+  pass: "",
+  error: null,
+  toDashboard: false
+};
 
 class Login extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      email: "",
-      pass: "",
-      enabled: true,
-      toDashboard: false
-    };
-    this.validate = this.validate.bind(this);
-    this.doSubmit = this.doSubmit.bind(this);
+    this.state = { ...INITIAL_STATE };
+    this.onSubmit = this.onSubmit.bind(this);
     this.firebase = this.props.firebase;
   }
 
-  validate = () => {};
+  onChange = event => {
+    this.setState({ [event.target.name]: event.target.value });
+  };
 
-  doSubmit = () => {
-    this.setState({ enabled: false });
-    this.firebase.doSignIn(this.state.email, this.state.pass);
-    this.setState({ toDashboard: true });
+  onSubmit = event => {
+    const { email, pass } = this.state;
+
+    this.firebase
+      .doSignInWithEmailAndPassword(email, pass)
+      .then(() => {
+        this.setState({ ...INITIAL_STATE, toDashboard: true });
+      })
+      .catch(error => this.setState({ error: error.message }));
+
+    event.preventDefault();
   };
 
   render() {
-    if (this.state.toDashboard === true) {
+    const { email, pass, error, toDashboard } = this.state;
+
+    if (toDashboard === true) {
       return <Redirect to="/dashboard" />;
     }
+
     return (
       <MainContainer>
         <FormContainer>
           <CardContainer type="bodyheader" title="Login">
+            {error && <Error>Your username or password was incorrect</Error>}
             <SingleLineTextBox
               label="Email"
               id="email"
               type="text"
-              name="LoginEmail"
-              placeholder="Username"
-              required="true"
-              onChange={e => {
-                this.setState({ email: e.target.value });
-              }}
+              name="email"
+              placeholder="Email"
+              value={email}
+              required={true}
+              onChange={this.onChange}
             />
             <SingleLineTextBox
               label="Password"
               id="password"
               type="password"
-              name="LoginPassword"
+              name="pass"
               placeholder="Password"
-              required="true"
-              onChange={e => {
-                this.setState({ pass: e.target.value });
-              }}
+              value={pass}
+              required={true}
+              onChange={this.onChange}
             />
-            <DefaultButton
-              className="btn"
-              text="Submit"
-              onClick={this.doSubmit}
-            />
+            <DefaultButton text="Submit" onClick={this.onSubmit} />
+            <div style={{ textAlign: "center" }}>
+              <br />
+              <Link to={ROUTES.FORGOTPASSWORD}>Forgot Password?</Link>
+            </div>
           </CardContainer>
         </FormContainer>
       </MainContainer>

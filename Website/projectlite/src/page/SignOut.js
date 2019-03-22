@@ -1,18 +1,18 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
+
 import { MainContainer } from "../components/Container";
+
 import { withFirebase } from "../components/Firebase";
 
-class Signout extends Component {
+class SignOut extends Component {
   constructor(props) {
     super(props);
     this.state = {
       redirectReady: false
     };
     this.firebase = this.props.firebase;
-
     this.doSO = this.doSO.bind(this);
-
     setTimeout(this.doSO, 100);
   }
 
@@ -22,7 +22,8 @@ class Signout extends Component {
   };
 
   render() {
-    if (this.state.redirectReady === true) return <Redirect to="/home" />;
+    if (this.state.redirectReady === true) return <Redirect to="/" />;
+
     return (
       <MainContainer>
         Signing out... <br />
@@ -32,4 +33,4 @@ class Signout extends Component {
   }
 }
 
-export default withFirebase(Signout);
+export default withFirebase(SignOut);

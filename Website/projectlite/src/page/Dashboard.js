@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Alert } from "reactstrap";
 
 import {
   MainContainer,
@@ -8,27 +9,34 @@ import {
 import { HexLayout } from "../components/Layout";
 import { QuickSlider } from "../components/Slider";
 
-import { withFirebase } from "../components/Firebase";
+import { withAuthorization } from "../components/Session";
 
 class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      alertVisble: true,
       roomValue: 0,
       listOfClusters: {},
       quickControlValues: [],
-      isLayoutLoaded: false
+      isLayoutLoaded: false,
+      userName: null
     };
-
+    this.onAlertDismiss = this.onAlertDismiss.bind(this);
     this.firebase = this.props.firebase;
   }
 
   componentDidMount() {
     this.dbref = this.getLayout();
+    this.setState({ userName: this.firebase.getCurrentUser().email });
   }
 
   componentWillUnmount() {
     this.dbref.off();
+  }
+
+  onAlertDismiss() {
+    this.setState({ alertVisble: false });
   }
 
   getLayout() {
@@ -150,9 +158,19 @@ class Dashboard extends Component {
   }
 
   renderClusters() {
+    const { userName } = this.state;
+
     return (
       <MainContainer>
         <SlimContainer>
+          <Alert
+            color="success"
+            isOpen={this.state.alertVisble}
+            toggle={this.onAlertDismiss}
+          >
+            Welcome to the future of lighting, <b>{userName}</b>. Are you
+            excited!?! No. (┛◉Д◉)┛彡┻━┻
+          </Alert>
           <div className="row">
             <div className="col-md-8">
               <CardContainer type="card" title="Clusters">
@@ -176,4 +194,7 @@ class Dashboard extends Component {
       : this.renderLoading();
   }
 }
-export default withFirebase(Dashboard);
+
+const condition = authUser => !!authUser;
+
+export default withAuthorization(condition)(Dashboard);
