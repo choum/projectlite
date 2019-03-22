@@ -55,10 +55,24 @@ class HexagonProfile extends Component {
 
   componentDidMount() {
     this.dbref = this.getData();
+    this.printClusterEffers();
+
+    this.firebase.setClusterEffect(
+      this.props.match.params.id,
+      "1,-1,0",
+      "A",
+      "FFFFF1"
+    );
   }
 
   componentWillUnmount() {
     this.dbref.off();
+  }
+
+  printClusterEffers() {
+    this.firebase.getClusterEffect(this.props.match.params.id, val => {
+      console.log(val);
+    });
   }
 
   toggleOrientation() {
@@ -194,18 +208,21 @@ class HexagonProfile extends Component {
         //not selected then default color
         polygon.style.stroke = "#666";
       }
-      if(this.state.isSelected[clusterKeys[i]] === true && !(this.state.hexColor === "")) {
+      if (
+        this.state.isSelected[clusterKeys[i]] === true &&
+        !(this.state.hexColor === "")
+      ) {
         if (!(this.state.rgbColor === polygon.style.fill)) {
           polygon.style.fill = this.state.hexColor;
         }
       }
     }
-    this.setState({hexColor : ""});
+    this.setState({ hexColor: "" });
   }
 
-
   handleChange(color, event) {
-    let rgbColor = "rgb(" + color.rgb.r + ", " + color.rgb.g + ", " + color.rgb.b + ")";
+    let rgbColor =
+      "rgb(" + color.rgb.r + ", " + color.rgb.g + ", " + color.rgb.b + ")";
     this.setState({
       hexColor: color.hex, //trying to change the state of the color
       rgbColor: rgbColor
@@ -231,7 +248,10 @@ class HexagonProfile extends Component {
       return (
         <div>
           <p>Pick a color and watch the magic!</p>
-          <ChromePicker color={this.state.hexColor} onChangeComplete={this.handleChange} />
+          <ChromePicker
+            color={this.state.hexColor}
+            onChangeComplete={this.handleChange}
+          />
         </div>
       );
     } else {
