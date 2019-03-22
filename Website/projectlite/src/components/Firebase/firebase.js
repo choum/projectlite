@@ -67,12 +67,10 @@ export default class Firebase {
   };
 
   setClusterEffect = (ID, coord, key, value) => {
-    let selection = this.db.ref("clusters/" + ID + "/Effect/" + coord + "");
-    selection.update({ key, value });
+    let selection = this.db.ref("clusters/" + ID + "/Effect/" + coord);
+    selection.update({ key: value });
     console.log("selection " + selection);
     console.log("coord " + coord);
-    //https://projectlite.firebaseio.com/clusters/7PDovc4elK/Effect/1,-1,0
-    //want: https://projectlite.firebaseio.com/clusters/7PDovc4elK/Effect/1,-1,0/A
   };
 }
 

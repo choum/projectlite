@@ -55,13 +55,13 @@ class HexagonProfile extends Component {
 
   componentDidMount() {
     this.dbref = this.getData();
-    this.printClusterEffers();
 
+    this.printClusterEffers();
     this.firebase.setClusterEffect(
       this.props.match.params.id,
       "1,-1,0",
       "A",
-      "FFFFF1"
+      "A331F1"
     );
   }
 
@@ -92,6 +92,7 @@ class HexagonProfile extends Component {
     return this.firebase.getCluster(this.props.match.params.id, val => {
       let isSelected = {};
       let clusterKeys = Object.keys(val.Layout);
+
       for (let i = 0; i < clusterKeys.length; i++) {
         isSelected[clusterKeys[i]] = false;
       }
@@ -110,6 +111,7 @@ class HexagonProfile extends Component {
   }
 
   renderSideNav() {
+    let { toggleAdvance, selectValue, hexOrientation, isSelected } = this.state;
     return (
       <MainContainer>
         <div className="row">
@@ -117,7 +119,7 @@ class HexagonProfile extends Component {
             <Navigation>
               <SideNav defaultSelectedPath="1">
                 <SlimContainer>
-                  {this.state.toggleAdvance ? (
+                  {toggleAdvance ? (
                     <MenuType>Advanced Customization</MenuType>
                   ) : (
                     <MenuType>Simple Customization</MenuType>
@@ -126,7 +128,7 @@ class HexagonProfile extends Component {
                   <div className="effect-block">
                     <ItemType>Effect:</ItemType>
                     <select
-                      value={this.state.selectValue}
+                      value={selectValue}
                       onChange={e => {
                         this.setState({
                           selectValue: e.target.value
@@ -143,7 +145,7 @@ class HexagonProfile extends Component {
                     <ItemType>Orientation:</ItemType>
                     <label>
                       <input
-                        checked={!this.state.hexOrientation}
+                        checked={!hexOrientation}
                         onChange={e => this.toggleOrientation()}
                         type="radio"
                         name="options"
@@ -155,7 +157,7 @@ class HexagonProfile extends Component {
                     <br />
                     <label>
                       <input
-                        checked={this.state.hexOrientation}
+                        checked={hexOrientation}
                         onChange={e => this.toggleOrientation()}
                         type="radio"
                         name="options"
@@ -166,15 +168,14 @@ class HexagonProfile extends Component {
                     </label>
                   </div>
                   <Divider />
-                  {this.state.selectValue === "Wave" &&
-                    this.state.toggleAdvance && (
-                      <div className="pick-block">
-                        <ItemType>Pick Order</ItemType>
-                        <button className="btn btn-light" value="Pick">
-                          Pick
-                        </button>
-                      </div>
-                    )}
+                  {selectValue === "Wave" && toggleAdvance && (
+                    <div className="pick-block">
+                      <ItemType>Pick Order</ItemType>
+                      <button className="btn btn-light" value="Pick">
+                        Pick
+                      </button>
+                    </div>
+                  )}
                 </SlimContainer>
               </SideNav>
             </Navigation>
@@ -184,7 +185,7 @@ class HexagonProfile extends Component {
             <Navigation>
               <SideNav>
                 <SlimContainer>
-                  <Wrap>{JSON.stringify(this.state.isSelected)}</Wrap>
+                  <Wrap>{JSON.stringify(isSelected)}</Wrap>
                   <button onClick={e => this.onClickClear()}>Clear</button>
                   {this.renderRightSideNav()}
                 </SlimContainer>
@@ -195,25 +196,29 @@ class HexagonProfile extends Component {
       </MainContainer>
     );
   }
+
   pickColor() {
+    let { isSelected, hexColor, rgbColor } = this.state;
     //get keys/ids
-    let clusterKeys = Object.keys(this.state.isSelected);
+    let clusterKeys = Object.keys(isSelected);
+
     //go through all ids
     for (let i = 0; i < clusterKeys.length; i++) {
-      let element = document.getElementById(clusterKeys[i]); //store the html here
-      let polygon = element.querySelector("polygon"); //look through the html snippet for a polygon element
-      if (this.state.isSelected[clusterKeys[i]] === true) {
+      // store html
+      let element = document.getElementById(clusterKeys[i]);
+      //look through the html snippet for a polygon element
+      let polygon = element.querySelector("polygon");
+
+      if (isSelected[clusterKeys[i]] === true) {
         polygon.style.stroke = "green";
       } else {
         //not selected then default color
         polygon.style.stroke = "#666";
       }
-      if (
-        this.state.isSelected[clusterKeys[i]] === true &&
-        !(this.state.hexColor === "")
-      ) {
-        if (!(this.state.rgbColor === polygon.style.fill)) {
-          polygon.style.fill = this.state.hexColor;
+
+      if (isSelected[clusterKeys[i]] === true && !(hexColor === "")) {
+        if (!(rgbColor === polygon.style.fill)) {
+          polygon.style.fill = hexColor;
         }
       }
     }
@@ -224,7 +229,7 @@ class HexagonProfile extends Component {
     let rgbColor =
       "rgb(" + color.rgb.r + ", " + color.rgb.g + ", " + color.rgb.b + ")";
     this.setState({
-      hexColor: color.hex, //trying to change the state of the color
+      hexColor: color.hex,
       rgbColor: rgbColor
     });
     this.pickColor();
