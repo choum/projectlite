@@ -1,3 +1,3 @@
-import SingleLineTextBox from "./SingleLineTextBox/SingleLineTextBox";
+import SingleLineTextBox from "./SingleLineTextBox";
 
 export { SingleLineTextBox };

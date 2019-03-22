@@ -17,30 +17,26 @@ export default class Firebase {
     });
   }
 
-  // Auth API
-  doCrateUser = (email, password) => {
-    this.auth
-      .setPersistence(firebase.auth.Auth.Persistence.SESSION)
-      .then(() => {
-        return this.auth.createUserWithEmailAndPassword(email, password);
-      })
-      .catch(console.log);
-  };
+  // ********* Auth API *********
+  getCurrentUser = () => this.auth.currentUser;
 
   doSignOut = () => this.auth.signOut();
 
-  getCurrentUser = () => this.auth.currentUser;
-
-  doSignIn = (email, password) => {
-    this.auth
-      .setPersistence(firebase.auth.Auth.Persistence.SESSION)
-      .then(() => {
-        return this.auth.signInWithEmailAndPassword(email, password);
-      })
-      .catch(console.log);
+  doPasswordReset = email => {
+    return this.auth.sendPasswordResetEmail(email);
   };
 
-  // Database API
+  doPasswordUpdate = password => this.auth.currentUser.updatePassword(password);
+
+  doCreateUserWithEmailAndPassword = (email, password) => {
+    return this.auth.createUserWithEmailAndPassword(email, password);
+  };
+
+  doSignInWithEmailAndPassword = (email, password) => {
+    return this.auth.signInWithEmailAndPassword(email, password);
+  };
+
+  // ********* Database API *********
   getClusters = callback => {
     let data = this.db.ref("clusters/");
     data.on("value", function(snapshot) {

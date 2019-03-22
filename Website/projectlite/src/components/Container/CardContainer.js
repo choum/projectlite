@@ -25,6 +25,8 @@ const CardWrapper = styled.div`
   svg {
     transform: ${props =>
       props.hexOrientation ? "rotate(30deg) scale(0.80)" : "scale(0.80)"};
+    transition: 1s;
+    -webkit-transition: 1s;
   }
   hr {
     width: 90%;
@@ -114,23 +116,29 @@ class CardContainer extends Component {
 
   render() {
     let type = this.props.type;
-    let cardDisplay;
+    let display;
 
-    if (type === "features") {
-      cardDisplay = this.renderFeatures();
-    } else if (type === "about") {
-      cardDisplay = this.renderAbout();
-    } else if (type === "registration") {
-      cardDisplay = this.renderRegistration();
-    } else if (type === "bodyheader") {
-      cardDisplay = this.renderCardBodyHeader();
-    } else if (type === "card") {
-      cardDisplay = this.renderCardWithHeader();
-    } else {
-      cardDisplay = <p>error</p>;
+    switch (type) {
+      case "features":
+        display = this.renderFeatures();
+        break;
+      case "about":
+        display = this.renderAbout();
+        break;
+      case "registration":
+        display = this.renderRegistration();
+        break;
+      case "bodyheader":
+        display = this.renderCardBodyHeader();
+        break;
+      case "card":
+        display = this.renderCardWithHeader();
+        break;
+      default:
+        display = <p>error</p>;
     }
 
-    return <React.Fragment>{cardDisplay}</React.Fragment>;
+    return display;
   }
 }
 

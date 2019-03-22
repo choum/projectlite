@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Alert } from "reactstrap";
 
 import {
   MainContainer,
@@ -8,27 +9,34 @@ import {
 import { HexLayout } from "../components/Layout";
 import { QuickSlider } from "../components/Slider";
 
-import { withFirebase } from "../components/Firebase";
+import { withAuthorization } from "../components/Session";
 
 class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      alertVisble: true,
       roomValue: 0,
       listOfClusters: {},
       quickControlValues: [],
-      isLayoutLoaded: false
+      isLayoutLoaded: false,
+      userName: null
     };
-
+    this.onAlertDismiss = this.onAlertDismiss.bind(this);
     this.firebase = this.props.firebase;
   }
 
   componentDidMount() {
     this.dbref = this.getLayout();
+    this.setState({ userName: this.firebase.getCurrentUser().email });
   }
 
   componentWillUnmount() {
     this.dbref.off();
+  }
+
+  onAlertDismiss() {
+    this.setState({ alertVisble: false });
   }
 
   getLayout() {
@@ -45,56 +53,56 @@ class Dashboard extends Component {
   // within cluster section of dashboard
   renderLightsBox() {
     let clusterList = this.state.listOfClusters;
-    let cluster = Object.keys(this.state.listOfClusters);
+    let clusterUIDList = Object.keys(this.state.listOfClusters);
     let lights = [];
-    var clusterCount = cluster.length;
+    var clusterCount = clusterUIDList.length;
     var currentClusterIndex = 0;
     if (clusterCount % 2 === 1) {
       for (let k = 0; k < clusterCount - 1; k++) {
-        let name = cluster[currentClusterIndex];
+        let uID = clusterUIDList[currentClusterIndex];
         lights.push(
           <div className="col-md-6" key={currentClusterIndex}>
             <CardContainer
               nav
               type="bodyheader"
-              title={clusterList[name].Name}
-              UID={name}
-              hexOrientation={this.state.listOfClusters[name].Orientation}
+              title={clusterList[uID].Name}
+              UID={uID}
+              hexOrientation={clusterList[uID].Orientation}
             >
-              <HexLayout clusterData={clusterList[name]} />
+              <HexLayout layout={clusterList[uID].Layout} />
             </CardContainer>
           </div>
         );
         currentClusterIndex++;
       }
-      let name = cluster[currentClusterIndex];
+      let uID = clusterUIDList[currentClusterIndex];
       lights.push(
         <div className="col-md-12" key={currentClusterIndex}>
           <CardContainer
             nav
             type="bodyheader"
-            title={clusterList[name].Name}
-            UID={name}
-            hexOrientation={this.state.listOfClusters[name].Orientation}
+            title={clusterList[uID].Name}
+            UID={uID}
+            hexOrientation={clusterList[uID].Orientation}
           >
-            <HexLayout clusterData={clusterList[name]} />
+            <HexLayout layout={clusterList[uID].Layout} />
           </CardContainer>
         </div>
       );
       currentClusterIndex++;
     } else {
       for (let k = 0; k < clusterCount; k++) {
-        let name = cluster[currentClusterIndex];
+        let uID = clusterUIDList[currentClusterIndex];
         lights.push(
           <div className="col-md-6" key={currentClusterIndex}>
             <CardContainer
               nav
               type="bodyheader"
-              title={clusterList[name].Name}
-              UID={name}
-              hexOrientation={this.state.listOfClusters[name].Orientation}
+              title={clusterList[uID].Name}
+              UID={uID}
+              hexOrientation={clusterList[uID].Orientation}
             >
-              <HexLayout clusterData={clusterList[name]} />
+              <HexLayout layout={clusterList[uID].Layout} />
             </CardContainer>
           </div>
         );
@@ -104,7 +112,7 @@ class Dashboard extends Component {
     return lights;
   }
 
-  onQuickControlChange(newValue, controlIndex) {
+  onChangeQuickControl(newValue, controlIndex) {
     this.setState(state => {
       const quickControlValues = state.quickControlValues.map(
         (value, index) => {
@@ -130,7 +138,7 @@ class Dashboard extends Component {
             key={index}
             title={this.state.listOfClusters[clusterUID].Name}
             value={this.state.quickControlValues[index]}
-            onChange={e => this.onQuickControlChange(e.target.value, index)}
+            onChange={e => this.onChangeQuickControl(e.target.value, index)}
           />
         );
       }.bind(this)
@@ -150,9 +158,19 @@ class Dashboard extends Component {
   }
 
   renderClusters() {
+    const { userName } = this.state;
+
     return (
       <MainContainer>
         <SlimContainer>
+          <Alert
+            color="success"
+            isOpen={this.state.alertVisble}
+            toggle={this.onAlertDismiss}
+          >
+            Welcome to the future of lighting, <b>{userName}</b>. Are you
+            excited!?! No. (┛◉Д◉)┛彡┻━┻
+          </Alert>
           <div className="row">
             <div className="col-md-8">
               <CardContainer type="card" title="Clusters">
@@ -176,4 +194,7 @@ class Dashboard extends Component {
       : this.renderLoading();
   }
 }
-export default withFirebase(Dashboard);
+
+const condition = authUser => !!authUser;
+
+export default withAuthorization(condition)(Dashboard);
