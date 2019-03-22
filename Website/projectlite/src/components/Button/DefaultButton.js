@@ -2,6 +2,10 @@ import React from "react";
 import styled from "styled-components";
 
 const StyledButton = styled.button`
+  :hover {
+    color: white;
+  }
+
   background-color: #000;
   color: white;
   width: 100%;
