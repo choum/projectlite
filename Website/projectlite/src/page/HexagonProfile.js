@@ -57,18 +57,19 @@ class HexagonProfile extends Component {
     this.dbref = this.getData();
 
     this.printClusterEffers();
-    this.firebase.setClusterEffect(
-      this.props.match.params.id,
-      "1,-1,0",
-      "A",
-      "A331F1"
-    );
+    // this.firebase.setClusterEffect(
+    //   this.props.match.params.id,
+    //   "1,-1,0",
+    //   "A",
+    //   "A331F1"
+    // );
   }
 
   componentWillUnmount() {
     this.dbref.off();
   }
 
+  // remove when done
   printClusterEffers() {
     this.firebase.getClusterEffect(this.props.match.params.id, val => {
       console.log(val);
@@ -92,6 +93,10 @@ class HexagonProfile extends Component {
     return this.firebase.getCluster(this.props.match.params.id, val => {
       let isSelected = {};
       let clusterKeys = Object.keys(val.Layout);
+
+      this.firebase.getClusterLayout(this.props.match.params.id, val =>
+        console.log("val", val)
+      );
 
       for (let i = 0; i < clusterKeys.length; i++) {
         isSelected[clusterKeys[i]] = false;

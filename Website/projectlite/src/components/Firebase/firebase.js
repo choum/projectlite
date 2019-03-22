@@ -36,7 +36,11 @@ export default class Firebase {
     return this.auth.signInWithEmailAndPassword(email, password);
   };
 
-  // ********* Database API *********
+  /* ********* Database API ********* */
+
+  // get all clusters in db
+  // @param function to return data
+  // @return db ref & callback(objectOfClusters)
   getClusters = callback => {
     let data = this.db.ref("clusters/");
     data.on("value", function(snapshot) {
@@ -45,6 +49,10 @@ export default class Firebase {
     return data;
   };
 
+  // get a cluster in db
+  // @param cluster ID
+  // @parm callback function to return data
+  // @return db ref & callback({Details, Effect, Layout})
   getCluster = (ID, callback) => {
     let data = this.db.ref("clusters/" + ID);
     data.on("value", function(snapshot) {
@@ -53,6 +61,20 @@ export default class Firebase {
     return data;
   };
 
+  // @param cluster ID
+  // @parm callback function to return data
+  // @return db ref & callback([Layout keys])
+  getClusterLayout = (ID, callback) => {
+    let data = this.db.ref("clusters/" + ID + "/Layout");
+    data.on("value", function(snapshot) {
+      callback(Object.keys(snapshot.val()));
+    });
+    return data;
+  };
+
+  // @param cluster ID
+  // @parm callback function to return data
+  // @return db ref & callback({Effect})
   getClusterEffect = (ID, callback) => {
     let data = this.db.ref("clusters/" + ID + "/Effect");
     data.on("value", function(snapshot) {
