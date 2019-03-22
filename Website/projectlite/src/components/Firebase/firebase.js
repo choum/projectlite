@@ -53,9 +53,26 @@ export default class Firebase {
     return data;
   };
 
+  getClusterEffect = (ID, callback) => {
+    let data = this.db.ref("clusters/" + ID + "/Effect");
+    data.on("value", function(snapshot) {
+      callback(snapshot.val());
+    });
+    return data;
+  };
+
   setClusterOrientation = (ID, value) => {
     let selection = this.db.ref("clusters/" + ID);
     selection.update({ Orientation: value });
+  };
+
+  setClusterEffect = (ID, coord, key, value) => {
+    let selection = this.db.ref("clusters/" + ID + "/Effect/" + coord + "");
+    selection.update({ key, value });
+    console.log("selection " + selection);
+    console.log("coord " + coord);
+    //https://projectlite.firebaseio.com/clusters/7PDovc4elK/Effect/1,-1,0
+    //want: https://projectlite.firebaseio.com/clusters/7PDovc4elK/Effect/1,-1,0/A
   };
 }
 
