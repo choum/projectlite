@@ -5,10 +5,11 @@ const getHexagonMap = (clusterLayout, selectable, onClick) => {
   let hexCoordinates = Object.keys(clusterLayout);
   return hexCoordinates.map(function(location, index) {
     let coordinate = location.split(",").map(Number);
+    let longCoord = coordinate[0] + "," + coordinate[1] + "," + coordinate[2];
     if (selectable) {
       return (
-        <a onClick={() => onClick(location)} key={index}>
-          <Hexagon q={coordinate[0]} s={coordinate[1]} r={coordinate[2]} />
+        <a onClick={() => onClick(location)} key={index} id={longCoord}>
+          <Hexagon q={coordinate[0]} s={coordinate[1]} r={coordinate[2]}/>
         </a>
       );
     } else {
