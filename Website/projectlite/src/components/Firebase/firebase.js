@@ -51,7 +51,7 @@ export default class Firebase {
 
   // get a cluster in db
   // @param cluster ID
-  // @parm callback function to return data
+  // @param callback function to return data
   // @return db ref & callback({Details, Effect, Layout})
   getCluster = (ID, callback) => {
     let data = this.db.ref("clusters/" + ID);
@@ -62,7 +62,7 @@ export default class Firebase {
   };
 
   // @param cluster ID
-  // @parm callback function to return data
+  // @param callback function to return data
   // @return db ref & callback([Layout keys])
   getClusterLayout = (ID, callback) => {
     let data = this.db.ref("clusters/" + ID + "/Layout");
@@ -72,9 +72,10 @@ export default class Firebase {
     return data;
   };
 
-  // @param cluster ID
-  // @parm callback function to return data
-  // @return db ref & callback({Effect})
+  // @param string ID - cluster ID
+  // @param function(object) callback - function to return data
+  // @return db ref
+  // @return callback({Effect})
   getClusterEffect = (ID, callback) => {
     let data = this.db.ref("clusters/" + ID + "/Effect");
     data.on("value", function(snapshot) {
@@ -83,16 +84,21 @@ export default class Firebase {
     return data;
   };
 
+  // @param string ID - cluster ID
+  // @param  bool value - pointy(true) or flat(false)
+  // @return db ref & callback({Effect})
   setClusterOrientation = (ID, value) => {
     let selection = this.db.ref("clusters/" + ID);
     selection.update({ Orientation: value });
   };
 
+  // @param string ID - cluster ID
+  // @param string coord - location of tile, "-1,2,-1"
+  // @param string key - object key, led identifier "aA"
+  // @param string value - object value, hex
   setClusterEffect = (ID, coord, key, value) => {
     let selection = this.db.ref("clusters/" + ID + "/Effect/" + coord);
-    selection.update({ key: value });
-    console.log("selection " + selection);
-    console.log("coord " + coord);
+    selection.update({ [key]: value });
   };
 }
 

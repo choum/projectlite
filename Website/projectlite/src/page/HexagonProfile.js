@@ -57,12 +57,12 @@ class HexagonProfile extends Component {
     this.dbref = this.getData();
 
     this.printClusterEffers();
-    // this.firebase.setClusterEffect(
-    //   this.props.match.params.id,
-    //   "1,-1,0",
-    //   "A",
-    //   "A331F1"
-    // );
+    this.firebase.setClusterEffect(
+      this.props.match.params.id,
+      "1,-1,0",
+      "aA",
+      "A431F1"
+    );
   }
 
   componentWillUnmount() {
