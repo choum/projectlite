@@ -55,25 +55,10 @@ class HexagonProfile extends Component {
 
   componentDidMount() {
     this.dbref = this.getData();
-
-    this.printClusterEffers();
-    this.firebase.setClusterEffect(
-      this.props.match.params.id,
-      "1,-1,0",
-      "aA",
-      "A431F1"
-    );
   }
 
   componentWillUnmount() {
     this.dbref.off();
-  }
-
-  // remove when done
-  printClusterEffers() {
-    this.firebase.getClusterEffect(this.props.match.params.id, val => {
-      console.log(val);
-    });
   }
 
   toggleOrientation() {
@@ -93,10 +78,6 @@ class HexagonProfile extends Component {
     return this.firebase.getCluster(this.props.match.params.id, val => {
       let isSelected = {};
       let clusterKeys = Object.keys(val.Layout);
-
-      this.firebase.getClusterLayout(this.props.match.params.id, val =>
-        console.log("val", val)
-      );
 
       for (let i = 0; i < clusterKeys.length; i++) {
         isSelected[clusterKeys[i]] = false;
@@ -204,7 +185,7 @@ class HexagonProfile extends Component {
 
   pickColor() {
     let { isSelected, hexColor, rgbColor } = this.state;
-    //get keys/ids
+    //get ids
     let clusterKeys = Object.keys(isSelected);
 
     //go through all ids
@@ -227,6 +208,15 @@ class HexagonProfile extends Component {
         }
       }
     }
+
+    // // DATABSE API
+    // this.firebase.setClusterEffect(
+    //   this.props.match.params.id,
+    //   "1,-1,0",
+    //   "aA",
+    //   hexColor
+    // );
+
     this.setState({ hexColor: "" });
   }
 
@@ -272,9 +262,7 @@ class HexagonProfile extends Component {
   onClickSelect(hexID) {
     console.log(hexID);
     let isSelected = this.state.isSelected;
-    isSelected[hexID]
-      ? (isSelected[hexID] = false)
-      : (isSelected[hexID] = true);
+    isSelected[hexID] = !isSelected[hexID];
     this.pickColor();
     this.setState({ isSelected: isSelected });
   }
