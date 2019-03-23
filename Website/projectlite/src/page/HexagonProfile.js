@@ -239,8 +239,8 @@ class HexagonProfile extends Component {
       );
     } else if (!isAdvanced) {
       return (
-        <div>
-          {this.state.selectValue === "Static Color" &&
+        <SlimContainer>
+        {this.state.selectValue === "Static Color" &&
           <div>
             <p><h5>Bucket</h5>- Fills the selected hexagon with color</p>
             <ChromePicker color={this.state.hexColor} onChangeComplete={this.handleChange} />
@@ -251,7 +251,7 @@ class HexagonProfile extends Component {
             </select>
           </div>
           }
-        </div>
+        </SlimContainer>
       );
     } else {
       return "";
