@@ -10,6 +10,7 @@ import SignOut from "./page/SignOut";
 import Emulator from "./page/Emulator";
 import SignUp from "./page/SignUp";
 import ForgotPassword from "./page/ForgotPassword";
+import Settings from "./page/Settings";
 
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
@@ -27,6 +28,7 @@ const App = () => (
         <Route path={ROUTES.ABOUT} component={About} />
         <Route path={ROUTES.DASHBOARD} component={Dashboard} />
         <Route path={ROUTES.LOGIN} component={Login} />
+        <Route path={ROUTES.SETTINGS} component={Settings} />
         <Route path={ROUTES.SIGNOUT} component={SignOut} />
         <Route path={ROUTES.SIGNUP} component={SignUp} />
         <Route path={ROUTES.EMULATOR} component={Emulator} />
