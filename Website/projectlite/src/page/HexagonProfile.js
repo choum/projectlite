@@ -122,6 +122,7 @@ class HexagonProfile extends Component {
                       }}
                       className="form-control"
                     >
+                      <option />
                       <option>Static Color</option>
                       <option>Wave</option>
                     </select>
@@ -216,8 +217,6 @@ class HexagonProfile extends Component {
     //   "aA",
     //   hexColor
     // );
-
-    this.setState({ hexColor: "" });
   }
 
   handleChange(color, event) {
@@ -235,24 +234,56 @@ class HexagonProfile extends Component {
       k => !this.state.isSelected[k]
     );
     let isAdvanced = this.state.toggleAdvance;
-    if (!allFalse && isAdvanced) {
+    if (isAdvanced) {
       return (
         <SlimContainer>
-          <p>Color</p>
-          <p>Color wheel goes here</p>
+          {this.state.selectValue === "Static Color" && (
+            <div>
+              <p>
+                <h5>Bucket</h5>- Fills the selected hexagon with color
+              </p>
+              <ChromePicker
+                color={this.state.hexColor}
+                onChangeComplete={this.handleChange}
+              />
+              <Divider />
+              <p>
+                <h5>Transistion</h5>- Pick the transition for between the
+                hexagons
+              </p>
+              <select className="form-control">
+                <option>Fade</option>
+              </select>
+            </div>
+          )}
+
           {this.state.selectValue === "Wave" && <p>test</p>}
           <hr />
         </SlimContainer>
       );
-    } else if (!allFalse && !isAdvanced) {
+    } else if (!isAdvanced) {
       return (
-        <div>
-          <p>Pick a color and watch the magic!</p>
-          <ChromePicker
-            color={this.state.hexColor}
-            onChangeComplete={this.handleChange}
-          />
-        </div>
+        <SlimContainer>
+          {this.state.selectValue === "Static Color" && (
+            <div>
+              <p>
+                <h5>Bucket</h5>- Fills the selected hexagon with color
+              </p>
+              <ChromePicker
+                color={this.state.hexColor}
+                onChangeComplete={this.handleChange}
+              />
+              <Divider />
+              <p>
+                <h5>Transistion</h5>- Pick the transition for between the
+                hexagons
+              </p>
+              <select className="form-control">
+                <option>Fade</option>
+              </select>
+            </div>
+          )}
+        </SlimContainer>
       );
     } else {
       return "";
