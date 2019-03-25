@@ -30,6 +30,7 @@ class Login extends Component {
     this.state = { ...INITIAL_STATE };
     this.onSubmit = this.onSubmit.bind(this);
     this.firebase = this.props.firebase;
+    this.handleKeyDown = this.handleKeyDown.bind(this);
   }
 
   onChange = event => {
@@ -47,6 +48,12 @@ class Login extends Component {
       .catch(error => this.setState({ error: error.message }));
 
     event.preventDefault();
+  };
+
+  handleKeyDown = event => {
+    console.log("test");
+    if(event.key === 13){
+    }
   };
 
   render() {
@@ -81,7 +88,7 @@ class Login extends Component {
               required={true}
               onChange={this.onChange}
             />
-            <DefaultButton text="Submit" onClick={this.onSubmit} />
+            <DefaultButton text="Submit" id="enter" onClick={this.onSubmit} onKeyDown={this.handleKeyDown}/>
             <div style={{ textAlign: "center" }}>
               <br />
               <Link to={ROUTES.FORGOTPASSWORD}>Forgot Password?</Link>
