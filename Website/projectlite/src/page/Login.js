@@ -77,6 +77,7 @@ class Login extends Component {
               value={email}
               required={true}
               onChange={this.onChange}
+              onKeyDown={this.handleKeyDown}
             />
             <SingleLineTextBox
               label="Password"
