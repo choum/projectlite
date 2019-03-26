@@ -51,8 +51,8 @@ class Login extends Component {
   };
 
   handleKeyDown = event => {
-    console.log("test");
-    if(event.key === 13){
+    if(event.key === "Enter"){
+      document.getElementById("enter").click();
     }
   };
 
@@ -87,8 +87,9 @@ class Login extends Component {
               value={pass}
               required={true}
               onChange={this.onChange}
+              onKeyDown={this.handleKeyDown}
             />
-            <DefaultButton text="Submit" id="enter" onClick={this.onSubmit} onKeyDown={this.handleKeyDown}/>
+            <DefaultButton text="Submit" id="enter" onClick={this.onSubmit}/>
             <div style={{ textAlign: "center" }}>
               <br />
               <Link to={ROUTES.FORGOTPASSWORD}>Forgot Password?</Link>
