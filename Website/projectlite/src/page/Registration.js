@@ -35,7 +35,6 @@ class RegistrationBase extends Component {
 
   handleKeyDown = event => {
     if(event.key === "Enter"){
-      console.log("test");s
       document.getElementById("enter").click();
     }
   };
