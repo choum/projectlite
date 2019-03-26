@@ -20,6 +20,7 @@ class RegistrationBase extends Component {
     };
     this.validate = this.validate.bind(this);
     this.doSubmit = this.doSubmit.bind(this);
+    this.handleKeyDown = this.handleKeyDown.bind(this);
     this.firebase = this.props.firebase;
   }
 
@@ -30,6 +31,13 @@ class RegistrationBase extends Component {
     this.setState({ enabled: false });
     this.firebase.doCrateUser(this.state.email, this.state.pass1);
     this.setState({ toDashboard: true });
+  };
+
+  handleKeyDown = event => {
+    if(event.key === "Enter"){
+      console.log("test");s
+      document.getElementById("enter").click();
+    }
   };
 
   render() {
@@ -51,6 +59,7 @@ class RegistrationBase extends Component {
               onChange={e => {
                 this.setState({ email: e.target.value });
               }}
+              onKeyDown={this.handleKeyDown}
             />
             <SingleLineTextBox
               label="Password"
@@ -63,6 +72,7 @@ class RegistrationBase extends Component {
               onChange={e => {
                 this.setState({ pass1: e.target.value });
               }}
+              onKeyDown={this.handleKeyDown}
             />
             <SingleLineTextBox
               label="Confirm Password"
@@ -72,6 +82,7 @@ class RegistrationBase extends Component {
               placeholder="Confirm Password"
               disabled={!this.state.enabled}
               //value={this.state.pass2}
+              onKeyDown={this.handleKeyDown}
               onChange={e => {
                 this.setState({ pass2: e.target.value });
               }}
@@ -82,6 +93,7 @@ class RegistrationBase extends Component {
             <DefaultButton
               className="btn"
               text="Submit"
+              id="enter"
               onClick={this.doSubmit}
             />
           </CardContainer>
