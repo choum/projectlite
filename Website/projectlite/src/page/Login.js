@@ -53,7 +53,7 @@ class Login extends Component {
 
   handleKeyDown = event => {
     if(event.key === "Enter"){
-      this.enterButton.current.click();
+      this.enterButton.current.childNodes[0].click();
     }
   };
 
@@ -91,7 +91,9 @@ class Login extends Component {
               onChange={this.onChange}
               onKeyDown={this.handleKeyDown}
             />
-            <DefaultButton text="Submit" ref={this.enterButton} onClick={this.onSubmit}/>
+            <div ref={this.enterButton}>
+              <DefaultButton text="Submit" onClick={this.onSubmit}/>
+            </div>
             <div style={{ textAlign: "center" }}>
               <br />
               <Link to={ROUTES.FORGOTPASSWORD}>Forgot Password?</Link>

@@ -28,6 +28,7 @@ class SignUp extends Component {
     this.onSubmit = this.onSubmit.bind(this);
     this.firebase = this.props.firebase;
     this.handleKeyDown = this.handleKeyDown.bind(this);
+    this.enterButton = React.createRef();
   }
 
   onSubmit = event => {
@@ -49,7 +50,7 @@ class SignUp extends Component {
 
   handleKeyDown = event => {
     if(event.key === "Enter"){
-      document.getElementById("enter").click();
+      this.enterButton.current.childNodes[0].click();
     }
   };
 
@@ -94,12 +95,14 @@ class SignUp extends Component {
               onChange={this.onChange}
               onKeyDown={this.handleKeyDown}
             />
-            <DefaultButton
-              className="btn"
-              text="Submit"
-              id="enter"
-              onClick={this.onSubmit}
-            />
+            <div ref={this.enterButton}>
+              <DefaultButton
+                className="btn"
+                text="Submit"
+                id="enter"
+                onClick={this.onSubmit}
+              />
+            </div>
             {error !== null && <Error>{error}</Error>}
           </CardContainer>
         </FormContainer>
