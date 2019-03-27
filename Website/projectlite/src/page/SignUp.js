@@ -74,6 +74,7 @@ class SignUp extends Component {
               required={true}
               onChange={this.onChange}
               onKeyDown={this.handleKeyDown}
+              autocomplete="username email"
             />
             <SingleLineTextBox
               label="Password"
@@ -84,6 +85,7 @@ class SignUp extends Component {
               required={true}
               onChange={this.onChange}
               onKeyDown={this.handleKeyDown}
+              autocomplete="password"
             />
             <SingleLineTextBox
               label="Confirm Password"
