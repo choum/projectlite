@@ -27,6 +27,7 @@ class SignUp extends Component {
     this.state = { ...defaultState };
     this.onSubmit = this.onSubmit.bind(this);
     this.firebase = this.props.firebase;
+    this.handleKeyDown = this.handleKeyDown.bind(this);
   }
 
   onSubmit = event => {
@@ -44,6 +45,12 @@ class SignUp extends Component {
 
   onChange = event => {
     this.setState({ [event.target.name]: event.target.value });
+  };
+
+  handleKeyDown = event => {
+    if(event.key === "Enter"){
+      document.getElementById("enter").click();
+    }
   };
 
   render() {
@@ -65,6 +72,7 @@ class SignUp extends Component {
               value={email}
               required={true}
               onChange={this.onChange}
+              onKeyDown={this.handleKeyDown}
             />
             <SingleLineTextBox
               label="Password"
@@ -74,6 +82,7 @@ class SignUp extends Component {
               value={pass}
               required={true}
               onChange={this.onChange}
+              onKeyDown={this.handleKeyDown}
             />
             <SingleLineTextBox
               label="Confirm Password"
@@ -83,10 +92,12 @@ class SignUp extends Component {
               value={confirmPass}
               required={true}
               onChange={this.onChange}
+              onKeyDown={this.handleKeyDown}
             />
             <DefaultButton
               className="btn"
               text="Submit"
+              id="enter"
               onClick={this.onSubmit}
             />
             {error !== null && <Error>{error}</Error>}
