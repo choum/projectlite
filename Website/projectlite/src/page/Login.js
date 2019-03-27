@@ -31,6 +31,7 @@ class Login extends Component {
     this.onSubmit = this.onSubmit.bind(this);
     this.firebase = this.props.firebase;
     this.handleKeyDown = this.handleKeyDown.bind(this);
+    this.enterButton = React.createRef();
   }
 
   onChange = event => {
@@ -52,7 +53,7 @@ class Login extends Component {
 
   handleKeyDown = event => {
     if(event.key === "Enter"){
-      document.getElementById("enter").click();
+      this.enterButton.current.click();
     }
   };
 
@@ -90,7 +91,7 @@ class Login extends Component {
               onChange={this.onChange}
               onKeyDown={this.handleKeyDown}
             />
-            <DefaultButton text="Submit" id="enter" onClick={this.onSubmit}/>
+            <DefaultButton text="Submit" ref={this.enterButton} onClick={this.onSubmit}/>
             <div style={{ textAlign: "center" }}>
               <br />
               <Link to={ROUTES.FORGOTPASSWORD}>Forgot Password?</Link>
