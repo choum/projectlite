@@ -71,7 +71,6 @@ class Login extends Component {
             {error && <Error>Your username or password was incorrect</Error>}
             <SingleLineTextBox
               label="Email"
-              id="email"
               type="text"
               name="email"
               placeholder="Email"
@@ -79,10 +78,10 @@ class Login extends Component {
               required={true}
               onChange={this.onChange}
               onKeyDown={this.handleKeyDown}
+              autocomplete="username email"
             />
             <SingleLineTextBox
               label="Password"
-              id="password"
               type="password"
               name="pass"
               placeholder="Password"
@@ -90,6 +89,7 @@ class Login extends Component {
               required={true}
               onChange={this.onChange}
               onKeyDown={this.handleKeyDown}
+              autocomplete="password"
             />
             <div ref={this.enterButton}>
               <DefaultButton text="Submit" onClick={this.onSubmit}/>
