@@ -122,12 +122,6 @@ class CardContainer extends Component {
       case "features":
         display = this.renderFeatures();
         break;
-      case "about":
-        display = this.renderAbout();
-        break;
-      case "registration":
-        display = this.renderRegistration();
-        break;
       case "bodyheader":
         display = this.renderCardBodyHeader();
         break;
