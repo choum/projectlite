@@ -17,11 +17,15 @@ class Settings extends Component {
       <MainContainer>
         <SlimContainer>
           <CardContainer type="card" title="Credentials">
-            <form>
+            <form onSubmit={this.changeEmail}>
               <label>Change Email</label>
               <input type="text" className="form-control" />
               <br />
-              <button className="btn btn-light">Change Email</button>
+              <input
+                type="submit"
+                className="btn btn-light"
+                value="Change Email"
+              />
             </form>
             <hr />
             <label>Reset Password</label>

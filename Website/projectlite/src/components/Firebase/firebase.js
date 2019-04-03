@@ -18,6 +18,10 @@ export default class Firebase {
   }
 
   // ********* Auth API *********
+
+  // get firebase user object
+  // @return fb user object
+  // useful properties: email, displayName
   getCurrentUser = () => this.auth.currentUser;
 
   doSignOut = () => this.auth.signOut();
@@ -34,6 +38,12 @@ export default class Firebase {
 
   doSignInWithEmailAndPassword = (email, password) => {
     return this.auth.signInWithEmailAndPassword(email, password);
+  };
+
+  changeEmail = () => {
+    this.auth.currentUser.updateEmail("abvu@gmail.com").catch(function(error) {
+      console.log(error);
+    });
   };
 
   /* ********* Database API ********* */

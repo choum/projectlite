@@ -29,6 +29,7 @@ class Dashboard extends Component {
   componentDidMount() {
     this.dbref = this.getLayout();
     this.setState({ userName: this.firebase.getCurrentUser().email });
+    console.log(this.firebase.getCurrentUser());
   }
 
   componentWillUnmount() {
