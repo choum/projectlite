@@ -21,11 +21,15 @@ class Settings extends Component {
               <label>Change Email</label>
               <input type="text" className="form-control" />
               <br />
+<<<<<<< HEAD
               <input
                 type="submit"
                 className="btn btn-light"
                 value="Change Email"
               />
+=======
+              <button className="btn btn-light">Change Email</button>
+>>>>>>> 4297fc015f9165f284210c417d9ca054ae3c2778
             </form>
             <hr />
             <label>Reset Password</label>
