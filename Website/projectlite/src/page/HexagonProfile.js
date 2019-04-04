@@ -279,9 +279,17 @@ class HexagonProfile extends Component {
             <div>
               <Divider />
               <h5>Properties</h5>
-              <label>Speed</label>
-              <input className="form-control" type="number" name="speed" min="0" max="50" value={this.state.speed} onChange={e => this.updateSpeed(e.target.value)}/>
-              <Slider min="0" max="50" value={this.state.speed} onChange={e => this.updateSpeed(e.target.value)}/>
+              <div className="row">
+                <div className="col-md-12">
+                  <label>Speed</label>
+                  <input className="form-control" type="number" name="speed" min="0" max="50" value={this.state.speed} onChange={e => this.updateSpeed(e.target.value)}/>
+                  <Slider min="0" max="50" value={this.state.speed} onChange={e => this.updateSpeed(e.target.value)}/>
+                </div>
+                <div className="col-md-6">
+                  <label>Width (%)</label>
+                  <input className="form-control" type="number" name="speed" min="0" max="100"/>
+                </div>
+              </div>
             </div>
           }
           <hr />
