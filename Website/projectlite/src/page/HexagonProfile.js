@@ -291,6 +291,29 @@ class HexagonProfile extends Component {
           )}
 
           {this.state.selectedEffect === "Wave" &&
+            <p>Test</p>
+          }
+          <hr />
+        </SlimContainer>
+      );
+    } else if (!isAdvanced) {
+      return (
+        <SlimContainer>
+          {this.state.selectedEffect === "Static Color" && (
+            <div>
+              <p><h5>Clear</h5>- Deselects hexagons</p>
+              <button className="form-control" onClick={e => this.onClickClear()}>Clear</button>
+              <br/>
+              <p>
+                <h5>Bucket</h5>- Fills the selected hexagon with color
+              </p>
+              <ChromePicker
+                color={this.state.hexColor}
+                onChangeComplete={this.handleChange}
+              />
+            </div>
+          )}
+          {this.state.selectedEffect === "Wave" && (
             <div>
               <Divider />
               <h5>Properties</h5>
@@ -308,34 +331,20 @@ class HexagonProfile extends Component {
                   <label>Width (%)</label>
                   <input className="form-control" type="number" name="speed" min="0" max="100"/>
                 </div>
-
-                  <div className="col-md-6">
+                <div className="col-md-6">
+                  <label>Split</label>
+                  <Toggle/>
+                </div>
+              </div>
+              <br/>
+              <div className="row">
+                <div className="col-md-6">
                     <label>Angle (&#176;)</label>
                     <input className="form-control" type="number" name="speed" min="0" max="360"/>
-                  </div>
-                  <div className="col-md-6">
-                    <label>Split</label>
-                    <Toggle/>
-                  </div>
+                </div>
               </div>
             </div>
-          }
-          <hr />
-        </SlimContainer>
-      );
-    } else if (!isAdvanced) {
-      return (
-        <SlimContainer>
-          {this.state.selectedEffect === "Static Color" && (
-            <div>
-              <p>
-                <h5>Bucket</h5>- Fills the selected hexagon with color
-              </p>
-              <ChromePicker
-                color={this.state.hexColor}
-                onChangeComplete={this.handleChange}
-              />
-            </div>
+
           )}
         </SlimContainer>
       );
