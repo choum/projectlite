@@ -63,18 +63,6 @@ class HexagonProfile extends Component {
     this.dbref.off();
   }
 
-  toggleOrientation() {
-    this.setState(
-      {
-        hexOrientation: !this.state.hexOrientation
-      },
-      () =>
-        this.firebase.setClusterOrientation(
-          this.props.match.params.id,
-          this.state.hexOrientation
-        )
-    );
-  }
 
   getData() {
     return this.firebase.getCluster(this.props.match.params.id, val => {
@@ -94,8 +82,97 @@ class HexagonProfile extends Component {
     });
   }
 
-  onPress() {
-    console.log("button pressed");
+  handleChange(color, event) {
+    let rgbColor =
+      "rgb(" + color.rgb.r + ", " + color.rgb.g + ", " + color.rgb.b + ")";
+    this.setState({
+      hexColor: color.hex,
+      rgbColor: rgbColor
+    });
+    this.pickColor();
+  }
+
+  onClickSelect(hexID) {
+    console.log(hexID);
+    let isSelectedList = this.state.isSelectedList;
+    isSelectedList[hexID] = !isSelectedList[hexID];
+    this.setState({ isSelectedList: isSelectedList });
+    this.pickColor();
+  }
+
+  onClickClear() {
+    let clusterKeys = Object.keys(this.state.isSelectedList);
+    let isSelectedList = {};
+    for (let i = 0; i < clusterKeys.length; i++) {
+      isSelectedList[clusterKeys[i]] = false;
+    }
+    this.setState({ isSelectedList: isSelectedList });
+    this.pickColor();
+  }
+
+  pickColor() {
+    let { isSelectedList, hexColor, rgbColor } = this.state;
+    //get ids
+    let clusterKeys = Object.keys(isSelectedList);
+
+    //go through all ids
+    for (let i = 0; i < clusterKeys.length; i++) {
+      // store html
+      let element = document.getElementById(clusterKeys[i]);
+      //look through the html snippet for a polygon element
+      let polygon = element.querySelector("polygon");
+
+      if (isSelectedList[clusterKeys[i]] === true) {
+        polygon.style.stroke = "green";
+      } else {
+        //not selected then default color
+        polygon.style.stroke = "#666";
+      }
+
+      if (isSelectedList[clusterKeys[i]] === true && !(hexColor === "")) {
+        if (!(rgbColor === polygon.style.fill)) {
+          console.log("fire");
+          polygon.style.fill = hexColor;
+        }
+
+        // only covers case of static
+        this.updateDatabaseClusterEffect(clusterKeys[i], hexColor);
+      }
+    }
+  }
+
+  toggleOrientation() {
+    this.setState(
+      {
+        hexOrientation: !this.state.hexOrientation
+      },
+      () =>
+        this.firebase.setClusterOrientation(
+          this.props.match.params.id,
+          this.state.hexOrientation
+        )
+    );
+  }
+
+  updateDatabaseClusterEffect(coordinate, hexColor) {
+    const { selectedEffect } = this.state;
+
+    if (selectedEffect === "Static Color") {
+      for (let i = 1; i <= 30; i++) {
+        this.firebase.setClusterEffect(
+          this.props.match.params.id,
+          coordinate,
+          i,
+          hexColor
+        );
+      }
+    }
+  }
+
+  updateSpeed(value) {
+    this.setState({
+      speed: value
+    });
   }
 
   renderSideNav() {
@@ -191,68 +268,6 @@ class HexagonProfile extends Component {
     );
   }
 
-  pickColor() {
-    let { isSelectedList, hexColor, rgbColor } = this.state;
-    //get ids
-    let clusterKeys = Object.keys(isSelectedList);
-
-    //go through all ids
-    for (let i = 0; i < clusterKeys.length; i++) {
-      // store html
-      let element = document.getElementById(clusterKeys[i]);
-      //look through the html snippet for a polygon element
-      let polygon = element.querySelector("polygon");
-
-      if (isSelectedList[clusterKeys[i]] === true) {
-        polygon.style.stroke = "green";
-      } else {
-        //not selected then default color
-        polygon.style.stroke = "#666";
-      }
-
-      if (isSelectedList[clusterKeys[i]] === true && !(hexColor === "")) {
-        if (!(rgbColor === polygon.style.fill)) {
-          console.log("fire");
-          polygon.style.fill = hexColor;
-        }
-
-        // only covers case of static
-        this.updateDatabaseClusterEffect(clusterKeys[i], hexColor);
-      }
-    }
-  }
-
-  updateDatabaseClusterEffect(coordinate, hexColor) {
-    const { selectedEffect } = this.state;
-
-    if (selectedEffect === "Static Color") {
-      for (let i = 1; i <= 30; i++) {
-        this.firebase.setClusterEffect(
-          this.props.match.params.id,
-          coordinate,
-          i,
-          hexColor
-        );
-      }
-    }
-  }
-
-  handleChange(color, event) {
-    let rgbColor =
-      "rgb(" + color.rgb.r + ", " + color.rgb.g + ", " + color.rgb.b + ")";
-    this.setState({
-      hexColor: color.hex,
-      rgbColor: rgbColor
-    });
-    this.pickColor();
-  }
-
-  updateSpeed(value) {
-    this.setState({
-      speed: value
-    });
-  }
-
   renderRightSideNav() {
     let allFalse = Object.keys(this.state.isSelectedList).every(
       k => !this.state.isSelectedList[k]
@@ -329,22 +344,6 @@ class HexagonProfile extends Component {
     }
   }
 
-  onClickSelect(hexID) {
-    console.log(hexID);
-    let isSelectedList = this.state.isSelectedList;
-    isSelectedList[hexID] = !isSelectedList[hexID];
-    this.pickColor();
-    this.setState({ isSelectedList: isSelectedList });
-  }
-
-  onClickClear() {
-    let clusterKeys = Object.keys(this.state.isSelectedList);
-    let isSelectedList = {};
-    for (let i = 0; i < clusterKeys.length; i++) {
-      isSelectedList[clusterKeys[i]] = false;
-    }
-    this.setState({ isSelectedList: isSelectedList });
-  }
 
   renderCluster() {
     return (
