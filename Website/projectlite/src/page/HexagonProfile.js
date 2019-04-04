@@ -11,7 +11,7 @@ import {
   CardContainer
 } from "../components/Container";
 import { HexLayout } from "../components/Layout";
-
+import { Slider } from "../components/Slider";
 import { withFirebase } from "../components/Firebase";
 
 const Navigation = styled.div`
@@ -46,11 +46,13 @@ class HexagonProfile extends Component {
       isSelectedListList: {},
       selectedEffect: "",
       hexColor: "",
-      rgbColor: ""
+      rgbColor: "" ,
+      speed: ""
     };
 
     this.firebase = this.props.firebase;
     this.handleChange = this.handleChange.bind(this);
+    this.updateSpeed = this.updateSpeed.bind(this);
   }
 
   componentDidMount() {
@@ -245,6 +247,12 @@ class HexagonProfile extends Component {
     this.pickColor();
   }
 
+  updateSpeed(value) {
+    this.setState({
+      speed: value
+    });
+  }
+
   renderRightSideNav() {
     let allFalse = Object.keys(this.state.isSelectedList).every(
       k => !this.state.isSelectedList[k]
@@ -263,17 +271,19 @@ class HexagonProfile extends Component {
                 onChangeComplete={this.handleChange}
               />
               <Divider />
-              <p>
-                <h5>Transistion</h5>- Pick the transition for between the
-                hexagons
-              </p>
-              <select className="form-control">
-                <option>Fade</option>
-              </select>
+
             </div>
           )}
 
-          {this.state.selectedEffect === "Wave" && <p>test</p>}
+          {this.state.selectedEffect === "Wave" &&
+            <div>
+              <Divider />
+              <h5>Properties</h5>
+              <label>Speed</label>
+              <input className="form-control" type="number" name="speed" min="0" max="50" value={this.state.speed} onChange={e => this.updateSpeed(e.target.value)}/>
+              <Slider min="0" max="50" value={this.state.speed} onChange={e => this.updateSpeed(e.target.value)}/>
+            </div>
+          }
           <hr />
         </SlimContainer>
       );
@@ -289,14 +299,6 @@ class HexagonProfile extends Component {
                 color={this.state.hexColor}
                 onChangeComplete={this.handleChange}
               />
-              <Divider />
-              <p>
-                <h5>Transistion</h5>- Pick the transition for between the
-                hexagons
-              </p>
-              <select className="form-control">
-                <option>Fade</option>
-              </select>
             </div>
           )}
         </SlimContainer>
