@@ -47,7 +47,7 @@ class HexagonProfile extends Component {
       selectedEffect: "",
       hexColor: "",
       rgbColor: "" ,
-      speed: ""
+      speed: "0"
     };
 
     this.firebase = this.props.firebase;
@@ -279,16 +279,29 @@ class HexagonProfile extends Component {
             <div>
               <Divider />
               <h5>Properties</h5>
+              <br />
               <div className="row">
                 <div className="col-md-12">
                   <label>Speed</label>
                   <input className="form-control" type="number" name="speed" min="0" max="50" value={this.state.speed} onChange={e => this.updateSpeed(e.target.value)}/>
                   <Slider min="0" max="50" value={this.state.speed} onChange={e => this.updateSpeed(e.target.value)}/>
                 </div>
+              </div>
+              <br />
+              <div className="row">
                 <div className="col-md-6">
                   <label>Width (%)</label>
                   <input className="form-control" type="number" name="speed" min="0" max="100"/>
                 </div>
+
+                  <div className="col-md-6">
+                    <label>Angle (&#176;)</label>
+                    <input className="form-control" type="number" name="speed" min="0" max="360"/>
+                  </div>
+                  <div className="col-md-6">
+                    <label>Split</label>
+                    <Toggle/>
+                  </div>
               </div>
             </div>
           }
