@@ -44,14 +44,14 @@ const InputDiv = styled.div`
   }
 `;
 
-const Slider = ({ value, onChange }) => (
+const Slider = ({ min = '0', max = '100', value, onChange }) => (
   <InputDiv>
     <input
       type="range"
       className="slider"
       step="1"
-      min="0"
-      max="255"
+      min={min}
+      max= {max}
       value={value}
       onChange={onChange}
     />
