@@ -7,6 +7,11 @@ const Title = styled.h3`
   text-align: center;
 `;
 
+const LargeTitle = styled.h2`
+  text-align: center;
+  font-size: 27pt;
+`;
+
 const CardWrapper = styled.div`
   margin: 10px;
   main {
@@ -41,7 +46,22 @@ const CardWrapper = styled.div`
   a:hover {
     text-decoration: none;
   }
+  .noBorder>* {
+    border: none;
+  }
 `;
+const CardWrapperBorder = styled(CardWrapper)`
+  .card {
+    border: none;
+  }
+  .card-header {
+    border-bottom: none;
+    background-color: transparent;
+  }
+  svg {
+    transform: scale(.7) translate(0%, -25%);
+  }
+`
 
 const ClickableWrapper = styled(CardWrapper)`
   .card-body:hover svg g * {
@@ -62,6 +82,19 @@ class CardContainer extends Component {
           <CardBody>{this.props.children}</CardBody>
         </Card>
       </CardWrapper>
+    );
+  }
+  renderCardNoBorder() {
+    const { title } = this.props;
+    return (
+      <CardWrapperBorder>
+        <Card>
+          <CardHeader>
+            <LargeTitle>{title}</LargeTitle>
+          </CardHeader>
+          <CardBody>{this.props.children}</CardBody>
+        </Card>
+      </CardWrapperBorder>
     );
   }
 
@@ -119,6 +152,9 @@ class CardContainer extends Component {
     let display;
 
     switch (type) {
+      case "noBorder":
+        display = this.renderCardNoBorder();
+        break;
       case "features":
         display = this.renderFeatures();
         break;
