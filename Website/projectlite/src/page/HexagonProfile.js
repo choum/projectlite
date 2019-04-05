@@ -24,10 +24,6 @@ const MenuType = styled.h4`
   margin-top: 10px;
   text-align: center;
 `;
-const ItemType = styled.h5`
-  margin-top: 5px;
-  font-weight: normal;
-`;
 const Divider = styled.hr`
   border-color: white;
 `;
@@ -198,13 +194,13 @@ class HexagonProfile extends Component {
                   )}
                   <Divider />
                   <div className="effect-block">
-                    <ItemType>Effect:</ItemType>
+                    <h5>Effect:</h5>
                     <select
                       value={selectedEffect}
                       onChange={e => {
                         this.setState({
                           selectedEffect: e.target.value
-                        });
+                        }, ()=> this.onClickClear());
                       }}
                       className="form-control"
                     >
@@ -215,35 +211,37 @@ class HexagonProfile extends Component {
                   </div>
                   <Divider />
                   <div className="orientation-block">
-                    <ItemType>Orientation:</ItemType>
-                    <label>
+                    <h5>Orientation:</h5>
+                    <div className="form-check">
                       <input
+                        className="form-check-input"
                         checked={!hexOrientation}
                         onChange={e => this.toggleOrientation()}
                         type="radio"
                         name="options"
-                        id="option1"
                         value="Flat"
                       />
-                      Flat
-                    </label>
+                      <label className="form-check-label">Flat</label>
+                    </div>
                     <br />
-                    <label>
-                      <input
-                        checked={hexOrientation}
-                        onChange={e => this.toggleOrientation()}
-                        type="radio"
-                        name="options"
-                        id="option2"
-                        value="Pointy"
-                      />
-                      Pointy
-                    </label>
+                    <div className="form-check">
+                      <label className="form-check-label">
+                        <input
+                          className="form-check-input"
+                          checked={hexOrientation}
+                          onChange={e => this.toggleOrientation()}
+                          type="radio"
+                          name="options"
+                          value="Pointy"
+                        />
+                        Pointy
+                      </label>
+                    </div>
                   </div>
                   <Divider />
                   {selectedEffect === "Wave" && toggleAdvance && (
                     <div className="pick-block">
-                      <ItemType>Pick Order</ItemType>
+                      <h5>Pick Order</h5>
                       <button className="btn btn-light" value="Pick">
                         Pick
                       </button>
