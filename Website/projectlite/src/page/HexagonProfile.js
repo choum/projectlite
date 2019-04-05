@@ -93,11 +93,12 @@ class HexagonProfile extends Component {
   }
 
   onClickSelect(hexID) {
-    console.log(hexID);
-    let isSelectedList = this.state.isSelectedList;
-    isSelectedList[hexID] = !isSelectedList[hexID];
-    this.setState({ isSelectedList: isSelectedList });
-    this.pickColor();
+    if (this.state.selectedEffect === "Static Color") {
+      let isSelectedList = this.state.isSelectedList;
+      isSelectedList[hexID] = !isSelectedList[hexID];
+      this.setState({ isSelectedList: isSelectedList });
+      this.pickColor();
+    }
   }
 
   onClickClear() {
@@ -106,8 +107,9 @@ class HexagonProfile extends Component {
     for (let i = 0; i < clusterKeys.length; i++) {
       isSelectedList[clusterKeys[i]] = false;
     }
-    this.setState({ isSelectedList: isSelectedList });
-    this.pickColor();
+    this.setState({ isSelectedList: isSelectedList },  () => {
+      this.pickColor();
+    });
   }
 
   pickColor() {
