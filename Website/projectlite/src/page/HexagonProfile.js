@@ -389,7 +389,8 @@ class HexagonProfile extends Component {
       <div className="col-md-9">
         <SlimContainer>
           <CardContainer
-            type="bodyheader"
+            type="noBorder"
+
             title={this.state.clusterData.Name}
             hexOrientation={this.state.hexOrientation}
           >
