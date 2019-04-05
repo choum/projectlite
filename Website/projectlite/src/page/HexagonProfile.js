@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { SideNav } from "react-sidenav";
 import Toggle from "react-toggle-component";
 import "react-toggle-component/styles.css";
-import { ChromePicker } from "react-color";
+import { ChromePicker, HuePicker } from "react-color";
 
 import {
   MainContainer,
@@ -36,6 +36,7 @@ class HexagonProfile extends Component {
     super(props);
     this.state = {
       toggleAdvance: false,
+      toggleSplit: false,
       clusterData: {},
       isClusterLoaded: false,
       hexOrientation: false,
@@ -180,63 +181,76 @@ class HexagonProfile extends Component {
       hexOrientation,
       isSelectedList
     } = this.state;
+
+    let allFalse = Object.keys(this.state.isSelectedList).every(
+      k => !this.state.isSelectedList[k]
+    );
+    let isAdvanced = this.state.toggleAdvance;
+
     return (
       <MainContainer>
         <div className="row">
-          <div className="col-md-2">
+          <div className="col-md-3">
             <Navigation>
               <SideNav defaultSelectedPath="1">
                 <SlimContainer>
-                  {toggleAdvance ? (
+                  {/*{toggleAdvance ? (
                     <MenuType>Advanced Customization</MenuType>
                   ) : (
                     <MenuType>Simple Customization</MenuType>
                   )}
+                  */}
                   <Divider />
-                  <div className="effect-block">
-                    <h5>Effect:</h5>
-                    <select
-                      value={selectedEffect}
-                      onChange={e => {
-                        this.setState({
-                          selectedEffect: e.target.value
-                        }, ()=> this.onClickClear());
-                      }}
-                      className="form-control"
-                    >
-                      <option />
-                      <option>Static Color</option>
-                      <option>Wave</option>
-                    </select>
-                  </div>
-                  <Divider />
-                  <div className="orientation-block">
-                    <h5>Orientation:</h5>
-                    <div className="form-check">
-                      <input
-                        className="form-check-input"
-                        checked={!hexOrientation}
-                        onChange={e => this.toggleOrientation()}
-                        type="radio"
-                        name="options"
-                        value="Flat"
-                      />
-                      <label className="form-check-label">Flat</label>
+                  <div className="row">
+                    <div className="col-md-6">
+                      <div className="orientation-block">
+                        <h5>Orientation:</h5>
+                        <div className="form-check">
+                          <input
+                            className="form-check-input"
+                            checked={!hexOrientation}
+                            onChange={e => this.toggleOrientation()}
+                            type="radio"
+                            name="options"
+                            value="Flat"
+                          />
+                          <label className="form-check-label">Flat</label>
+                        </div>
+                        <br />
+                        <div className="form-check">
+                          <label className="form-check-label">
+                            <input
+                              className="form-check-input"
+                              checked={hexOrientation}
+                              onChange={e => this.toggleOrientation()}
+                              type="radio"
+                              name="options"
+                              value="Pointy"
+                            />
+                            Pointy
+                          </label>
+                        </div>
+                      </div>
                     </div>
-                    <br />
-                    <div className="form-check">
-                      <label className="form-check-label">
-                        <input
-                          className="form-check-input"
-                          checked={hexOrientation}
-                          onChange={e => this.toggleOrientation()}
-                          type="radio"
-                          name="options"
-                          value="Pointy"
-                        />
-                        Pointy
-                      </label>
+                    <div className="col-md-6">
+                      <div className="effect-block">
+                        <h5>Effect:</h5>
+                        <select
+                          value={selectedEffect}
+                          onChange={e => {
+                            this.setState({
+                              selectedEffect: e.target.value
+                            }, ()=> this.onClickClear());
+                          }}
+                          className="form-control"
+                        >
+                          <option />
+                          <option>Static Color</option>
+                          <option>Wave</option>
+                        </select>
+                      </div>
                     </div>
+
                   </div>
                   <Divider />
                   {selectedEffect === "Wave" && toggleAdvance && (
@@ -248,10 +262,12 @@ class HexagonProfile extends Component {
                     </div>
                   )}
                 </SlimContainer>
+                {this.renderRightSideNav()}
               </SideNav>
             </Navigation>
           </div>
           {this.renderCluster()}
+          {/*
           <div className="col-md-2">
             <Navigation>
               <SideNav>
@@ -263,6 +279,7 @@ class HexagonProfile extends Component {
               </SideNav>
             </Navigation>
           </div>
+        */}
         </div>
       </MainContainer>
     );
@@ -315,6 +332,11 @@ class HexagonProfile extends Component {
           )}
           {this.state.selectedEffect === "Wave" && (
             <div>
+              <p>PLACEHOLDER FOR ANTHONY</p>
+              <HuePicker
+                color={this.state.hexColor}
+                onChangeComplete={this.handleChange}
+              />
               <Divider />
               <h5>Properties</h5>
               <br />
@@ -322,18 +344,26 @@ class HexagonProfile extends Component {
                 <div className="col-md-12">
                   <label>Speed</label>
                   <input className="form-control" type="number" name="speed" min="0" max="50" value={this.state.speed} onChange={e => this.updateSpeed(e.target.value)}/>
+                  <br/>
                   <Slider min="0" max="50" value={this.state.speed} onChange={e => this.updateSpeed(e.target.value)}/>
                 </div>
               </div>
               <br />
               <div className="row">
-                <div className="col-md-6">
+                <div className="col-md-8">
                   <label>Width (%)</label>
                   <input className="form-control" type="number" name="speed" min="0" max="100"/>
                 </div>
-                <div className="col-md-6">
+                <div className="col-md-4">
                   <label>Split</label>
-                  <Toggle/>
+                  <br/>
+                  <Toggle
+                    style={{ textAlight: "center" }}
+                    checked={this.state.toggleSplit}
+                    onToggle={value =>
+                      this.setState({ toggleSplit: !this.state.toggleSplit })
+                    }
+                  />
                 </div>
               </div>
               <br/>
@@ -356,7 +386,7 @@ class HexagonProfile extends Component {
 
   renderCluster() {
     return (
-      <div className="col-md-8">
+      <div className="col-md-9">
         <SlimContainer>
           <CardContainer
             type="bodyheader"
