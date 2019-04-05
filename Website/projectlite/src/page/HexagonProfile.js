@@ -318,11 +318,11 @@ class HexagonProfile extends Component {
         <SlimContainer>
           {this.state.selectedEffect === "Static Color" && (
             <div>
-              <p><h5>Clear</h5>- Deselects hexagons</p>
+              <h5>Clear</h5><p>- Deselects hexagons</p>
               <button className="form-control" onClick={e => this.onClickClear()}>Clear</button>
               <br/>
-              <p>
-                <h5>Bucket</h5>- Fills the selected hexagon with color
+                <h5>Bucket</h5>
+                <p>- Fills the selected hexagon with color
               </p>
               <ChromePicker
                 color={this.state.hexColor}
@@ -400,7 +400,7 @@ class HexagonProfile extends Component {
               onClick={hexID => this.onClickSelect(hexID)}
               selected={this.state.isSelectedList}
             />
-            <Toggle
+            {/* <Toggle
               label="Simple"
               labelRight="Advanced"
               style={{ float: "right" }}
@@ -409,6 +409,7 @@ class HexagonProfile extends Component {
                 this.setState({ toggleAdvance: !this.state.toggleAdvance })
               }
             />
+            */}
           </CardContainer>
         </SlimContainer>
       </div>
@@ -419,7 +420,7 @@ class HexagonProfile extends Component {
     return (
       <MainContainer>
         <SlimContainer>
-          <CardContainer type="card" title="Clusters">
+          <CardContainer type="card" title="Clusters" style={{border: 'none'}}>
             Loading...
           </CardContainer>
         </SlimContainer>
