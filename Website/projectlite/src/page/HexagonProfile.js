@@ -380,6 +380,7 @@ class HexagonProfile extends Component {
                     <input className="form-control" type="number" name="speed" min="0" max="360"/>
                 </div>
                 <div className="col-md-4">
+                  <Knob />
                 </div>
               </div>
             </div>
