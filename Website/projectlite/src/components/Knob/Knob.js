@@ -13,7 +13,7 @@ const KnobHandler = styled.span`
   left: 50%;
   margin-left: -1.5px;
   width: 3px;
-  height: 200px;
+  height: 100px;
   background: transparent;
   transform-origin: center;
   transform: rotate(90deg);
@@ -41,7 +41,7 @@ class Knob extends Component {
 
   static defaultProps = {
     value: 0,
-    radius: 100
+    radius: 50
   };
 
   constructor(props) {
@@ -86,11 +86,24 @@ class Knob extends Component {
     const { deg } = this.state;
     const { radius } = this.props;
     return (
-      <div>
-        <KnobWrapper>
+      <div class="row">
+      <div class="col-md-8">
+        <label>Angle (&#176;)</label>
+        <input
+          onChange={this.handleChange}
+          value={Math.round(deg)}
+          min="0"
+          max="360"
+          type="number"
+          className="form-control"
+        />
+      </div>
+      <div class="col-md-4">
+      <br/>
+        <KnobWrapper
           style={{
-            width: `${2*radius}px`,
-            height: `${2*radius}px`
+            width: `${1*radius}px`,
+            height: `${1*radius}px`
           }}
           onMouseDown={this.onMouseDown}
           onMouseUp={this.onMouseUp}
@@ -99,17 +112,12 @@ class Knob extends Component {
           <KnobHandler
             style={{
               transform: `rotate(${deg}deg)`,
-              height: `${2*radius}px`
+              height: `${1*radius}px`
             }}
             />
         </KnobWrapper>
-        <input
-          onChange={this.handleChange}
-          value={Math.round(deg)}
-          min="0"
-          max="360"
-          type="number"
-        />
+
+      </div>
       </div>
     );
   }
