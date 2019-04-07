@@ -10,6 +10,9 @@ import {
   SlimContainer,
   CardContainer
 } from "../components/Container";
+import {
+  Knob
+} from "../components/Knob";
 import { HexLayout } from "../components/Layout";
 import { Slider } from "../components/Slider";
 import { withFirebase } from "../components/Firebase";
@@ -30,6 +33,9 @@ const Divider = styled.hr`
 const Wrap = styled.p`
   word-wrap: break-word;
 `;
+const ColumnColor = styled.div`
+  background-color: #282828;
+`;
 
 class HexagonProfile extends Component {
   constructor(props) {
@@ -44,7 +50,8 @@ class HexagonProfile extends Component {
       selectedEffect: "",
       hexColor: "",
       rgbColor: "" ,
-      speed: "0"
+      speed: "0",
+      width: "100"
     };
 
     this.firebase = this.props.firebase;
@@ -190,7 +197,7 @@ class HexagonProfile extends Component {
     return (
       <MainContainer>
         <div className="row">
-          <div className="col-md-3">
+          <ColumnColor className="col-md-3">
             <Navigation>
               <SideNav defaultSelectedPath="1">
                 <SlimContainer>
@@ -265,7 +272,7 @@ class HexagonProfile extends Component {
                 {this.renderRightSideNav()}
               </SideNav>
             </Navigation>
-          </div>
+          </ColumnColor>
           {this.renderCluster()}
           {/*
           <div className="col-md-2">
@@ -352,7 +359,7 @@ class HexagonProfile extends Component {
               <div className="row">
                 <div className="col-md-8">
                   <label>Width (%)</label>
-                  <input className="form-control" type="number" name="speed" min="0" max="100"/>
+                  <input className="form-control" type="number" min="0" max="100" value={this.state.width} onChange={e => this.setState({width: e.target.value})}/>
                 </div>
                 <div className="col-md-4">
                   <label>Split</label>
@@ -368,9 +375,11 @@ class HexagonProfile extends Component {
               </div>
               <br/>
               <div className="row">
-                <div className="col-md-6">
+                <div className="col-md-8">
                     <label>Angle (&#176;)</label>
                     <input className="form-control" type="number" name="speed" min="0" max="360"/>
+                </div>
+                <div className="col-md-4">
                 </div>
               </div>
             </div>
