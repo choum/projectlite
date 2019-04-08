@@ -396,7 +396,6 @@ class HexagonProfile extends Component {
         <SlimContainer>
           <CardContainer
             type="noBorder"
-
             title={this.state.clusterData.Name}
             hexOrientation={this.state.hexOrientation}
           >
