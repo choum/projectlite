@@ -13,14 +13,14 @@ const KnobHandler = styled.span`
   left: 50%;
   margin-left: -1.5px;
   width: 3px;
-  height: 100px;
+  height: 200px;
   background: transparent;
   transform-origin: center;
   transform: rotate(90deg);
 
   ::after {
     content: ' ';
-    display: block;
+     display: block;
      position: absolute;
      top: 0;
      left: 0;
@@ -41,11 +41,12 @@ class Knob extends Component {
 
   static defaultProps = {
     value: 0,
-    radius: 50
+    radius: 25
   };
 
   constructor(props) {
     super(props);
+    this.box  = React.createRef();
     this.state = {
       isDragging: false,
       deg: 0
@@ -65,7 +66,11 @@ class Knob extends Component {
   onMouseMove = (e) => {
     const { radius } = this.props;
     if (this.state.isDragging) {
-      const mPos = {x: e.clientX, y: e.clientY};
+      const x = e.clientX;
+      const y = e.clientY;
+      const box = this.box.current.getBoundingClientRect();
+
+      const mPos = {x: e.clientX - box.left, y: e.clientY - box.top};
 
       const atan = Math.atan2(mPos.x-radius, mPos.y-radius);
       let deg = -atan/(Math.PI/180) + 180;
@@ -86,38 +91,40 @@ class Knob extends Component {
     const { deg } = this.state;
     const { radius } = this.props;
     return (
-      <div class="row">
-      <div class="col-md-8">
-        <label>Angle (&#176;)</label>
-        <input
-          onChange={this.handleChange}
-          value={Math.round(deg)}
-          min="0"
-          max="360"
-          type="number"
-          className="form-control"
-        />
-      </div>
-      <div class="col-md-4">
-      <br/>
-        <KnobWrapper
-          style={{
-            width: `${1*radius}px`,
-            height: `${1*radius}px`
-          }}
-          onMouseDown={this.onMouseDown}
-          onMouseUp={this.onMouseUp}
-          onMouseMove={this.onMouseMove}
-        >
-          <KnobHandler
+      <div className="row">
+        <div className="col-md-8">
+          <label>Angle (&#176;)</label>
+          <input
+            onChange={this.handleChange}
+            value={Math.round(deg)}
+            min="0"
+            max="360"
+            type="number"
+            className="form-control"
+          />
+        </div>
+        <div className="col-md-4">
+          <br/>
+          <div ref={this.box}>
+          <KnobWrapper
             style={{
-              transform: `rotate(${deg}deg)`,
-              height: `${1*radius}px`
+              width: `${2*radius}px`,
+              height: `${2*radius}px`
             }}
-            />
-        </KnobWrapper>
+            onMouseDown={this.onMouseDown}
+            onMouseUp={this.onMouseUp}
+            onMouseMove={this.onMouseMove}
+          >
+            <KnobHandler
+              style={{
+                transform: `rotate(${deg}deg)`,
+                height: `${2*radius}px`
+              }}
+              />
+          </KnobWrapper>
+          </div>
 
-      </div>
+        </div>
       </div>
     );
   }
