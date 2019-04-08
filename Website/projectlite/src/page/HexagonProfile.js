@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { SideNav } from "react-sidenav";
 import Toggle from "react-toggle-component";
 import "react-toggle-component/styles.css";
-import { ChromePicker, HuePicker } from "react-color";
+import { ChromePicker } from "react-color";
 
 import {
   MainContainer,
@@ -342,8 +342,13 @@ class HexagonProfile extends Component {
           )}
           {this.state.selectedEffect === "Wave" && (
             <div>
-              <p>PLACEHOLDER FOR ANTHONY</p>
+              <p>Color Bar</p>
               <ColorBar />
+              <ChromePicker
+                color={this.state.hexColor}
+                onChangeComplete={this.handleChange}
+                width={500}
+              />
               <Divider />
               <h5>Properties</h5>
               <br />
