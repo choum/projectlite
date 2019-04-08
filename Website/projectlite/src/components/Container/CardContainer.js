@@ -117,7 +117,7 @@ class CardContainer extends Component {
         )}
         {!nav && (
           <CardWrapper>
-            <Card>
+            <Card style={{border:"none"}}>
               <CardBody>
                 <h3 className="card-title">{title}</h3>
                 {this.props.children}
@@ -153,7 +153,7 @@ class CardContainer extends Component {
 
     switch (type) {
       case "noBorder":
-        display = this.renderCardNoBorder();
+        display = this.renderCardBodyHeader();
         break;
       case "features":
         display = this.renderFeatures();
