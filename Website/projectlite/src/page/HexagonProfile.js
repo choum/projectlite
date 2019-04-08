@@ -10,11 +10,11 @@ import {
   SlimContainer,
   CardContainer
 } from "../components/Container";
-import {
-  Knob
-} from "../components/Knob";
+import { Knob } from "../components/Knob";
 import { HexLayout } from "../components/Layout";
 import { Slider } from "../components/Slider";
+import ColorBar from "../components/ColarBar/ColorBar";
+
 import { withFirebase } from "../components/Firebase";
 
 const Navigation = styled.div`
@@ -49,7 +49,7 @@ class HexagonProfile extends Component {
       isSelectedListList: {},
       selectedEffect: "",
       hexColor: "",
-      rgbColor: "" ,
+      rgbColor: "",
       speed: "0",
       width: "100"
     };
@@ -66,7 +66,6 @@ class HexagonProfile extends Component {
   componentWillUnmount() {
     this.dbref.off();
   }
-
 
   getData() {
     return this.firebase.getCluster(this.props.match.params.id, val => {
@@ -111,7 +110,7 @@ class HexagonProfile extends Component {
     for (let i = 0; i < clusterKeys.length; i++) {
       isSelectedList[clusterKeys[i]] = false;
     }
-    this.setState({ isSelectedList: isSelectedList },  () => {
+    this.setState({ isSelectedList: isSelectedList }, () => {
       this.pickColor();
     });
   }
@@ -245,9 +244,12 @@ class HexagonProfile extends Component {
                         <select
                           value={selectedEffect}
                           onChange={e => {
-                            this.setState({
-                              selectedEffect: e.target.value
-                            }, ()=> this.onClickClear());
+                            this.setState(
+                              {
+                                selectedEffect: e.target.value
+                              },
+                              () => this.onClickClear()
+                            );
                           }}
                           className="form-control"
                         >
@@ -257,7 +259,6 @@ class HexagonProfile extends Component {
                         </select>
                       </div>
                     </div>
-
                   </div>
                   <Divider />
                   {selectedEffect === "Wave" && toggleAdvance && (
@@ -310,13 +311,10 @@ class HexagonProfile extends Component {
                 onChangeComplete={this.handleChange}
               />
               <Divider />
-
             </div>
           )}
 
-          {this.state.selectedEffect === "Wave" &&
-            <p>Test</p>
-          }
+          {this.state.selectedEffect === "Wave" && <p>Test</p>}
           <hr />
         </SlimContainer>
       );
@@ -325,12 +323,17 @@ class HexagonProfile extends Component {
         <SlimContainer>
           {this.state.selectedEffect === "Static Color" && (
             <div>
-              <h5>Clear</h5><p>- Deselects hexagons</p>
-              <button className="form-control" onClick={e => this.onClickClear()}>Clear</button>
-              <br/>
-                <h5>Bucket</h5>
-                <p>- Fills the selected hexagon with color
-              </p>
+              <h5>Clear</h5>
+              <p>- Deselects hexagons</p>
+              <button
+                className="form-control"
+                onClick={e => this.onClickClear()}
+              >
+                Clear
+              </button>
+              <br />
+              <h5>Bucket</h5>
+              <p>- Fills the selected hexagon with color</p>
               <ChromePicker
                 color={this.state.hexColor}
                 onChangeComplete={this.handleChange}
@@ -340,30 +343,47 @@ class HexagonProfile extends Component {
           {this.state.selectedEffect === "Wave" && (
             <div>
               <p>PLACEHOLDER FOR ANTHONY</p>
-              <HuePicker
-                color={this.state.hexColor}
-                onChangeComplete={this.handleChange}
-              />
+              <ColorBar />
               <Divider />
               <h5>Properties</h5>
               <br />
               <div className="row">
                 <div className="col-md-12">
                   <label>Speed</label>
-                  <input className="form-control" type="number" name="speed" min="0" max="50" value={this.state.speed} onChange={e => this.updateSpeed(e.target.value)}/>
-                  <br/>
-                  <Slider min="0" max="50" value={this.state.speed} onChange={e => this.updateSpeed(e.target.value)}/>
+                  <input
+                    className="form-control"
+                    type="number"
+                    name="speed"
+                    min="0"
+                    max="50"
+                    value={this.state.speed}
+                    onChange={e => this.updateSpeed(e.target.value)}
+                  />
+                  <br />
+                  <Slider
+                    min="0"
+                    max="50"
+                    value={this.state.speed}
+                    onChange={e => this.updateSpeed(e.target.value)}
+                  />
                 </div>
               </div>
               <br />
               <div className="row">
                 <div className="col-md-8">
                   <label>Width (%)</label>
-                  <input className="form-control" type="number" min="0" max="100" value={this.state.width} onChange={e => this.setState({width: e.target.value})}/>
+                  <input
+                    className="form-control"
+                    type="number"
+                    min="0"
+                    max="100"
+                    value={this.state.width}
+                    onChange={e => this.setState({ width: e.target.value })}
+                  />
                 </div>
                 <div className="col-md-4">
                   <label>Split</label>
-                  <br/>
+                  <br />
                   <Toggle
                     style={{ textAlight: "center" }}
                     checked={this.state.toggleSplit}
@@ -373,14 +393,13 @@ class HexagonProfile extends Component {
                   />
                 </div>
               </div>
-              <br/>
+              <br />
               <div className="row">
                 <div className="col-md-12">
-                  <Knob/>
+                  <Knob />
                 </div>
               </div>
             </div>
-
           )}
         </SlimContainer>
       );
@@ -389,14 +408,12 @@ class HexagonProfile extends Component {
     }
   }
 
-
   renderCluster() {
     return (
       <div className="col-md-9">
         <SlimContainer>
           <CardContainer
             type="noBorder"
-
             title={this.state.clusterData.Name}
             hexOrientation={this.state.hexOrientation}
           >
@@ -426,7 +443,11 @@ class HexagonProfile extends Component {
     return (
       <MainContainer>
         <SlimContainer>
-          <CardContainer type="card" title="Clusters" style={{border: 'none'}}>
+          <CardContainer
+            type="card"
+            title="Clusters"
+            style={{ border: "none" }}
+          >
             Loading...
           </CardContainer>
         </SlimContainer>
