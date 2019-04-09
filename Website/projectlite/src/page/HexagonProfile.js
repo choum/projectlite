@@ -13,7 +13,7 @@ import {
 import { Knob } from "../components/Knob";
 import { HexLayout } from "../components/Layout";
 import { Slider } from "../components/Slider";
-import { ColorBarStatic } from "../components/ColarBar";
+import { ColorBarStatic } from "../components/ColorBar";
 
 import { withFirebase } from "../components/Firebase";
 
