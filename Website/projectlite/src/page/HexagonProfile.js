@@ -13,7 +13,7 @@ import {
 import { Knob } from "../components/Knob";
 import { HexLayout } from "../components/Layout";
 import { Slider } from "../components/Slider";
-import { ColorBarPicker } from "../components/ColarBar";
+import { ColorBarStatic } from "../components/ColarBar";
 
 import { withFirebase } from "../components/Firebase";
 
@@ -46,12 +46,32 @@ class HexagonProfile extends Component {
       clusterData: {},
       isClusterLoaded: false,
       hexOrientation: false,
-      isSelectedListList: {},
+      isSelectedList: {},
       selectedEffect: "",
       hexColor: "",
       rgbColor: "",
       speed: "0",
-      width: "100"
+      width: "100",
+      colorBarPickerLefts: [
+        {
+          left: "30%"
+        },
+        {
+          left: "50%"
+        },
+        {
+          left: "65%"
+        },
+        {
+          left: "85%"
+        }
+      ],
+      colorBarPickerBackgroundColors: [
+        "#42f483",
+        "#F55FFF",
+        "#FFFE3E",
+        "#32E5F2"
+      ]
     };
 
     this.firebase = this.props.firebase;
@@ -81,6 +101,8 @@ class HexagonProfile extends Component {
         hexOrientation: val.Orientation,
         isClusterLoaded: true,
         isSelectedList: isSelectedList
+        //colorBarPickerLefts: val.Effect.Left,
+        //colorBarPickerBackgroundColors: val.Effect.Hex
       });
     });
   }
@@ -294,27 +316,33 @@ class HexagonProfile extends Component {
   }
 
   renderRightSideNav() {
-    let allFalse = Object.keys(this.state.isSelectedList).every(
-      k => !this.state.isSelectedList[k]
-    );
+    const {
+      isSelectedList,
+      selectedEffect,
+      hexColor,
+      colorBarPickerLefts,
+      colorBarPickerBackgroundColors
+    } = this.state;
+
+    let allFalse = Object.keys(isSelectedList).every(k => !isSelectedList[k]);
     let isAdvanced = this.state.toggleAdvance;
     if (isAdvanced) {
       return (
         <SlimContainer>
-          {this.state.selectedEffect === "Static Color" && (
+          {selectedEffect === "Static Color" && (
             <div>
               <p>
                 <h5>Bucket</h5>- Fills the selected hexagon with color
               </p>
               <ChromePicker
-                color={this.state.hexColor}
+                color={hexColor}
                 onChangeComplete={this.handleChange}
               />
               <Divider />
             </div>
           )}
 
-          {this.state.selectedEffect === "Wave" && <p>Test</p>}
+          {selectedEffect === "Wave" && <p>Test</p>}
           <hr />
         </SlimContainer>
       );
@@ -335,7 +363,7 @@ class HexagonProfile extends Component {
               <h5>Bucket</h5>
               <p>- Fills the selected hexagon with color</p>
               <ChromePicker
-                color={this.state.hexColor}
+                color={hexColor}
                 onChangeComplete={this.handleChange}
               />
             </div>
@@ -343,11 +371,9 @@ class HexagonProfile extends Component {
           {this.state.selectedEffect === "Wave" && (
             <div>
               <p>Color Bar</p>
-              <ColorBarPicker />
-              <ChromePicker
-                color={this.state.hexColor}
-                onChangeComplete={this.handleChange}
-                width={500}
+              <ColorBarStatic
+                pointerPositions={colorBarPickerLefts}
+                pointerColors={colorBarPickerBackgroundColors}
               />
               <Divider />
               <h5>Properties</h5>
@@ -461,6 +487,9 @@ class HexagonProfile extends Component {
   }
 
   render() {
+    console.log("hex", this.state.colorBarPickerBackgroundColors);
+    console.log("left", this.state.colorBarPickerLefts);
+
     return this.state.isClusterLoaded
       ? this.renderSideNav()
       : this.renderLoading();
