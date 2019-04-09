@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPlus } from "@fortawesome/free-solid-svg-icons";
 
-import ColorPointer from "./ColorPointer";
+import ColorBarPointer from "./ColorBarPointer";
 import * as logic from "./ColorBarLogic";
 
 const styles = {
@@ -29,7 +29,7 @@ const styles = {
   }
 };
 
-class ColorBar extends Component {
+class ColorBarPicker extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -164,7 +164,7 @@ class ColorBar extends Component {
                   onMouseDown={e => this.handleMouseDown(e, index)}
                   ref={element => (this["pointer" + index] = element)}
                 >
-                  <ColorPointer
+                  <ColorBarPointer
                     backgroundColor={pointerBackgroundColors[index]}
                     enabled={pointerSelectedIndex === index}
                   />
@@ -194,4 +194,4 @@ class ColorBar extends Component {
   }
 }
 
-export default ColorBar;
+export default ColorBarPicker;

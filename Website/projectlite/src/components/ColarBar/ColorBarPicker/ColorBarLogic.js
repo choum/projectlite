@@ -48,7 +48,6 @@ export const calculatePercentChange = (
     ? parseFloat(locationList[selectedIndex + 1].left)
     : null;
 
-  // @TODO make the 4 and 2 dyanmic based on a calculation
   if (leftLeft != null && leftCurrentConverted < leftLeft + 11) {
     leftCurrentConverted = leftLeft + 11;
   } else if (leftRight != null && leftCurrentConverted > leftRight - 11) {

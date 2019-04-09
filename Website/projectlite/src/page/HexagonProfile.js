@@ -13,7 +13,7 @@ import {
 import { Knob } from "../components/Knob";
 import { HexLayout } from "../components/Layout";
 import { Slider } from "../components/Slider";
-import ColorBar from "../components/ColarBar/ColorBar";
+import { ColorBarPicker } from "../components/ColarBar";
 
 import { withFirebase } from "../components/Firebase";
 
@@ -343,7 +343,7 @@ class HexagonProfile extends Component {
           {this.state.selectedEffect === "Wave" && (
             <div>
               <p>Color Bar</p>
-              <ColorBar />
+              <ColorBarPicker />
               <ChromePicker
                 color={this.state.hexColor}
                 onChangeComplete={this.handleChange}

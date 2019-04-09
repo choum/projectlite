@@ -20,7 +20,7 @@ const styles = {
   }
 };
 
-const ColorPointer = props => {
+const ColorBarPointer = props => {
   return (
     <div style={{ ...styles.picker, backgroundColor: props.backgroundColor }}>
       {props.enabled && <div style={styles.arrow} />}
@@ -28,4 +28,4 @@ const ColorPointer = props => {
   );
 };
 
-export default ColorPointer;
+export default ColorBarPointer;
