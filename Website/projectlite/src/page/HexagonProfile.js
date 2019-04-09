@@ -3,18 +3,18 @@ import styled from "styled-components";
 import { SideNav } from "react-sidenav";
 import Toggle from "react-toggle-component";
 import "react-toggle-component/styles.css";
-import { ChromePicker, HuePicker } from "react-color";
+import { ChromePicker } from "react-color";
 
 import {
   MainContainer,
   SlimContainer,
   CardContainer
 } from "../components/Container";
-import {
-  Knob
-} from "../components/Knob";
+import { Knob } from "../components/Knob";
 import { HexLayout } from "../components/Layout";
 import { Slider } from "../components/Slider";
+import { ColorBarStatic } from "../components/ColarBar";
+
 import { withFirebase } from "../components/Firebase";
 
 const Navigation = styled.div`
@@ -46,12 +46,32 @@ class HexagonProfile extends Component {
       clusterData: {},
       isClusterLoaded: false,
       hexOrientation: false,
-      isSelectedListList: {},
+      isSelectedList: {},
       selectedEffect: "",
       hexColor: "",
-      rgbColor: "" ,
+      rgbColor: "",
       speed: "0",
-      width: "100"
+      width: "100",
+      colorBarPickerLefts: [
+        {
+          left: "30%"
+        },
+        {
+          left: "50%"
+        },
+        {
+          left: "65%"
+        },
+        {
+          left: "85%"
+        }
+      ],
+      colorBarPickerBackgroundColors: [
+        "#42f483",
+        "#F55FFF",
+        "#FFFE3E",
+        "#32E5F2"
+      ]
     };
 
     this.firebase = this.props.firebase;
@@ -67,7 +87,6 @@ class HexagonProfile extends Component {
     this.dbref.off();
   }
 
-
   getData() {
     return this.firebase.getCluster(this.props.match.params.id, val => {
       let isSelectedList = {};
@@ -82,6 +101,8 @@ class HexagonProfile extends Component {
         hexOrientation: val.Orientation,
         isClusterLoaded: true,
         isSelectedList: isSelectedList
+        //colorBarPickerLefts: val.Effect.Left,
+        //colorBarPickerBackgroundColors: val.Effect.Hex
       });
     });
   }
@@ -111,7 +132,7 @@ class HexagonProfile extends Component {
     for (let i = 0; i < clusterKeys.length; i++) {
       isSelectedList[clusterKeys[i]] = false;
     }
-    this.setState({ isSelectedList: isSelectedList },  () => {
+    this.setState({ isSelectedList: isSelectedList }, () => {
       this.pickColor();
     });
   }
@@ -245,9 +266,12 @@ class HexagonProfile extends Component {
                         <select
                           value={selectedEffect}
                           onChange={e => {
-                            this.setState({
-                              selectedEffect: e.target.value
-                            }, ()=> this.onClickClear());
+                            this.setState(
+                              {
+                                selectedEffect: e.target.value
+                              },
+                              () => this.onClickClear()
+                            );
                           }}
                           className="form-control"
                         >
@@ -257,7 +281,6 @@ class HexagonProfile extends Component {
                         </select>
                       </div>
                     </div>
-
                   </div>
                   <Divider />
                   {selectedEffect === "Wave" && toggleAdvance && (
@@ -293,30 +316,33 @@ class HexagonProfile extends Component {
   }
 
   renderRightSideNav() {
-    let allFalse = Object.keys(this.state.isSelectedList).every(
-      k => !this.state.isSelectedList[k]
-    );
+    const {
+      isSelectedList,
+      selectedEffect,
+      hexColor,
+      colorBarPickerLefts,
+      colorBarPickerBackgroundColors
+    } = this.state;
+
+    let allFalse = Object.keys(isSelectedList).every(k => !isSelectedList[k]);
     let isAdvanced = this.state.toggleAdvance;
     if (isAdvanced) {
       return (
         <SlimContainer>
-          {this.state.selectedEffect === "Static Color" && (
+          {selectedEffect === "Static Color" && (
             <div>
               <p>
                 <h5>Bucket</h5>- Fills the selected hexagon with color
               </p>
               <ChromePicker
-                color={this.state.hexColor}
+                color={hexColor}
                 onChangeComplete={this.handleChange}
               />
               <Divider />
-
             </div>
           )}
 
-          {this.state.selectedEffect === "Wave" &&
-            <p>Test</p>
-          }
+          {selectedEffect === "Wave" && <p>Test</p>}
           <hr />
         </SlimContainer>
       );
@@ -325,24 +351,29 @@ class HexagonProfile extends Component {
         <SlimContainer>
           {this.state.selectedEffect === "Static Color" && (
             <div>
-              <h5>Clear</h5><p>- Deselects hexagons</p>
-              <button className="form-control" onClick={e => this.onClickClear()}>Clear</button>
-              <br/>
-                <h5>Bucket</h5>
-                <p>- Fills the selected hexagon with color
-              </p>
+              <h5>Clear</h5>
+              <p>- Deselects hexagons</p>
+              <button
+                className="form-control"
+                onClick={e => this.onClickClear()}
+              >
+                Clear
+              </button>
+              <br />
+              <h5>Bucket</h5>
+              <p>- Fills the selected hexagon with color</p>
               <ChromePicker
-                color={this.state.hexColor}
+                color={hexColor}
                 onChangeComplete={this.handleChange}
               />
             </div>
           )}
           {this.state.selectedEffect === "Wave" && (
             <div>
-              <p>PLACEHOLDER FOR ANTHONY</p>
-              <HuePicker
-                color={this.state.hexColor}
-                onChangeComplete={this.handleChange}
+              <p>Color Bar</p>
+              <ColorBarStatic
+                pointerPositions={colorBarPickerLefts}
+                pointerColors={colorBarPickerBackgroundColors}
               />
               <Divider />
               <h5>Properties</h5>
@@ -350,20 +381,40 @@ class HexagonProfile extends Component {
               <div className="row">
                 <div className="col-md-12">
                   <label>Speed</label>
-                  <input className="form-control" type="number" name="speed" min="0" max="50" value={this.state.speed} onChange={e => this.updateSpeed(e.target.value)}/>
-                  <br/>
-                  <Slider min="0" max="50" value={this.state.speed} onChange={e => this.updateSpeed(e.target.value)}/>
+                  <input
+                    className="form-control"
+                    type="number"
+                    name="speed"
+                    min="0"
+                    max="50"
+                    value={this.state.speed}
+                    onChange={e => this.updateSpeed(e.target.value)}
+                  />
+                  <br />
+                  <Slider
+                    min="0"
+                    max="50"
+                    value={this.state.speed}
+                    onChange={e => this.updateSpeed(e.target.value)}
+                  />
                 </div>
               </div>
               <br />
               <div className="row">
                 <div className="col-md-8">
                   <label>Width (%)</label>
-                  <input className="form-control" type="number" min="0" max="100" value={this.state.width} onChange={e => this.setState({width: e.target.value})}/>
+                  <input
+                    className="form-control"
+                    type="number"
+                    min="0"
+                    max="100"
+                    value={this.state.width}
+                    onChange={e => this.setState({ width: e.target.value })}
+                  />
                 </div>
                 <div className="col-md-4">
                   <label>Split</label>
-                  <br/>
+                  <br />
                   <Toggle
                     style={{ textAlight: "center" }}
                     checked={this.state.toggleSplit}
@@ -373,14 +424,13 @@ class HexagonProfile extends Component {
                   />
                 </div>
               </div>
-              <br/>
+              <br />
               <div className="row">
                 <div className="col-md-12">
-                  <Knob/>
+                  <Knob />
                 </div>
               </div>
             </div>
-
           )}
         </SlimContainer>
       );
@@ -388,7 +438,6 @@ class HexagonProfile extends Component {
       return "";
     }
   }
-
 
   renderCluster() {
     return (
@@ -425,7 +474,11 @@ class HexagonProfile extends Component {
     return (
       <MainContainer>
         <SlimContainer>
-          <CardContainer type="card" title="Clusters" style={{border: 'none'}}>
+          <CardContainer
+            type="card"
+            title="Clusters"
+            style={{ border: "none" }}
+          >
             Loading...
           </CardContainer>
         </SlimContainer>
@@ -434,6 +487,9 @@ class HexagonProfile extends Component {
   }
 
   render() {
+    console.log("hex", this.state.colorBarPickerBackgroundColors);
+    console.log("left", this.state.colorBarPickerLefts);
+
     return this.state.isClusterLoaded
       ? this.renderSideNav()
       : this.renderLoading();
