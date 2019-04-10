@@ -84,19 +84,6 @@ class CardContainer extends Component {
       </CardWrapper>
     );
   }
-  renderCardNoBorder() {
-    const { title } = this.props;
-    return (
-      <CardWrapperBorder>
-        <Card>
-          <CardHeader>
-            <LargeTitle>{title}</LargeTitle>
-          </CardHeader>
-          <CardBody>{this.props.children}</CardBody>
-        </Card>
-      </CardWrapperBorder>
-    );
-  }
 
   renderCardBodyHeader() {
     const { title, UID, hexOrientation, nav } = this.props;
@@ -152,9 +139,6 @@ class CardContainer extends Component {
     let display;
 
     switch (type) {
-      case "noBorder":
-        display = this.renderCardBodyHeader();
-        break;
       case "features":
         display = this.renderFeatures();
         break;

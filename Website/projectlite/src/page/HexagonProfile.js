@@ -52,6 +52,7 @@ class HexagonProfile extends Component {
       rgbColor: "",
       speed: "0",
       width: "100",
+      popup: false
       colorBarPickerLefts: [
         {
           left: "30%"
@@ -202,6 +203,20 @@ class HexagonProfile extends Component {
     });
   }
 
+  renderLogic() {
+      return (
+        <MainContainer>
+          <div className="row">
+         {this.state.popup
+           ? this.renderPopup()
+           : this.renderSideNav()}
+          {this.renderCluster()}
+          </div>
+        </MainContainer>
+      )
+  }
+
+
   renderSideNav() {
     let {
       toggleAdvance,
@@ -216,8 +231,6 @@ class HexagonProfile extends Component {
     let isAdvanced = this.state.toggleAdvance;
 
     return (
-      <MainContainer>
-        <div className="row">
           <ColumnColor className="col-md-3">
             <Navigation>
               <SideNav defaultSelectedPath="1">
@@ -296,23 +309,21 @@ class HexagonProfile extends Component {
               </SideNav>
             </Navigation>
           </ColumnColor>
-          {this.renderCluster()}
-          {/*
-          <div className="col-md-2">
-            <Navigation>
-              <SideNav>
-                <SlimContainer>
-                  <Wrap>{JSON.stringify(isSelectedList)}</Wrap>
-                  <button onClick={e => this.onClickClear()}>Clear</button>
-                  {this.renderRightSideNav()}
-                </SlimContainer>
-              </SideNav>
-            </Navigation>
-          </div>
-        */}
-        </div>
-      </MainContainer>
     );
+  }
+
+  renderPopup() {
+    return (
+        <ColumnColor className="col-md-3">
+        <Navigation>
+          <SideNav defaultSelectedPath="1">
+            <SlimContainer>
+              <p>Pop-up</p>
+            </SlimContainer>
+          </SideNav>
+        </Navigation>
+        </ColumnColor>
+    )
   }
 
   renderRightSideNav() {
@@ -444,7 +455,7 @@ class HexagonProfile extends Component {
       <div className="col-md-9">
         <SlimContainer>
           <CardContainer
-            type="noBorder"
+            type="bodyheader"
             title={this.state.clusterData.Name}
             hexOrientation={this.state.hexOrientation}
           >
@@ -486,13 +497,16 @@ class HexagonProfile extends Component {
     );
   }
 
+
+
   render() {
     console.log("hex", this.state.colorBarPickerBackgroundColors);
     console.log("left", this.state.colorBarPickerLefts);
 
     return this.state.isClusterLoaded
-      ? this.renderSideNav()
+      ? this.renderLogic()
       : this.renderLoading();
+
   }
 }
 export default withFirebase(HexagonProfile);
