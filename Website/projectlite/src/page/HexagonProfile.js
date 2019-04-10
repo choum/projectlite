@@ -52,7 +52,7 @@ class HexagonProfile extends Component {
       rgbColor: "",
       speed: "0",
       width: "100",
-      popup: false
+      popup: false,
       colorBarPickerLefts: [
         {
           left: "30%"
@@ -385,6 +385,7 @@ class HexagonProfile extends Component {
               <ColorBarStatic
                 pointerPositions={colorBarPickerLefts}
                 pointerColors={colorBarPickerBackgroundColors}
+                onClick={e => this.setState({ popup: !this.state.popup })}
               />
               <Divider />
               <h5>Properties</h5>
