@@ -1,0 +1,19 @@
+{
+  "name": "gateway",
+  "version": "1.0.0",
+  "description": "Local gateway for sending serial data to unit",
+  "main": "index.js",
+  "dependencies": {
+    "firebase": "^5.9.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com/choum/projectlite"
+  },
+  "author": "Ryan White (Project Lite)",
+  "license": "ISC"
+}
