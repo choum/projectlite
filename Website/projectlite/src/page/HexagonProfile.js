@@ -51,7 +51,8 @@ class HexagonProfile extends Component {
       hexColor: "",
       rgbColor: "" ,
       speed: "0",
-      width: "100"
+      width: "100",
+      popup: false
     };
 
     this.firebase = this.props.firebase;
@@ -181,6 +182,20 @@ class HexagonProfile extends Component {
     });
   }
 
+  renderLogic() {
+      return (
+        <MainContainer>
+          <div className="row">
+         {this.state.popup
+           ? this.renderPopup()
+           : this.renderSideNav()}
+          {this.renderCluster()}
+          </div>
+        </MainContainer>
+      )
+  }
+
+
   renderSideNav() {
     let {
       toggleAdvance,
@@ -195,8 +210,6 @@ class HexagonProfile extends Component {
     let isAdvanced = this.state.toggleAdvance;
 
     return (
-      <MainContainer>
-        <div className="row">
           <ColumnColor className="col-md-3">
             <Navigation>
               <SideNav defaultSelectedPath="1">
@@ -273,23 +286,21 @@ class HexagonProfile extends Component {
               </SideNav>
             </Navigation>
           </ColumnColor>
-          {this.renderCluster()}
-          {/*
-          <div className="col-md-2">
-            <Navigation>
-              <SideNav>
-                <SlimContainer>
-                  <Wrap>{JSON.stringify(isSelectedList)}</Wrap>
-                  <button onClick={e => this.onClickClear()}>Clear</button>
-                  {this.renderRightSideNav()}
-                </SlimContainer>
-              </SideNav>
-            </Navigation>
-          </div>
-        */}
-        </div>
-      </MainContainer>
     );
+  }
+
+  renderPopup() {
+    return (
+        <ColumnColor className="col-md-3">
+        <Navigation>
+          <SideNav defaultSelectedPath="1">
+            <SlimContainer>
+              <p>Pop-up</p>
+            </SlimContainer>
+          </SideNav>
+        </Navigation>
+        </ColumnColor>
+    )
   }
 
   renderRightSideNav() {
@@ -339,10 +350,8 @@ class HexagonProfile extends Component {
           )}
           {this.state.selectedEffect === "Wave" && (
             <div>
-              <p>PLACEHOLDER FOR ANTHONY</p>
+              <p onClick={e => this.setState({ popup: !this.state.popup })}>PLACEHOLDER FOR ANTHONY</p>
               <HuePicker
-                color={this.state.hexColor}
-                onChangeComplete={this.handleChange}
               />
               <Divider />
               <h5>Properties</h5>
@@ -395,7 +404,7 @@ class HexagonProfile extends Component {
       <div className="col-md-9">
         <SlimContainer>
           <CardContainer
-            type="noBorder"
+            type="bodyheader"
             title={this.state.clusterData.Name}
             hexOrientation={this.state.hexOrientation}
           >
@@ -433,10 +442,13 @@ class HexagonProfile extends Component {
     );
   }
 
+
+
   render() {
     return this.state.isClusterLoaded
-      ? this.renderSideNav()
+      ? this.renderLogic()
       : this.renderLoading();
+
   }
 }
 export default withFirebase(HexagonProfile);
