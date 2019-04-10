@@ -385,6 +385,7 @@ class HexagonProfile extends Component {
               <ColorBarStatic
                 pointerPositions={colorBarPickerLefts}
                 pointerColors={colorBarPickerBackgroundColors}
+                onClick={e => this.setState({ popup: !this.state.popup })}
               />
               <Divider />
               <h5>Properties</h5>
