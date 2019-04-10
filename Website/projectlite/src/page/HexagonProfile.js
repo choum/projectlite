@@ -52,7 +52,7 @@ class HexagonProfile extends Component {
       rgbColor: "",
       speed: "0",
       width: "100",
-      popup: false
+      popup: false,
       colorBarPickerLefts: [
         {
           left: "30%"
