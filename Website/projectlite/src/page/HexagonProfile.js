@@ -4,8 +4,8 @@ import { SideNav } from "react-sidenav";
 import Toggle from "react-toggle-component";
 import "react-toggle-component/styles.css";
 import { ChromePicker } from "react-color";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 import {
   MainContainer,
   SlimContainer,
@@ -40,8 +40,10 @@ class HexagonProfile extends Component {
       toggleSplit: false,
       clusterData: {},
       isClusterLoaded: false,
+      isFirstRender: true,
       hexOrientation: false,
-      selectedEffect: "",
+      isSelectedList: {},
+      selectedEffect: "Static Color",
       hexColor: "",
       rgbColor: "",
       speed: "0",
@@ -80,6 +82,37 @@ class HexagonProfile extends Component {
 
   componentWillUnmount() {
     this.dbref.off();
+  }
+
+  componentDidUpdate() {
+    const { isClusterLoaded, isFirstRender } = this.state;
+    if (isClusterLoaded === true && isFirstRender === true) {
+      this.initPolygonFill();
+      this.setState({ isFirstRender: false });
+    }
+  }
+
+  // for now, just works on static
+  initPolygonFill() {
+    this.firebase.getClusterEffect(this.props.match.params.id, val => {
+      if (val.Type !== "Static_Colors") {
+        return;
+      }
+
+      //get ids
+      let clusterKeys = Object.keys(val);
+      let hexColor = val[clusterKeys[1]];
+
+      //go through all ids
+      for (let i = 0; i < clusterKeys.length; i++) {
+        // store html
+        let element = document.getElementById(clusterKeys[i]);
+        //look through the html snippet for a polygon element
+        let polygon = element.querySelector("polygon");
+
+        polygon.style.fill = hexColor;
+      }
+    });
   }
 
   getData() {
@@ -153,7 +186,6 @@ class HexagonProfile extends Component {
 
       if (isSelectedList[clusterKeys[i]] === true && !(hexColor === "")) {
         if (!(rgbColor === polygon.style.fill)) {
-          console.log("fire");
           polygon.style.fill = hexColor;
         }
 
@@ -198,120 +230,122 @@ class HexagonProfile extends Component {
   }
 
   renderLogic() {
-      return (
-        <MainContainer>
-          <div className="row">
-         {this.state.popup
-           ? this.renderPopup()
-           : this.renderSideNav()}
+    return (
+      <MainContainer>
+        <div className="row">
+          {this.state.popup ? this.renderPopup() : this.renderSideNav()}
           {this.renderCluster()}
-          </div>
-        </MainContainer>
-      )
+        </div>
+      </MainContainer>
+    );
   }
 
-
   renderSideNav() {
-    let {
-      toggleAdvance,
-      selectedEffect,
-      hexOrientation
-    } = this.state;
+    let { toggleAdvance, selectedEffect, hexOrientation } = this.state;
     return (
-          <ColumnColor className="col-md-3">
-            <Navigation>
-              <SideNav defaultSelectedPath="1">
-                <SlimContainer>
-                  {/*{toggleAdvance ? (
+      <ColumnColor className="col-md-3">
+        <Navigation>
+          <SideNav defaultSelectedPath="1">
+            <SlimContainer>
+              {/*{toggleAdvance ? (
                     <MenuType>Advanced Customization</MenuType>
                   ) : (
                     <MenuType>Simple Customization</MenuType>
                   )}
                   */}
-                  <Divider />
-                  <div className="row">
-                    <div className="col-md-6">
-                      <div className="orientation-block">
-                        <h5>Orientation:</h5>
-                        <div className="form-check">
-                          <input
-                            className="form-check-input"
-                            checked={!hexOrientation}
-                            onChange={e => this.toggleOrientation()}
-                            type="radio"
-                            name="options"
-                            value="Flat"
-                          />
-                          <label className="form-check-label">Flat</label>
-                        </div>
-                        <br />
-                        <div className="form-check">
-                          <label className="form-check-label">
-                            <input
-                              className="form-check-input"
-                              checked={hexOrientation}
-                              onChange={e => this.toggleOrientation()}
-                              type="radio"
-                              name="options"
-                              value="Pointy"
-                            />
-                            Pointy
-                          </label>
-                        </div>
-                      </div>
+              <Divider />
+              <div className="row">
+                <div className="col-md-6">
+                  <div className="orientation-block">
+                    <h5>Orientation:</h5>
+                    <div className="form-check">
+                      <input
+                        className="form-check-input"
+                        checked={!hexOrientation}
+                        onChange={e => this.toggleOrientation()}
+                        type="radio"
+                        name="options"
+                        value="Flat"
+                      />
+                      <label className="form-check-label">Flat</label>
                     </div>
-                    <div className="col-md-6">
-                      <div className="effect-block">
-                        <h5>Effect:</h5>
-                        <select
-                          value={selectedEffect}
-                          onChange={e => {
-                            this.setState(
-                              {
-                                selectedEffect: e.target.value
-                              },
-                              () => this.onClickClear()
-                            );
-                          }}
-                          className="form-control"
-                        >
-                          <option />
-                          <option>Static Color</option>
-                          <option>Wave</option>
-                        </select>
-                      </div>
+                    <br />
+                    <div className="form-check">
+                      <label className="form-check-label">
+                        <input
+                          className="form-check-input"
+                          checked={hexOrientation}
+                          onChange={e => this.toggleOrientation()}
+                          type="radio"
+                          name="options"
+                          value="Pointy"
+                        />
+                        Pointy
+                      </label>
                     </div>
                   </div>
-                  <Divider />
-                  {selectedEffect === "Wave" && toggleAdvance && (
-                    <div className="pick-block">
-                      <h5>Pick Order</h5>
-                      <button className="btn btn-light" value="Pick">
-                        Pick
-                      </button>
-                    </div>
-                  )}
-                </SlimContainer>
-                {this.renderRightSideNav()}
-              </SideNav>
-            </Navigation>
-          </ColumnColor>
+                </div>
+                <div className="col-md-6">
+                  <div className="effect-block">
+                    <h5>Effect:</h5>
+                    <select
+                      value={selectedEffect}
+                      onChange={e => {
+                        this.setState(
+                          {
+                            selectedEffect: e.target.value
+                          },
+                          () => this.onClickClear()
+                        );
+                      }}
+                      className="form-control"
+                    >
+                      <option />
+                      <option>Static Color</option>
+                      <option>Wave</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <Divider />
+              {selectedEffect === "Wave" && toggleAdvance && (
+                <div className="pick-block">
+                  <h5>Pick Order</h5>
+                  <button className="btn btn-light" value="Pick">
+                    Pick
+                  </button>
+                </div>
+              )}
+            </SlimContainer>
+            {this.renderRightSideNav()}
+          </SideNav>
+        </Navigation>
+      </ColumnColor>
     );
   }
 
   renderPopup() {
     let { popup } = this.state;
     return (
-        <ColumnColor className="col-md-3" style={{paddingRight: "5px"}}>
+      <ColumnColor className="col-md-3" style={{ paddingRight: "5px" }}>
         <Navigation>
           <SideNav defaultSelectedPath="1">
             <SlimContainer>
-              <FontAwesomeIcon icon={faTimesCircle} color="white" style={{display: "inline-block", float: "right", marginTop: "2%"}} onClick={e => this.setState({ popup: !popup })}/>
+              <FontAwesomeIcon
+                icon={faTimesCircle}
+                color="white"
+                style={{
+                  display: "inline-block",
+                  float: "right",
+                  marginTop: "2%"
+                }}
+                onClick={e => this.setState({ popup: !popup })}
+              />
             </SlimContainer>
           </SideNav>
         </Navigation>
-        </ColumnColor>
-    )
+      </ColumnColor>
+    );
   }
 
   renderRightSideNav() {
@@ -488,13 +522,10 @@ class HexagonProfile extends Component {
     );
   }
 
-
-
   render() {
     return this.state.isClusterLoaded
       ? this.renderLogic()
       : this.renderLoading();
-
   }
 }
 export default withFirebase(HexagonProfile);
