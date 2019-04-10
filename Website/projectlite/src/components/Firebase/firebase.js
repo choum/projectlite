@@ -85,6 +85,18 @@ export default class Firebase {
   };
 
   // @param string ID - cluster ID
+  // @param function(object) callback - function to return data
+  // @return db ref
+  // @return callback({Effect})
+  getClusterEffectSortByKey = (ID, callback) => {
+    let data = this.db.ref("clusters/" + ID + "/Effect").orderByKey();
+    data.on("value", function(snapshot) {
+      callback(snapshot.val());
+    });
+    return data;
+  };
+
+  // @param string ID - cluster ID
   // @param  bool value - pointy(true) or flat(false)
   // @return db ref & callback({Effect})
   setClusterOrientation = (ID, value) => {

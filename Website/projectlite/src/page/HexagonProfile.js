@@ -76,10 +76,24 @@ class HexagonProfile extends Component {
 
   componentDidMount() {
     this.dbref = this.getData();
+    this.dbColorPickerRef = this.getColorPickerData();
   }
 
   componentWillUnmount() {
     this.dbref.off();
+    this.dbColorPickerRef.off();
+  }
+
+  getColorPickerData() {
+    return this.firebase.getClusterEffectSortByKey(
+      this.props.match.params.id,
+      val => {
+        this.setState({
+          //colorBarPickerLefts: val.Effect.Left,
+          //colorBarPickerBackgroundColors: val.Effect.Hex
+        });
+      }
+    );
   }
 
   getData() {
@@ -96,8 +110,6 @@ class HexagonProfile extends Component {
         hexOrientation: val.Orientation,
         isClusterLoaded: true,
         isSelectedList: isSelectedList
-        //colorBarPickerLefts: val.Effect.Left,
-        //colorBarPickerBackgroundColors: val.Effect.Hex
       });
     });
   }
@@ -293,7 +305,7 @@ class HexagonProfile extends Component {
   }
 
   renderPopup() {
-    let { popup } = this.state;
+    let { popup, hexColor } = this.state;
     return (
       <ColumnColor
         className="col-md-3"
@@ -316,7 +328,10 @@ class HexagonProfile extends Component {
                 <ColorBarPicker />
               </div>
               <div style={{ marginTop: 30 }}>
-                <ChromePicker />
+                <ChromePicker
+                  color={hexColor}
+                  onChangeComplete={this.handleChange}
+                />
               </div>
             </SlimContainer>
           </SideNav>
