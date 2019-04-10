@@ -66,8 +66,6 @@ class Knob extends Component {
   onMouseMove = (e) => {
     const { radius } = this.props;
     if (this.state.isDragging) {
-      const x = e.clientX;
-      const y = e.clientY;
       const box = this.box.current.getBoundingClientRect();
 
       const mPos = {x: e.clientX - box.left, y: e.clientY - box.top};
@@ -76,7 +74,7 @@ class Knob extends Component {
       let deg = -atan/(Math.PI/180) + 180;
       // final (0-360 positive) degrees from mouse position
             // for attraction to multiple of 90 degrees
-      if(deg == 360) deg = 0;
+      if(deg === 360) deg = 0;
 
       this.setState({ deg })
     }
