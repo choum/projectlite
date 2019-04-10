@@ -4,7 +4,8 @@ import { SideNav } from "react-sidenav";
 import Toggle from "react-toggle-component";
 import "react-toggle-component/styles.css";
 import { ChromePicker } from "react-color";
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 import {
   MainContainer,
   SlimContainer,
@@ -23,15 +24,9 @@ const Navigation = styled.div`
   height: 100vh;
   width: 100%;
 `;
-const MenuType = styled.h4`
-  margin-top: 10px;
-  text-align: center;
-`;
+
 const Divider = styled.hr`
   border-color: white;
-`;
-const Wrap = styled.p`
-  word-wrap: break-word;
 `;
 const ColumnColor = styled.div`
   background-color: #282828;
@@ -46,7 +41,6 @@ class HexagonProfile extends Component {
       clusterData: {},
       isClusterLoaded: false,
       hexOrientation: false,
-      isSelectedList: {},
       selectedEffect: "",
       hexColor: "",
       rgbColor: "",
@@ -221,15 +215,8 @@ class HexagonProfile extends Component {
     let {
       toggleAdvance,
       selectedEffect,
-      hexOrientation,
-      isSelectedList
+      hexOrientation
     } = this.state;
-
-    let allFalse = Object.keys(this.state.isSelectedList).every(
-      k => !this.state.isSelectedList[k]
-    );
-    let isAdvanced = this.state.toggleAdvance;
-
     return (
           <ColumnColor className="col-md-3">
             <Navigation>
@@ -313,12 +300,13 @@ class HexagonProfile extends Component {
   }
 
   renderPopup() {
+    let { popup } = this.state;
     return (
-        <ColumnColor className="col-md-3">
+        <ColumnColor className="col-md-3" style={{paddingRight: "5px"}}>
         <Navigation>
           <SideNav defaultSelectedPath="1">
             <SlimContainer>
-              <p>Pop-up</p>
+              <FontAwesomeIcon icon={faTimesCircle} color="white" style={{display: "inline-block", float: "right", marginTop: "2%"}} onClick={e => this.setState({ popup: !popup })}/>
             </SlimContainer>
           </SideNav>
         </Navigation>
@@ -328,16 +316,18 @@ class HexagonProfile extends Component {
 
   renderRightSideNav() {
     const {
-      isSelectedList,
       selectedEffect,
       hexColor,
       colorBarPickerLefts,
-      colorBarPickerBackgroundColors
+      colorBarPickerBackgroundColors,
+      toggleAdvance,
+      toggleSplit,
+      popup,
+      speed,
+      width
     } = this.state;
 
-    let allFalse = Object.keys(isSelectedList).every(k => !isSelectedList[k]);
-    let isAdvanced = this.state.toggleAdvance;
-    if (isAdvanced) {
+    if (toggleAdvance) {
       return (
         <SlimContainer>
           {selectedEffect === "Static Color" && (
@@ -357,7 +347,7 @@ class HexagonProfile extends Component {
           <hr />
         </SlimContainer>
       );
-    } else if (!isAdvanced) {
+    } else if (!toggleAdvance) {
       return (
         <SlimContainer>
           {this.state.selectedEffect === "Static Color" && (
@@ -385,7 +375,7 @@ class HexagonProfile extends Component {
               <ColorBarStatic
                 pointerPositions={colorBarPickerLefts}
                 pointerColors={colorBarPickerBackgroundColors}
-                onClick={e => this.setState({ popup: !this.state.popup })}
+                onClick={e => this.setState({ popup: !popup })}
               />
               <Divider />
               <h5>Properties</h5>
@@ -399,14 +389,14 @@ class HexagonProfile extends Component {
                     name="speed"
                     min="0"
                     max="50"
-                    value={this.state.speed}
+                    value={speed}
                     onChange={e => this.updateSpeed(e.target.value)}
                   />
                   <br />
                   <Slider
                     min="0"
                     max="50"
-                    value={this.state.speed}
+                    value={speed}
                     onChange={e => this.updateSpeed(e.target.value)}
                   />
                 </div>
@@ -420,7 +410,7 @@ class HexagonProfile extends Component {
                     type="number"
                     min="0"
                     max="100"
-                    value={this.state.width}
+                    value={width}
                     onChange={e => this.setState({ width: e.target.value })}
                   />
                 </div>
@@ -429,9 +419,9 @@ class HexagonProfile extends Component {
                   <br />
                   <Toggle
                     style={{ textAlight: "center" }}
-                    checked={this.state.toggleSplit}
+                    checked={toggleSplit}
                     onToggle={value =>
-                      this.setState({ toggleSplit: !this.state.toggleSplit })
+                      this.setState({ toggleSplit: !toggleSplit })
                     }
                   />
                 </div>
@@ -501,9 +491,6 @@ class HexagonProfile extends Component {
 
 
   render() {
-    console.log("hex", this.state.colorBarPickerBackgroundColors);
-    console.log("left", this.state.colorBarPickerLefts);
-
     return this.state.isClusterLoaded
       ? this.renderLogic()
       : this.renderLoading();
