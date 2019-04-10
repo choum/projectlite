@@ -14,7 +14,7 @@ import {
 import { Knob } from "../components/Knob";
 import { HexLayout } from "../components/Layout";
 import { Slider } from "../components/Slider";
-import { ColorBarStatic } from "../components/ColorBar";
+import { ColorBarStatic, ColorBarPicker } from "../components/ColorBar";
 
 import { withFirebase } from "../components/Firebase";
 
@@ -41,7 +41,7 @@ class HexagonProfile extends Component {
       clusterData: {},
       isClusterLoaded: false,
       hexOrientation: false,
-      selectedEffect: "",
+      selectedEffect: "Wave",
       hexColor: "",
       rgbColor: "",
       speed: "0",
@@ -295,7 +295,10 @@ class HexagonProfile extends Component {
   renderPopup() {
     let { popup } = this.state;
     return (
-      <ColumnColor className="col-md-3" style={{ paddingRight: "5px" }}>
+      <ColumnColor
+        className="col-md-3"
+        style={{ paddingRight: "5px", minWidth: 470 }}
+      >
         <Navigation>
           <SideNav defaultSelectedPath="1">
             <SlimContainer>
@@ -309,6 +312,12 @@ class HexagonProfile extends Component {
                 }}
                 onClick={e => this.setState({ popup: !popup })}
               />
+              <div style={{ marginTop: 60 }}>
+                <ColorBarPicker />
+              </div>
+              <div style={{ marginTop: 30 }}>
+                <ChromePicker />
+              </div>
             </SlimContainer>
           </SideNav>
         </Navigation>
