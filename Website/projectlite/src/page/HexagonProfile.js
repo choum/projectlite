@@ -45,9 +45,10 @@ class HexagonProfile extends Component {
       toggleSplit: false,
       clusterData: {},
       isClusterLoaded: false,
+      isFirstRender: true,
       hexOrientation: false,
       isSelectedList: {},
-      selectedEffect: "",
+      selectedEffect: "Static Color",
       hexColor: "",
       rgbColor: "",
       speed: "0",
@@ -85,6 +86,37 @@ class HexagonProfile extends Component {
 
   componentWillUnmount() {
     this.dbref.off();
+  }
+
+  componentDidUpdate() {
+    const { isClusterLoaded, isFirstRender } = this.state;
+    if (isClusterLoaded === true && isFirstRender === true) {
+      this.initPolygonFill();
+      this.setState({ isFirstRender: false });
+    }
+  }
+
+  // for now, just works on static
+  initPolygonFill() {
+    this.firebase.getClusterEffect(this.props.match.params.id, val => {
+      if (val.Type !== "Static_Colors") {
+        return;
+      }
+
+      //get ids
+      let clusterKeys = Object.keys(val);
+      let hexColor = val[clusterKeys[1]];
+
+      //go through all ids
+      for (let i = 0; i < clusterKeys.length; i++) {
+        // store html
+        let element = document.getElementById(clusterKeys[i]);
+        //look through the html snippet for a polygon element
+        let polygon = element.querySelector("polygon");
+
+        polygon.style.fill = hexColor;
+      }
+    });
   }
 
   getData() {
@@ -158,7 +190,6 @@ class HexagonProfile extends Component {
 
       if (isSelectedList[clusterKeys[i]] === true && !(hexColor === "")) {
         if (!(rgbColor === polygon.style.fill)) {
-          console.log("fire");
           polygon.style.fill = hexColor;
         }
 
@@ -487,9 +518,6 @@ class HexagonProfile extends Component {
   }
 
   render() {
-    console.log("hex", this.state.colorBarPickerBackgroundColors);
-    console.log("left", this.state.colorBarPickerLefts);
-
     return this.state.isClusterLoaded
       ? this.renderSideNav()
       : this.renderLoading();
