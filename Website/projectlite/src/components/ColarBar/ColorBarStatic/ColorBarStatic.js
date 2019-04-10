@@ -25,10 +25,10 @@ const styles = {
 };
 
 const ColorBarStatic = props => {
-  const { pointerPositions, pointerColors } = props;
+  const { pointerPositions, pointerColors, onClick } = props;
 
   return (
-    <div style={styles.outer}>
+    <div style={styles.outer} onClick={onClick}>
       <div style={styles.inner}>
         <div
           style={{
