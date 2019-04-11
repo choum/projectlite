@@ -40,7 +40,7 @@ class HexagonProfile extends Component {
       toggleSplit: false,
       clusterData: {},
       isClusterLoaded: false,
-      isFirstRender: true,
+      isClusterRendered: false,
       hexOrientation: false,
       isSelectedList: {},
       selectedEffect: "Static Color",
@@ -74,24 +74,24 @@ class HexagonProfile extends Component {
     this.firebase = this.props.firebase;
     this.handleChange = this.handleChange.bind(this);
     this.updateSpeed = this.updateSpeed.bind(this);
+    this.initPolygonFill = this.initPolygonFill.bind(this);
   }
 
   componentDidMount() {
     this.dbref = this.getData();
   }
-
   componentWillUnmount() {
     this.dbref.off();
-  }
 
+  }
   componentDidUpdate() {
-    const { isClusterLoaded, isFirstRender } = this.state;
-    if (isClusterLoaded === true && isFirstRender === true) {
+    let test = document.getElementsByClassName("hexagon-group")[0];
+    if (test === null) {
+      console.log("we null");
+    } else {
       this.initPolygonFill();
-      this.setState({ isFirstRender: false });
     }
   }
-
   // for now, just works on static
   initPolygonFill() {
     this.firebase.getClusterEffect(this.props.match.params.id, val => {
@@ -102,15 +102,18 @@ class HexagonProfile extends Component {
       //get ids
       let clusterKeys = Object.keys(val);
       let hexColor = val[clusterKeys[1]];
-
+      console.log(hexColor);
       //go through all ids
       for (let i = 0; i < clusterKeys.length; i++) {
         // store html
         let element = document.getElementById(clusterKeys[i]);
-        //look through the html snippet for a polygon element
-        let polygon = element.querySelector("polygon");
+        if (element !== null) {
+          console.log("test");
+          //look through the html snippet for a polygon element
+          let polygon = element.querySelector("polygon");
 
-        polygon.style.fill = hexColor;
+          polygon.style.fill = hexColor[1];
+        }
       }
     });
   }
@@ -504,6 +507,7 @@ class HexagonProfile extends Component {
         </SlimContainer>
       </div>
     );
+    this.setState({isClusterRendered: !this.state.isClusterRendered})
   }
 
   renderLoading() {
