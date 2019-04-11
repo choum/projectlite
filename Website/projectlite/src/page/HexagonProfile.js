@@ -82,7 +82,6 @@ class HexagonProfile extends Component {
   }
   componentWillUnmount() {
     this.dbref.off();
-
   }
   componentDidUpdate() {
     let test = document.getElementsByClassName("hexagon-group")[0];
@@ -215,7 +214,7 @@ class HexagonProfile extends Component {
     const { selectedEffect } = this.state;
 
     if (selectedEffect === "Static Color") {
-      for (let i = 1; i <= 30; i++) {
+      for (let i = 0; i < 60; i++) {
         this.firebase.setClusterEffect(
           this.props.match.params.id,
           coordinate,
@@ -507,7 +506,7 @@ class HexagonProfile extends Component {
         </SlimContainer>
       </div>
     );
-    this.setState({isClusterRendered: !this.state.isClusterRendered})
+    this.setState({ isClusterRendered: !this.state.isClusterRendered });
   }
 
   renderLoading() {
