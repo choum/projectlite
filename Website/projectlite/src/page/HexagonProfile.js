@@ -40,7 +40,7 @@ class HexagonProfile extends Component {
       toggleSplit: false,
       clusterData: {},
       isClusterLoaded: false,
-      isRun: true,
+      isRendered: false,
       hexOrientation: false,
       isSelectedList: {},
       selectedEffect: "Static Color",
@@ -79,15 +79,21 @@ class HexagonProfile extends Component {
 
   componentDidMount() {
     this.dbref = this.getData();
+    this.setState({
+      isRendered: true
+    })
   }
   componentWillUnmount() {
     this.dbref.off();
 
   }
-  componentDidUpdate() {
+  componentDidUpdate(prevState) {
     let test = document.getElementsByClassName("hexagon-group")[0];
-    if (test !== null) {
-      this.initPolygonFill();
+    if (test !== null && this.state.isRendered) {
+      if((prevState.hexColor === this.state.hexColor) || this.state.hexColor === "") {
+        this.initPolygonFill();
+        console.log("yeet");
+      }
     } else {
       console.log("we null");
     }
