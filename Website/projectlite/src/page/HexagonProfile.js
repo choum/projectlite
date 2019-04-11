@@ -40,7 +40,7 @@ class HexagonProfile extends Component {
       toggleSplit: false,
       clusterData: {},
       isClusterLoaded: false,
-      isClusterRendered: false,
+      isRun: true,
       hexOrientation: false,
       isSelectedList: {},
       selectedEffect: "Static Color",
@@ -86,10 +86,10 @@ class HexagonProfile extends Component {
   }
   componentDidUpdate() {
     let test = document.getElementsByClassName("hexagon-group")[0];
-    if (test === null) {
-      console.log("we null");
-    } else {
+    if (test !== null) {
       this.initPolygonFill();
+    } else {
+      console.log("we null");
     }
   }
   // for now, just works on static
@@ -98,21 +98,21 @@ class HexagonProfile extends Component {
       if (val.Type !== "Static_Colors") {
         return;
       }
-
       //get ids
       let clusterKeys = Object.keys(val);
-      let hexColor = val[clusterKeys[1]];
-      console.log(hexColor);
+      let test = 0;
       //go through all ids
-      for (let i = 0; i < clusterKeys.length; i++) {
-        // store html
-        let element = document.getElementById(clusterKeys[i]);
-        if (element !== null) {
-          console.log("test");
-          //look through the html snippet for a polygon element
-          let polygon = element.querySelector("polygon");
-
-          polygon.style.fill = hexColor[1];
+      if (test === 0) {
+        for (let i = 0; i < clusterKeys.length; i++) {
+          // store html
+          let hexColor = val[clusterKeys[i]];
+          let element = document.getElementById(clusterKeys[i]);
+          if (element !== null) {
+            //look through the html snippet for a polygon element
+            let polygon = element.querySelector("polygon");
+            polygon.style.fill = hexColor[1];
+            test++;
+          }
         }
       }
     });
