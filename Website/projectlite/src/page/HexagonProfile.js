@@ -88,12 +88,34 @@ class HexagonProfile extends Component {
     return this.firebase.getClusterEffectSortByKey(
       this.props.match.params.id,
       val => {
-        this.setState({
-          //colorBarPickerLefts: val.Effect.Left,
-          //colorBarPickerBackgroundColors: val.Effect.Hex
-        });
+        let left = this.pickerLeftObjCreator(val);
+        let backColor = this.pickerBackgroundColorArrCreator(val);
+
+        this.setState(
+          {
+            //colorBarPickerLefts: left,
+            //colorBarPickerBackgroundColors: backColor
+          },
+          console.log(this.state)
+        );
       }
     );
+  }
+
+  pickerLeftObjCreator(obj) {
+    let arr = [];
+    for (let i in obj.Left) {
+      arr.push({ left: i + "%" });
+    }
+    return arr;
+  }
+
+  pickerBackgroundColorArrCreator(obj) {
+    let arr = [];
+    for (let i in obj.Hex) {
+      arr.push(i);
+    }
+    return arr;
   }
 
   getData() {
@@ -192,7 +214,7 @@ class HexagonProfile extends Component {
     const { selectedEffect } = this.state;
 
     if (selectedEffect === "Static Color") {
-      for (let i = 1; i <= 30; i++) {
+      for (let i = 0; i < 60; i++) {
         this.firebase.setClusterEffect(
           this.props.match.params.id,
           coordinate,
