@@ -112,6 +112,44 @@ export default class Firebase {
     let selection = this.db.ref("clusters/" + ID + "/Effect/" + coord);
     selection.update({ [key]: value });
   };
+
+  // @param string ID - cluster ID
+  // @param num groupID - id within fake array
+  // @param string hex - hex pointer color
+  // @param num left - left value
+  addPointerWaveEffect = (ID, groupID, left, hex) => {
+    console.log(groupID);
+    this.db
+      .ref("clusters/" + ID + "/Effect/Left/")
+      .update({ ["group" + groupID]: left });
+    this.db
+      .ref("clusters/" + ID + "/Effect/Hex/")
+      .update({ ["group" + groupID]: hex });
+  };
+
+  // @param string ID - cluster ID
+  // @param num index - group number
+  // @param num val - new left value
+  leftChangeWaveEffect = (ID, index, val) => {
+    this.db
+      .ref("clusters/" + ID + "/Effect/Left/")
+      .update({ ["group" + index]: val });
+  };
+
+  // remove will at index and update all other indexes
+  // this includes both hex and left
+  removePointerWaveEffect = (ID, oldHex, newHex, left) => {
+    let hexSend = {};
+    let leftSend = {};
+
+    for (let i = 0; i < newHex.length; i++) {
+      hexSend["group" + i] = newHex[i].left;
+      leftSend["group" + i] = left[i];
+    }
+
+    this.db.ref("clusters/" + ID + "/Effect/Left/").set(leftSend);
+    this.db.ref("clusters/" + ID + "/Effect/Hex/").set(hexSend);
+  };
 }
 
 class CustomEvent {

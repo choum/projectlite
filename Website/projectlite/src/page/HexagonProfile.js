@@ -90,14 +90,10 @@ class HexagonProfile extends Component {
       val => {
         let left = this.pickerLeftObjCreator(val);
         let backColor = this.pickerBackgroundColorArrCreator(val);
-
-        this.setState(
-          {
-            //colorBarPickerLefts: left,
-            //colorBarPickerBackgroundColors: backColor
-          },
-          console.log(this.state)
-        );
+        this.setState({
+          colorBarPickerLefts: left,
+          colorBarPickerBackgroundColors: backColor
+        });
       }
     );
   }
@@ -105,7 +101,7 @@ class HexagonProfile extends Component {
   pickerLeftObjCreator(obj) {
     let arr = [];
     for (let i in obj.Left) {
-      arr.push({ left: i + "%" });
+      arr.push({ left: obj.Left[i] + "%" });
     }
     return arr;
   }
@@ -113,7 +109,7 @@ class HexagonProfile extends Component {
   pickerBackgroundColorArrCreator(obj) {
     let arr = [];
     for (let i in obj.Hex) {
-      arr.push(i);
+      arr.push(obj.Hex[i]);
     }
     return arr;
   }
@@ -209,6 +205,66 @@ class HexagonProfile extends Component {
         )
     );
   }
+
+  onLeftChangeColorBarPicker = (index, val) => {
+    const { colorBarPickerLefts } = this.state;
+    let newColorBarPickerLefts = colorBarPickerLefts.splice(0);
+    newColorBarPickerLefts[index] = { left: val + "%" };
+    this.setState(
+      {
+        colorBarPickerBackgroundColors: newColorBarPickerLefts
+      },
+      this.firebase.leftChangeWaveEffect(this.props.match.params.id, index, val)
+    );
+  };
+
+  onAddPointerColorBarPicker = (index, left, hex) => {
+    const { colorBarPickerLefts, colorBarPickerBackgroundColors } = this.state;
+    let newColorBarPickerLefts = colorBarPickerLefts.splice(0);
+    let newcolorBarPickerBackgroundColors = colorBarPickerBackgroundColors.splice(
+      0
+    );
+    newColorBarPickerLefts[index] = { left: left + "%" };
+    newcolorBarPickerBackgroundColors.push(hex);
+    this.setState(
+      {
+        colorBarPickerBackgroundColors: newColorBarPickerLefts,
+        colorBarPickerBackgroundColors: newcolorBarPickerBackgroundColors
+      },
+      this.firebase.addPointerWaveEffect(
+        this.props.match.params.id,
+        index,
+        left,
+        hex
+      )
+    );
+  };
+
+  onDeletePointerColorBarPicker = () => {
+    const {
+      pointerLeftLocations,
+      pointerBackgroundColors,
+      pointerSelectedIndex
+    } = this.state;
+    if (pointerLeftLocations.length < 2) {
+      return;
+    }
+
+    let newPointerLeftLocations = pointerLeftLocations.splice(0);
+    let newPointerBackgroundColors = pointerBackgroundColors.splice(0);
+    newPointerLeftLocations = newPointerLeftLocations.filter(function(val) {
+      return val !== newPointerLeftLocations[pointerSelectedIndex];
+    });
+    newPointerBackgroundColors = newPointerBackgroundColors.filter(function(
+      val
+    ) {
+      return val !== newPointerBackgroundColors[pointerSelectedIndex];
+    });
+    this.setState({
+      pointerLeftLocations: newPointerLeftLocations,
+      pointerBackgroundColors: newPointerBackgroundColors
+    });
+  };
 
   updateDatabaseClusterEffect(coordinate, hexColor) {
     const { selectedEffect } = this.state;
@@ -327,7 +383,12 @@ class HexagonProfile extends Component {
   }
 
   renderPopup() {
-    let { popup, hexColor } = this.state;
+    let {
+      popup,
+      hexColor,
+      colorBarPickerBackgroundColors,
+      colorBarPickerLefts
+    } = this.state;
     return (
       <ColumnColor
         className="col-md-3"
@@ -347,7 +408,13 @@ class HexagonProfile extends Component {
                 onClick={e => this.setState({ popup: !popup })}
               />
               <div style={{ marginTop: 60 }}>
-                <ColorBarPicker />
+                <ColorBarPicker
+                  leftPositions={colorBarPickerLefts}
+                  backgroundColors={colorBarPickerBackgroundColors}
+                  onAddPointer={this.onAddPointerColorBarPicker}
+                  onDeletePointer={this.onDeletePointerColorBarPicker}
+                  onMovePointer={this.onLeftChangeColorBarPicker}
+                />
               </div>
               <div style={{ marginTop: 30 }}>
                 <ChromePicker

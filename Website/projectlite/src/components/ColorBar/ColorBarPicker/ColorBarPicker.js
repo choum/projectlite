@@ -34,22 +34,16 @@ class ColorBarPicker extends Component {
     super(props);
     this.state = {
       pointerSelectedIndex: 0,
-      pointerLeftLocations: [
-        {
-          left: "30%"
-        },
-        {
-          left: "50%"
-        },
-        {
-          left: "65%"
-        },
-        {
-          left: "85%"
-        }
-      ],
-      pointerBackgroundColors: ["#42f483", "#F55FFF", "#FFFE3E", "#32E5F2"]
+      pointerLeftLocations: [],
+      pointerBackgroundColors: []
     };
+  }
+
+  componentDidMount() {
+    this.setState({
+      pointerLeftLocations: this.props.leftPositions,
+      pointerBackgroundColors: this.props.backgroundColors
+    });
   }
 
   componentWillUnmount() {
@@ -70,6 +64,9 @@ class ColorBarPicker extends Component {
     this.setState({
       pointerLeftLocations: newPointerLeftLocations
     });
+
+    // update database left value
+    this.props.onMovePointer(pointerSelectedIndex, parseFloat(leftVal));
   };
 
   handleMouseDown = (e, index) => {
@@ -94,13 +91,17 @@ class ColorBarPicker extends Component {
     ) {
       return;
     }
-
+    console.log(pointerLeftLocations.length);
     let newPointerLeftLocations = pointerLeftLocations.splice(0);
     let newPointerBackgroundColors = pointerBackgroundColors.splice(0);
     let lastColor =
       newPointerBackgroundColors[newPointerBackgroundColors.length - 1];
     newPointerLeftLocations.push({ left: "95%" });
     newPointerBackgroundColors.push(lastColor);
+
+    // add new pointer to db
+    this.props.onAddPointer(newPointerLeftLocations.length, 95, lastColor);
+
     this.setState({
       pointerLeftLocations: newPointerLeftLocations,
       pointerBackgroundColors: newPointerBackgroundColors
