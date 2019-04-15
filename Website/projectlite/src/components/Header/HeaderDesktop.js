@@ -44,7 +44,7 @@ const Head = styled.div`
   .active:hover {
     text-decoration: none;
   }
-  
+
   .masthead-brand {
     float: left;
     vertical-align: middle;
@@ -80,11 +80,11 @@ const Head = styled.div`
   .item-list {
     float:right;
   }
-  
+
   .logo {
     float: left;
   }
-  
+
   ul {
     margin-top: 0px;
   }
