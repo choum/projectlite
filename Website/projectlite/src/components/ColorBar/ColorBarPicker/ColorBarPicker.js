@@ -35,7 +35,8 @@ class ColorBarPicker extends Component {
     this.state = {
       pointerSelectedIndex: 0,
       pointerLeftLocations: [],
-      pointerBackgroundColors: []
+      pointerBackgroundColors: [],
+      lastLeftVal: 0
     };
   }
 
@@ -62,11 +63,9 @@ class ColorBarPicker extends Component {
     let newPointerLeftLocations = pointerLeftLocations.slice(0);
     newPointerLeftLocations[pointerSelectedIndex] = { left: leftVal };
     this.setState({
-      pointerLeftLocations: newPointerLeftLocations
+      pointerLeftLocations: newPointerLeftLocations,
+      lastLeftVal: parseFloat(leftVal)
     });
-
-    // update database left value
-    this.props.onMovePointer(pointerSelectedIndex, parseFloat(leftVal));
   };
 
   handleMouseDown = (e, index) => {
@@ -77,7 +76,11 @@ class ColorBarPicker extends Component {
   };
 
   handleMouseUp = () => {
-    //console.log("handleMouseup");
+    const { pointerSelectedIndex, lastLeftVal } = this.state;
+
+    // update database left value
+    this.props.onMovePointer(pointerSelectedIndex, lastLeftVal);
+
     window.removeEventListener("mousemove", this.handleMouseMove);
     window.removeEventListener("mouseup", this.handleMouseUp);
   };
