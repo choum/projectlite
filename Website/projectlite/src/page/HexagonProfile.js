@@ -212,7 +212,7 @@ class HexagonProfile extends Component {
     newColorBarPickerLefts[index] = { left: val + "%" };
     this.setState(
       {
-        colorBarPickerBackgroundColors: newColorBarPickerLefts
+        colorBarPickerLefts: newColorBarPickerLefts
       },
       this.firebase.leftChangeWaveEffect(this.props.match.params.id, index, val)
     );

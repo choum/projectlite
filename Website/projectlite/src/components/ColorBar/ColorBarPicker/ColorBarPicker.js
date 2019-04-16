@@ -94,7 +94,7 @@ class ColorBarPicker extends Component {
     ) {
       return;
     }
-    console.log(pointerLeftLocations.length);
+
     let newPointerLeftLocations = pointerLeftLocations.splice(0);
     let newPointerBackgroundColors = pointerBackgroundColors.splice(0);
     let lastColor =
