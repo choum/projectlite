@@ -1,7 +1,7 @@
 {
   "name": "gateway",
-  "version": "1.0.0",
-  "description": "Local gateway for sending serial data to unit",
+  "version": "2.0.0",
+  "description": "Local gateway for sending data from Raspberry pi",
   "main": "index.js",
   "dependencies": {
     "firebase": "^5.9.3",
