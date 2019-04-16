@@ -3,6 +3,7 @@ const firebase = require("firebase/app");
 const auth = require("firebase/auth");
 const db = require("firebase/database");
 const config = require("./firebase.json");
+const ws281x = require("rpi-ws281x-native");
 
 /**
  * Gateway between database and hardware
@@ -46,15 +47,32 @@ class Gateway {
    * Starts data send routine
    */
   initdatasend() {
-    // TODO
-    /*                      // This is test code
-    setInterval(() => {
-      console.log(
-        this.getEffect()
-          .getdata()
-          .slice(0, 30)
-      );
-    }, 1000);*/
+    let len = Object.keys(this.layout).length * 60;
+    this.pixelData = new Uint32Array(len);
+    ws281x.init(len);
+
+    process.on("SIGINT", function() {
+      ws281x.reset();
+      process.nextTick(function() {
+        process.exit(0);
+      });
+    });
+
+    setInterval(this.senddata.bind(this), 1000 / 10);
+  }
+
+  /**
+   * Send the data out to the pixels
+   */
+  senddata() {
+    let dataout = this.getEffect().getdata();
+    for (let i = 0; i < dataout.length; i++)
+      this.pixelData[i] = this.rgb2Int(...dataout[i]);
+    ws281x.render(this.pixelData);
+  }
+
+  rgb2Int(r, g, b) {
+    return ((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff);
   }
 
   /**
