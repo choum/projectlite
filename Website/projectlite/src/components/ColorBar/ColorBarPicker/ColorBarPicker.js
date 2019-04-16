@@ -178,8 +178,8 @@ class ColorBarPicker extends Component {
           icon={faPlus}
           size="2x"
           style={{
-            marginLeft: "15px",
-            marginRight: "15px",
+            marginLeft: "30px",
+            marginRight: "10px",
             opacity: pointerLeftLocations.length > 5 ? 0.5 : 1
           }}
           onClick={this.onAddClick}
