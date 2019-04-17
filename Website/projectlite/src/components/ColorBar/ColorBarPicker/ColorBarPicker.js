@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { ChromePicker } from "react-color";
 
 import ColorBarPointer from "./ColorBarPointer";
 import * as logic from "./ColorBarLogic";
@@ -200,6 +201,9 @@ class ColorBarPicker extends Component {
           style={{ opacity: pointerLeftLocations.length > 1 ? 1 : 0.5 }}
           onClick={this.onDeleteClick}
         />
+        <div style={{ marginTop: 30 }}>
+          <ChromePicker />
+        </div>
       </div>
     );
   }

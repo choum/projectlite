@@ -403,12 +403,6 @@ class HexagonProfile extends Component {
                   onMovePointer={this.onLeftChangeColorBarPicker}
                 />
               </div>
-              <div style={{ marginTop: 30 }}>
-                <ChromePicker
-                  color={hexColor}
-                  onChangeComplete={this.handleChange}
-                />
-              </div>
             </SlimContainer>
           </SideNav>
         </Navigation>
