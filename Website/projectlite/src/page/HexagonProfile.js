@@ -49,26 +49,8 @@ class HexagonProfile extends Component {
       speed: "0",
       width: "100",
       popup: false,
-      colorBarPickerLefts: [
-        {
-          left: "30%"
-        },
-        {
-          left: "50%"
-        },
-        {
-          left: "65%"
-        },
-        {
-          left: "85%"
-        }
-      ],
-      colorBarPickerBackgroundColors: [
-        "#42f483",
-        "#F55FFF",
-        "#FFFE3E",
-        "#32E5F2"
-      ]
+      colorBarPickerLefts: [],
+      colorBarPickerBackgroundColors: []
     };
 
     this.firebase = this.props.firebase;
@@ -402,11 +384,18 @@ class HexagonProfile extends Component {
                     <select
                       value={selectedEffect}
                       onChange={e => {
+                        let val = e.target.value;
                         this.setState(
                           {
-                            selectedEffect: e.target.value
+                            selectedEffect: val
                           },
-                          () => this.onClickClear()
+                          () => {
+                            this.firebase.setEffectDrpDwn(
+                              this.props.match.params.id,
+                              val === "Wave" ? "Wave" : "Static_Colors"
+                            );
+                            this.onClickClear();
+                          }
                         );
                       }}
                       className="form-control"
