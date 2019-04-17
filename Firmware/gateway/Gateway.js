@@ -58,7 +58,7 @@ class Gateway {
       });
     });
 
-    setInterval(this.senddata.bind(this), 1000 / 10);
+    setInterval(this.senddata.bind(this), 1000 / 30);
   }
 
   /**
