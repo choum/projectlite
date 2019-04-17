@@ -228,7 +228,7 @@ class HexagonProfile extends Component {
     newcolorBarPickerBackgroundColors.push(hex);
     this.setState(
       {
-        colorBarPickerBackgroundColors: newColorBarPickerLefts,
+        colorBarPickerLefts: newColorBarPickerLefts,
         colorBarPickerBackgroundColors: newcolorBarPickerBackgroundColors
       },
       this.firebase.addPointerWaveEffect(
