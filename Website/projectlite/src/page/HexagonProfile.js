@@ -116,6 +116,7 @@ class HexagonProfile extends Component {
     }
     return arr;
   }
+
   componentDidUpdate(prevState) {
     let test = document.getElementsByClassName("hexagon-group")[0];
     if (test !== null && this.state.isRendered) {
@@ -138,6 +139,8 @@ class HexagonProfile extends Component {
       }
       //get ids
       let clusterKeys = Object.keys(val);
+      console.log("clusterkeys", clusterKeys);
+
       let test = 0;
       //go through all ids
       if (test === 0) {
@@ -159,7 +162,9 @@ class HexagonProfile extends Component {
   getData() {
     return this.firebase.getCluster(this.props.match.params.id, val => {
       let isSelectedList = {};
+      let effectType = val.Effect.Type === "Wave" ? "Wave" : "Static Color";
       let clusterKeys = Object.keys(val.Layout);
+      console.log("val", val);
 
       for (let i = 0; i < clusterKeys.length; i++) {
         isSelectedList[clusterKeys[i]] = false;
@@ -169,7 +174,8 @@ class HexagonProfile extends Component {
         clusterData: val,
         hexOrientation: val.Orientation,
         isClusterLoaded: true,
-        isSelectedList: isSelectedList
+        isSelectedList: isSelectedList,
+        selectedEffect: effectType
       });
     });
   }

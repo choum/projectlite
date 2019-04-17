@@ -96,6 +96,11 @@ export default class Firebase {
     return data;
   };
 
+  // @param string value - effect name
+  setEffectDrpDwn = (ID, value) => {
+    this.db.ref("clusters/" + ID).update({ Type: value });
+  };
+
   // @param string ID - cluster ID
   // @param  bool value - pointy(true) or flat(false)
   // @return db ref & callback({Effect})
