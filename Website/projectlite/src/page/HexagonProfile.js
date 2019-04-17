@@ -85,7 +85,6 @@ class HexagonProfile extends Component {
   }
   componentWillUnmount() {
     this.dbref.off();
-    this.dbColorPickerRef.off();
   }
 
   getColorPickerData() {
