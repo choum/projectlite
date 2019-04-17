@@ -145,6 +145,18 @@ class ColorBarPicker extends Component {
     });
   };
 
+  updatePointerColor = color => {
+    const { pointerBackgroundColors, pointerSelectedIndex } = this.state;
+    let newPointerBackgroundColors = pointerBackgroundColors.map(
+      (oldColor, index) =>
+        index === pointerSelectedIndex ? color.hex : oldColor
+    );
+
+    this.setState({
+      pointerBackgroundColors: newPointerBackgroundColors
+    });
+  };
+
   render() {
     const {
       pointerLeftLocations,
@@ -202,7 +214,10 @@ class ColorBarPicker extends Component {
           onClick={this.onDeleteClick}
         />
         <div style={{ marginTop: 30 }}>
-          <ChromePicker />
+          <ChromePicker
+            color={pointerBackgroundColors[pointerSelectedIndex]}
+            onChangeComplete={this.updatePointerColor}
+          />
         </div>
       </div>
     );
