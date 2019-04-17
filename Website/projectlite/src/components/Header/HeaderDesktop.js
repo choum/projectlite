@@ -153,11 +153,6 @@ const HeaderDesktopAuth = () => (
                 Signout
               </NavLink>
             </li>
-            <li>
-              <NavLink to="/emu" activeClassName="active">
-                Emulator
-              </NavLink>
-            </li>
           </ul>
         </div>
       </div>

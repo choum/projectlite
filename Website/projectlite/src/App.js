@@ -7,7 +7,6 @@ import About from "./page/About";
 import Dashboard from "./page/Dashboard";
 import Login from "./page/Login";
 import SignOut from "./page/SignOut";
-import Emulator from "./page/Emulator";
 import SignUp from "./page/SignUp";
 import ForgotPassword from "./page/ForgotPassword";
 
@@ -29,7 +28,6 @@ const App = () => (
         <Route path={ROUTES.LOGIN} component={Login} />
         <Route path={ROUTES.SIGNOUT} component={SignOut} />
         <Route path={ROUTES.SIGNUP} component={SignUp} />
-        <Route path={ROUTES.EMULATOR} component={Emulator} />
         <Route path={ROUTES.HEXAGONPROFILE} component={HexagonProfile} />
         <Route path={ROUTES.FORGOTPASSWORD} component={ForgotPassword} />
       </Switch>
