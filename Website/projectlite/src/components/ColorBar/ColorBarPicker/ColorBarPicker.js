@@ -103,7 +103,7 @@ class ColorBarPicker extends Component {
     newPointerBackgroundColors.push(lastColor);
 
     // add new pointer to db
-    this.props.onAddPointer(newPointerLeftLocations.length, 95, lastColor);
+    this.props.onAddPointer(newPointerLeftLocations.length - 1, 95, lastColor);
 
     this.setState({
       pointerLeftLocations: newPointerLeftLocations,
