@@ -40,8 +40,10 @@ class HexagonProfile extends Component {
       toggleSplit: false,
       clusterData: {},
       isClusterLoaded: false,
+      isRendered: false,
       hexOrientation: false,
-      selectedEffect: "Wave",
+      isSelectedList: {},
+      selectedEffect: "Static Color",
       hexColor: "",
       rgbColor: "",
       speed: "0",
@@ -72,13 +74,15 @@ class HexagonProfile extends Component {
     this.firebase = this.props.firebase;
     this.handleChange = this.handleChange.bind(this);
     this.updateSpeed = this.updateSpeed.bind(this);
+    this.initPolygonFill = this.initPolygonFill.bind(this);
   }
 
   componentDidMount() {
     this.dbref = this.getData();
-    this.dbColorPickerRef = this.getColorPickerData();
+    this.setState({
+      isRendered: true
+    });
   }
-
   componentWillUnmount() {
     this.dbref.off();
     this.dbColorPickerRef.off();
@@ -112,6 +116,45 @@ class HexagonProfile extends Component {
       arr.push(obj.Hex[i]);
     }
     return arr;
+  }
+  componentDidUpdate(prevState) {
+    let test = document.getElementsByClassName("hexagon-group")[0];
+    if (test !== null && this.state.isRendered) {
+      if (
+        prevState.hexColor === this.state.hexColor ||
+        this.state.hexColor === ""
+      ) {
+        this.initPolygonFill();
+        console.log("yeet");
+      }
+    } else {
+      console.log("we null");
+    }
+  }
+  // for now, just works on static
+  initPolygonFill() {
+    this.firebase.getClusterEffect(this.props.match.params.id, val => {
+      if (val.Type !== "Static_Colors") {
+        return;
+      }
+      //get ids
+      let clusterKeys = Object.keys(val);
+      let test = 0;
+      //go through all ids
+      if (test === 0) {
+        for (let i = 0; i < clusterKeys.length; i++) {
+          // store html
+          let hexColor = val[clusterKeys[i]];
+          let element = document.getElementById(clusterKeys[i]);
+          if (element !== null) {
+            //look through the html snippet for a polygon element
+            let polygon = element.querySelector("polygon");
+            polygon.style.fill = hexColor[1];
+            test++;
+          }
+        }
+      }
+    });
   }
 
   getData() {
@@ -390,15 +433,11 @@ class HexagonProfile extends Component {
   renderPopup() {
     let {
       popup,
-      hexColor,
       colorBarPickerBackgroundColors,
       colorBarPickerLefts
     } = this.state;
     return (
-      <ColumnColor
-        className="col-md-3"
-        style={{ paddingRight: "5px", minWidth: 470 }}
-      >
+      <ColumnColor className="col-md-3" style={{ paddingRight: "5px" }}>
         <Navigation>
           <SideNav defaultSelectedPath="1">
             <SlimContainer>
@@ -585,6 +624,7 @@ class HexagonProfile extends Component {
         </SlimContainer>
       </div>
     );
+    this.setState({ isClusterRendered: !this.state.isClusterRendered });
   }
 
   renderLoading() {

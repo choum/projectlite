@@ -37,5 +37,8 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "file-loader": "^3.0.1"
+  }
 }

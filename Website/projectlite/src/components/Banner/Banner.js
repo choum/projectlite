@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-
+import video from '../../media/video/horizontal.mp4';
 import { LinkButton } from "../Button";
 import { DefaultContainer } from "../Container";
 
@@ -21,11 +21,30 @@ const SiteWrapper = styled.div`
   /*margin-top: 200px;*/
   padding: 0 20px;
 }
-
+h1 {
+  font-size: 40pt;
+}
+p {
+  font-size: 18pt;
+}
 `
+const VideoWrapper = styled.div`
+video {
+  margin-top: -73px;
+  position: fixed;
+  z-index: -1;
+
+}
+background: rgba(0, 0, 0, 0.55);
+`
+
 
 const Banner = props => {
   return (
+    <VideoWrapper>
+    <video autoPlay muted loop id="myVideo" width="auto" height="auto">
+      <source src={video} type="video/mp4"/>
+      </video>
     <SiteWrapper>
       <div className="site-wrapper-inner">
         <DefaultContainer>
@@ -37,8 +56,9 @@ const Banner = props => {
             </p>
           </div>
         </DefaultContainer>
-      </div>
+        </div>
     </SiteWrapper>
+    </VideoWrapper>
   );
 };
 
