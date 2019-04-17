@@ -104,13 +104,23 @@ export default class Firebase {
     selection.update({ Orientation: value });
   };
 
+  // to be used if each led is individually addressable
+  // // @param string ID - cluster ID
+  // // @param string coord - location of tile, "-1,2,-1"
+  // // @param string key - object key, led identifier "aA"
+  // // @param string value - object value, hex
+  // setClusterEffect = (ID, coord, key, value) => {
+  //   let selection = this.db.ref("clusters/" + ID + "/Effect/" + coord);
+  //   selection.update({ [key]: value });
+  // };
+
   // @param string ID - cluster ID
   // @param string coord - location of tile, "-1,2,-1"
   // @param string key - object key, led identifier "aA"
   // @param string value - object value, hex
-  setClusterEffect = (ID, coord, key, value) => {
-    let selection = this.db.ref("clusters/" + ID + "/Effect/" + coord);
-    selection.update({ [key]: value });
+  setClusterEffect = (ID, coord, value) => {
+    let selection = this.db.ref("clusters/" + ID + "/Effect/");
+    selection.update({ [coord]: value });
   };
 
   // @param string ID - cluster ID

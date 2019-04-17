@@ -254,8 +254,6 @@ class HexagonProfile extends Component {
   };
 
   onColorChangeColorBarPicker = (newBackgroundColors, index, newHexVal) => {
-    console.log("newback", newBackgroundColors);
-
     this.setState(
       {
         pointerBackgroundColors: newBackgroundColors
@@ -272,14 +270,19 @@ class HexagonProfile extends Component {
     const { selectedEffect } = this.state;
 
     if (selectedEffect === "Static Color") {
-      for (let i = 0; i < 60; i++) {
-        this.firebase.setClusterEffect(
-          this.props.match.params.id,
-          coordinate,
-          i,
-          hexColor
-        );
-      }
+      this.firebase.setClusterEffect(
+        this.props.match.params.id,
+        coordinate,
+        hexColor
+      );
+      // for (let i = 0; i < 60; i++) {
+      //   this.firebase.setClusterEffect(
+      //     this.props.match.params.id,
+      //     coordinate,
+      //     i,
+      //     hexColor
+      //   );
+      // }
     }
   }
 
