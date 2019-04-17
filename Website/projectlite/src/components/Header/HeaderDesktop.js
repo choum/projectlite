@@ -153,11 +153,6 @@ const HeaderDesktopAuth = () => (
                 Signout
               </NavLink>
             </li>
-            <li>
-              <NavLink to="/emu" activeClassName="active">
-                Emulator
-              </NavLink>
-            </li>
           </ul>
         </div>
       </div>
@@ -196,13 +191,13 @@ const HeaderDesktopNonAuth = () => (
               <NavLink to="/products">Products</NavLink>
             </li>
             <li>
-              <NavLink to="/login" activeClassName="active">
-                Login
+              <NavLink to="/about" activeClassName="active">
+                About
               </NavLink>
             </li>
             <li>
-              <NavLink to="/about" activeClassName="active">
-                About
+              <NavLink to="/login" activeClassName="active">
+                Login
               </NavLink>
             </li>
             <li>
