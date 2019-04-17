@@ -65,10 +65,15 @@ class Gateway {
    * Send the data out to the pixels
    */
   senddata() {
-    let dataout = this.getEffect().getdata();
-    for (let i = 0; i < dataout.length; i++)
-      this.pixelData[i] = this.rgb2Int(...dataout[i]);
-    ws281x.render(this.pixelData);
+    try {
+      let dataout = this.getEffect().getdata();
+      for (let i = 0; i < dataout.length; i++)
+        this.pixelData[i] = this.rgb2Int(...dataout[i]);
+      ws281x.render(this.pixelData);
+    } catch (e) {
+      console.error("Could not send data! Issue with effect processing!");
+      console.error(e);
+    }
   }
 
   rgb2Int(r, g, b) {
