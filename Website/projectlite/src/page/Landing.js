@@ -8,7 +8,7 @@ class Landing extends Component {
     return (
       <MainContainer>
         <Banner
-          h1Text="Project Lite."
+          h1Text="Project Lite"
           pText="Explore lighting in a whole new way."
           btnText="Learn More"
         />
