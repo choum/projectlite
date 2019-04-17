@@ -144,6 +144,8 @@ class Gateway {
   getEffect() {
     if (this.checks[1] || this.checks[2]) {
       this.effectobj = EFinder.GetEffect(this.layout, this.effect);
+      this.checks[1] = false;
+      this.checks[2] = false;
     }
     return this.effectobj;
   }
