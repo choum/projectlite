@@ -133,7 +133,7 @@ class HexagonProfile extends Component {
           if (element !== null) {
             //look through the html snippet for a polygon element
             let polygon = element.querySelector("polygon");
-            polygon.style.fill = hexColor[1];
+            polygon.style.fill = hexColor[0];
             test++;
           }
         }
@@ -303,6 +303,7 @@ class HexagonProfile extends Component {
       this.firebase.setClusterEffect(
         this.props.match.params.id,
         coordinate,
+        0,
         hexColor
       );
       // for (let i = 0; i < 60; i++) {
