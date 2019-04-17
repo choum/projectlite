@@ -253,6 +253,21 @@ class HexagonProfile extends Component {
     );
   };
 
+  onColorChangeColorBarPicker = (newBackgroundColors, index, newHexVal) => {
+    console.log("newback", newBackgroundColors);
+
+    this.setState(
+      {
+        pointerBackgroundColors: newBackgroundColors
+      },
+      this.firebase.hexChangeWaveEffect(
+        this.props.match.params.id,
+        index,
+        newHexVal
+      )
+    );
+  };
+
   updateDatabaseClusterEffect(coordinate, hexColor) {
     const { selectedEffect } = this.state;
 
@@ -401,6 +416,7 @@ class HexagonProfile extends Component {
                   onAddPointer={this.onAddPointerColorBarPicker}
                   onDeletePointer={this.onDeletePointerColorBarPicker}
                   onMovePointer={this.onLeftChangeColorBarPicker}
+                  onChangeColor={this.onColorChangeColorBarPicker}
                 />
               </div>
             </SlimContainer>

@@ -135,6 +135,15 @@ export default class Firebase {
       .update({ ["group" + index]: val });
   };
 
+  // @param string ID - cluster ID
+  // @param num index - group number
+  // @param num val - new left value
+  hexChangeWaveEffect = (ID, index, val) => {
+    this.db
+      .ref("clusters/" + ID + "/Effect/Hex/")
+      .update({ ["group" + index]: val });
+  };
+
   // remove will at index and update all other indexes
   // this includes both hex and left
   // @param string ID - cluster ID

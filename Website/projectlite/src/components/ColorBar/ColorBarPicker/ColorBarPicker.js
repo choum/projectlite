@@ -152,6 +152,12 @@ class ColorBarPicker extends Component {
         index === pointerSelectedIndex ? color.hex : oldColor
     );
 
+    this.props.onChangeColor(
+      newPointerBackgroundColors,
+      pointerSelectedIndex,
+      color.hex
+    );
+
     this.setState({
       pointerBackgroundColors: newPointerBackgroundColors
     });
