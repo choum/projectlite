@@ -8,8 +8,10 @@ class Effect {
     this.addresses = [];
     for (let c in layout) {
       let y = c.split(",");
-      this.addresses[layout[c].Address] = y.slice(0, 2);
+      this.addresses[layout[c].Address] =
+      [Number(y[0]), Number(y[1])];
     }
+    this.test = Date.now();
   }
 
   /**
