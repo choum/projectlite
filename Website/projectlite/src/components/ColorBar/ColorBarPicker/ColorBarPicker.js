@@ -117,20 +117,27 @@ class ColorBarPicker extends Component {
       pointerBackgroundColors,
       pointerSelectedIndex
     } = this.state;
+
     if (pointerLeftLocations.length < 2) {
       return;
     }
 
     let newPointerLeftLocations = pointerLeftLocations.splice(0);
     let newPointerBackgroundColors = pointerBackgroundColors.splice(0);
-    newPointerLeftLocations = newPointerLeftLocations.filter(function(val) {
-      return val !== newPointerLeftLocations[pointerSelectedIndex];
-    });
-    newPointerBackgroundColors = newPointerBackgroundColors.filter(function(
-      val
-    ) {
-      return val !== newPointerBackgroundColors[pointerSelectedIndex];
-    });
+
+    newPointerLeftLocations = newPointerLeftLocations.filter(
+      (val, index) => index !== pointerSelectedIndex
+    );
+    newPointerBackgroundColors = newPointerBackgroundColors.filter(
+      (val, index) => index !== pointerSelectedIndex
+    );
+
+    // update db
+    this.props.onDeletePointer(
+      newPointerLeftLocations,
+      newPointerBackgroundColors
+    );
+
     this.setState({
       pointerLeftLocations: newPointerLeftLocations,
       pointerBackgroundColors: newPointerBackgroundColors

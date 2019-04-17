@@ -118,7 +118,6 @@ export default class Firebase {
   // @param string hex - hex pointer color
   // @param num left - left value
   addPointerWaveEffect = (ID, groupID, left, hex) => {
-    console.log(groupID);
     this.db
       .ref("clusters/" + ID + "/Effect/Left/")
       .update({ ["group" + groupID]: left });
@@ -138,13 +137,17 @@ export default class Firebase {
 
   // remove will at index and update all other indexes
   // this includes both hex and left
-  removePointerWaveEffect = (ID, oldHex, newHex, left) => {
+  // @param string ID - cluster ID
+  // @param num oldGroupCount
+  // @param obj newHex - new obj of hex values
+  // @param obj left - new obj of left numbers
+  removePointerWaveEffect = (ID, newHex, left) => {
     let hexSend = {};
     let leftSend = {};
 
     for (let i = 0; i < newHex.length; i++) {
-      hexSend["group" + i] = newHex[i].left;
-      leftSend["group" + i] = left[i];
+      hexSend["group" + i] = newHex[i];
+      leftSend["group" + i] = parseFloat(left[i].left);
     }
 
     this.db.ref("clusters/" + ID + "/Effect/Left/").set(leftSend);

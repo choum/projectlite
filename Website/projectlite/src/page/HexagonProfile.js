@@ -183,7 +183,6 @@ class HexagonProfile extends Component {
 
       if (isSelectedList[clusterKeys[i]] === true && !(hexColor === "")) {
         if (!(rgbColor === polygon.style.fill)) {
-          console.log("fire");
           polygon.style.fill = hexColor;
         }
 
@@ -240,30 +239,18 @@ class HexagonProfile extends Component {
     );
   };
 
-  onDeletePointerColorBarPicker = () => {
-    const {
-      pointerLeftLocations,
-      pointerBackgroundColors,
-      pointerSelectedIndex
-    } = this.state;
-    if (pointerLeftLocations.length < 2) {
-      return;
-    }
-
-    let newPointerLeftLocations = pointerLeftLocations.splice(0);
-    let newPointerBackgroundColors = pointerBackgroundColors.splice(0);
-    newPointerLeftLocations = newPointerLeftLocations.filter(function(val) {
-      return val !== newPointerLeftLocations[pointerSelectedIndex];
-    });
-    newPointerBackgroundColors = newPointerBackgroundColors.filter(function(
-      val
-    ) {
-      return val !== newPointerBackgroundColors[pointerSelectedIndex];
-    });
-    this.setState({
-      pointerLeftLocations: newPointerLeftLocations,
-      pointerBackgroundColors: newPointerBackgroundColors
-    });
+  onDeletePointerColorBarPicker = (newLefts, newBackgroundColors) => {
+    this.setState(
+      {
+        pointerLeftLocations: newLefts,
+        pointerBackgroundColors: newBackgroundColors
+      },
+      this.firebase.removePointerWaveEffect(
+        this.props.match.params.id,
+        newBackgroundColors,
+        newLefts
+      )
+    );
   };
 
   updateDatabaseClusterEffect(coordinate, hexColor) {
