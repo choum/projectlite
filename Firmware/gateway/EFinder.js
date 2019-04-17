@@ -1,6 +1,7 @@
 const Effect = require("./Effect").Effect;
 const Static = require("./StaticEffect").Effect;
 const TrueStatic = require("./TrueStatic").Effect;
+const SideTest = require("./SideTest").Effect;
 
 /**
  * Finds the effect desired by the system and creates it
@@ -22,7 +23,8 @@ function GetEffect(layout, effectobj) {
  */
 const effects = {
   Static_Colors: Static,
-  True_Static_Colors: TrueStatic
+  True_Static_Colors: TrueStatic,
+  Sides: SideTest
 };
 
 exports.GetEffect = GetEffect;
