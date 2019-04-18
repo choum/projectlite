@@ -46,7 +46,7 @@ class HexagonProfile extends Component {
       selectedEffect: "Static Color",
       hexColor: "",
       rgbColor: "",
-      speed: "0",
+      speed: 0,
       width: "100",
       popup: false,
       colorBarPickerLefts: [],
@@ -153,17 +153,19 @@ class HexagonProfile extends Component {
         isSelectedList[clusterKeys[i]] = false;
       }
 
-      this.setState({
-        clusterData: val,
-        hexOrientation: val.Orientation,
-        isClusterLoaded: true,
-        isSelectedList: isSelectedList,
-        selectedEffect: effectType
-      }, this.hexLength
-    );
-  })
-}
-
+      this.setState(
+        {
+          clusterData: val,
+          hexOrientation: val.Orientation,
+          isClusterLoaded: true,
+          isSelectedList: isSelectedList,
+          selectedEffect: effectType,
+          speed: val.Effect.WaveSpeed
+        },
+        this.hexLength
+      );
+    });
+  }
 
   handleChange(color, event) {
     let rgbColor =
@@ -238,9 +240,7 @@ class HexagonProfile extends Component {
     );
   }
 
-
-
-hexLength = () => {
+  hexLength = () => {
     const { clusterData } = this.state;
     if (!(Object.entries(this.state.clusterData).length === 0)) {
       let layout = clusterData.Layout;
@@ -251,14 +251,21 @@ hexLength = () => {
         numArr = clusterKeys[i].split(",");
         values.push(numArr[0]);
       }
-      let hexLength = (values[values.length - 1] - values[0]) + 1;
-      this.setState({
-        hexLength: hexLength
-      }, () => this.waveGradient())
+      let hexLength = values[values.length - 1] - values[0] + 1;
+      this.setState(
+        {
+          hexLength: hexLength
+        },
+        () => this.waveGradient()
+      );
     }
-  }
+  };
   waveGradient() {
-    const {hexLength, colorBarPickerLefts, colorBarPickerBackgroundColors} = this.state;
+    const {
+      hexLength,
+      colorBarPickerLefts,
+      colorBarPickerBackgroundColors
+    } = this.state;
     let eachHex = 100 / hexLength; //get each hexagon's stop point
     let newGradientCode = [];
     //get new left values for each one
@@ -270,114 +277,146 @@ hexLength = () => {
 
       let percent = strSplit[3];
       let num = percent.substring(0, percent.length - 1);
-        let currentOffset = num / eachHex ;
-        offset.push(currentOffset);
+      let currentOffset = num / eachHex;
+      offset.push(currentOffset);
     }
 
-    for (let i = 0; i < hexLength; i++) { //render the dynamic linear gradient
+    for (let i = 0; i < hexLength; i++) {
+      //render the dynamic linear gradient
 
       let arr = [];
       for (let k = 0; k < offset.length; k++) {
-          let offsetFirst = offset[k].toString().charAt(0);
-          if (offsetFirst === i.toString()) {
-            let newValue = "";
-            if(offset[k] > 1) {
-              let str = offset[k].toString()
-              newValue = Math.round(str.substring(1, str.length) * 100);
-            } else {
-              newValue = Math.round(offset[k] * 100);
-            }
-            if (newValue === 0) {
-              newValue = 5;
-            }
-            arr.push(newValue);
+        let offsetFirst = offset[k].toString().charAt(0);
+        if (offsetFirst === i.toString()) {
+          let newValue = "";
+          if (offset[k] > 1) {
+            let str = offset[k].toString();
+            newValue = Math.round(str.substring(1, str.length) * 100);
+          } else {
+            newValue = Math.round(offset[k] * 100);
           }
+          if (newValue === 0) {
+            newValue = 5;
+          }
+          arr.push(newValue);
+        }
       }
       if (arr.length === 0 && i === 0) {
         newGradientCode.push(
           <linearGradient id={"color" + i} key={i}>
-            <stop offset="0%" stopColor={colorBarPickerBackgroundColors[0]}/>
+            <stop offset="0%" stopColor={colorBarPickerBackgroundColors[0]} />
           </linearGradient>
-        )
-      } else if (arr.length === 0 && !(i === hexLength-1) && test + 1 < colorBarPickerBackgroundColors.length) {
+        );
+      } else if (
+        arr.length === 0 &&
+        !(i === hexLength - 1) &&
+        test + 1 < colorBarPickerBackgroundColors.length
+      ) {
         newGradientCode.push(
-        <linearGradient id={"color" + i} key={i}>
-          <stop offset="100%" stopColor={colorBarPickerBackgroundColors[test+1]}/>
-        </linearGradient>
-        )
-      } else if (arr.length === 0 && i == hexLength-1) {
+          <linearGradient id={"color" + i} key={i}>
+            <stop
+              offset="100%"
+              stopColor={colorBarPickerBackgroundColors[test + 1]}
+            />
+          </linearGradient>
+        );
+      } else if (arr.length === 0 && i == hexLength - 1) {
         newGradientCode.push(
-        <linearGradient id={"color" + i} key={i}>
-          <stop offset="100%" stopColor={colorBarPickerBackgroundColors[colorBarPickerBackgroundColors.length - 1]}/>
-        </linearGradient>
-        )
+          <linearGradient id={"color" + i} key={i}>
+            <stop
+              offset="100%"
+              stopColor={
+                colorBarPickerBackgroundColors[
+                  colorBarPickerBackgroundColors.length - 1
+                ]
+              }
+            />
+          </linearGradient>
+        );
       } else {
         newGradientCode.push(
           <linearGradient id={"color" + i} key={i}>
-          {
-            arr.map((element, index) => {
-            test++;
-            if (test > colorBarPickerBackgroundColors.length - 2) {
-              return(
-                <stop offset={element + "%"} stopColor={colorBarPickerBackgroundColors[test]} key={"ll" + index}/>
-              )
-            } else if (test === 0) {
-              let gradient = element+ 15;
-              return(
-                <React.Fragment key={"ll" + index}>
-                <stop offset="0%" stopColor={colorBarPickerBackgroundColors[test]}/>
-                <stop offset={element + "%"} stopColor={colorBarPickerBackgroundColors[test]}/>
-                <stop offset={gradient + "%"} stopColor={colorBarPickerBackgroundColors[test+1]}/>
-                </React.Fragment>
-              )
-            }
-            else {
-              return(
-                <React.Fragment key={"ll" + index}>
-                <stop offset={"0%"} stopColor={colorBarPickerBackgroundColors[test]}/>
-                <stop offset={element + "%"} stopColor={colorBarPickerBackgroundColors[test+1]}/>
-                </React.Fragment>
-              )
-            }
-          })}
+            {arr.map((element, index) => {
+              test++;
+              if (test > colorBarPickerBackgroundColors.length - 2) {
+                return (
+                  <stop
+                    offset={element + "%"}
+                    stopColor={colorBarPickerBackgroundColors[test]}
+                    key={"ll" + index}
+                  />
+                );
+              } else if (test === 0) {
+                let gradient = element + 15;
+                return (
+                  <React.Fragment key={"ll" + index}>
+                    <stop
+                      offset="0%"
+                      stopColor={colorBarPickerBackgroundColors[test]}
+                    />
+                    <stop
+                      offset={element + "%"}
+                      stopColor={colorBarPickerBackgroundColors[test]}
+                    />
+                    <stop
+                      offset={gradient + "%"}
+                      stopColor={colorBarPickerBackgroundColors[test + 1]}
+                    />
+                  </React.Fragment>
+                );
+              } else {
+                return (
+                  <React.Fragment key={"ll" + index}>
+                    <stop
+                      offset={"0%"}
+                      stopColor={colorBarPickerBackgroundColors[test]}
+                    />
+                    <stop
+                      offset={element + "%"}
+                      stopColor={colorBarPickerBackgroundColors[test + 1]}
+                    />
+                  </React.Fragment>
+                );
+              }
+            })}
           </linearGradient>
         );
       }
 
-    this.setState(
-      {
-        gradientCode: newGradientCode
-      }, () => this.gradientFill()
-    )
+      this.setState(
+        {
+          gradientCode: newGradientCode
+        },
+        () => this.gradientFill()
+      );
+    }
   }
-}
 
-gradientFill() {
-  const { clusterData, hexLength } = this.state;
-  let layout = clusterData.Layout;
-  let clusterKeys = Object.keys(layout);
-  let values = [];
-  for (let i = 0; i < clusterKeys.length; i++) {
-    let numArr = clusterKeys[i].split(",");
-    values.push(numArr[0]);
-  }
-  for (let j = 0; j < hexLength; j++) {
+  gradientFill() {
+    const { clusterData, hexLength } = this.state;
+    let layout = clusterData.Layout;
+    let clusterKeys = Object.keys(layout);
+    let values = [];
     for (let i = 0; i < clusterKeys.length; i++) {
-      let adjust = j;
       let numArr = clusterKeys[i].split(",");
-      if (values[0] < 0) {
-        adjust = j + Math.round(values[0]);
-      }
-      if (numArr[0] == adjust) {
-        let element = document.getElementById(clusterKeys[i]);
-        //look through the html snippet for a polygon element
-        let polygon = element.querySelector("polygon");
-        polygon.style.fill = "url(#color" + j + ")";
+      values.push(numArr[0]);
+    }
+    for (let j = 0; j < hexLength; j++) {
+      for (let i = 0; i < clusterKeys.length; i++) {
+        let adjust = j;
+        let numArr = clusterKeys[i].split(",");
+        if (values[0] < 0) {
+          adjust = j + Math.round(values[0]);
+        }
+        if (numArr[0] == adjust) {
+          let element = document.getElementById(clusterKeys[i]);
+          //look through the html snippet for a polygon element
+          let polygon = element.querySelector("polygon");
+          polygon.style.fill = "url(#color" + j + ")";
+        }
       }
     }
   }
-}
-
 
   onLeftChangeColorBarPicker = (index, val) => {
     const { colorBarPickerLefts } = this.state;
@@ -462,9 +501,13 @@ gradientFill() {
   }
 
   updateSpeed(value) {
-    this.setState({
-      speed: value
-    });
+    console.log(value);
+    this.setState(
+      {
+        speed: value
+      },
+      this.firebase.setWaveSpeed(this.props.match.params.id, value)
+    );
   }
 
   renderLogic() {
@@ -540,6 +583,9 @@ gradientFill() {
                               val === "Wave" ? "Wave" : "Static_Colors"
                             );
                             this.onClickClear();
+                            console.log("force");
+
+                            this.forceUpdate();
                           }
                         );
                       }}
@@ -681,14 +727,14 @@ gradientFill() {
                     type="number"
                     name="speed"
                     min="0"
-                    max="50"
+                    max="100"
                     value={speed}
                     onChange={e => this.updateSpeed(e.target.value)}
                   />
                   <br />
                   <Slider
                     min="0"
-                    max="50"
+                    max="100"
                     value={speed}
                     onChange={e => this.updateSpeed(e.target.value)}
                   />
@@ -735,7 +781,7 @@ gradientFill() {
   }
 
   renderCluster() {
-    const {selectedEffect} = this.state;
+    const { selectedEffect } = this.state;
     return (
       <div className="col-md-9">
         <SlimContainer>
@@ -750,8 +796,7 @@ gradientFill() {
               onClick={hexID => this.onClickSelect(hexID)}
               selected={this.state.isSelectedList}
               gradient={this.state.gradientCode}
-            >
-            </HexLayout>
+            />
             {/* <Toggle
               label="Simple"
               labelRight="Advanced"
