@@ -162,11 +162,18 @@ class HexagonProfile extends Component {
           selectedEffect: effectType,
           speed: val.Effect.WaveSpeed
         },
-        this.hexLength
+        this.handleEffect
       );
     });
   }
 
+  handleEffect = () => {
+    if (this.state.selectedEffect === "Wave") {
+      this.hexLength();
+    } else {
+      this.initPolygonFill();
+    }
+  };
   handleChange(color, event) {
     let rgbColor =
       "rgb(" + color.rgb.r + ", " + color.rgb.g + ", " + color.rgb.b + ")";
