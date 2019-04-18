@@ -147,7 +147,6 @@ class HexagonProfile extends Component {
       let isSelectedList = {};
       let effectType = val.Effect.Type === "Wave" ? "Wave" : "Static Color";
       let clusterKeys = Object.keys(val.Layout);
-      console.log("val", val);
 
       for (let i = 0; i < clusterKeys.length; i++) {
         isSelectedList[clusterKeys[i]] = false;
