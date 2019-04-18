@@ -32,7 +32,7 @@ const getHexagonMap = (clusterLayout, selectable, onClick) => {
   workaround: pass and format props in cube form so
   pass in order of q={} s={} r={}
 */
-const HexLayout = ({ layout, selectable, onClick, onClear }) => {
+const HexLayout = ({ layout, selectable, onClick, onClear, gradient }) => {
   if (onClear) {
     return (
       <a>
@@ -50,7 +50,11 @@ const HexLayout = ({ layout, selectable, onClick, onClear }) => {
     );
   } else {
     return (
+
       <HexGrid width={"100%"} height={"100%"}>
+      <defs>
+        {gradient}
+      </defs>
         <Layout
           size={{ x: 10, y: 10 }}
           flat={true}
