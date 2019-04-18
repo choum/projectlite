@@ -39,6 +39,8 @@ class WaveEffect extends Effect {
         left: effectobj.Left[g]
       });
     }
+    this.aspeed = false;
+    if (effectobj.WaveSpeed > 0) this.aspeed = 5000 - 45 * effectobj.WaveSpeed;
 
     let lowc = false;
     let lowv = 100;
@@ -54,11 +56,15 @@ class WaveEffect extends Effect {
         lowv = c.left;
       }
     }
-    if (lowc < 100 - highc) highc = lowc;
+
+    if (this.aspeed) {
+      if (lowc < 100 - highc) highc = lowc;
+      else lowc = highc;
+    }
 
     if (lowc !== 0)
       this.colors.push({
-        color: highc,
+        color: lowc,
         left: 0
       });
 
@@ -67,8 +73,6 @@ class WaveEffect extends Effect {
         color: highc,
         left: 100
       });
-
-    this.aspeed = effectobj.animspeed;
   }
 
   /**
@@ -85,7 +89,7 @@ class WaveEffect extends Effect {
     let p = RotationTransform(...PixelOffset(n), this.rotation[x + "," + y]);
     let pos = [t[0] + p[0], t[1] + p[1]];
     let gradv = (pos[1] - this.orgintl[1]) / this.size[1];
-    gradv = (gradv + (Date.now() - offset) / this.aspeed) % 1;
+    if (this.aspeed) gradv = (gradv + (Date.now() - offset) / this.aspeed) % 1;
     return interpolateA(this.colors, gradv);
   }
 }
