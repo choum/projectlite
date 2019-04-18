@@ -7,6 +7,12 @@ class WaveEffect extends Effect {
    * @param {Object} effectobj Current system effect
    */
   constructor(layout, effectobj) {
+    let newlayout = {};
+    for (let c in layout) {
+      let d = c.split(",");
+      newlayout[[d[1], d[0], d[2]].join(",")] = layout[c];
+    }
+    layout = newlayout;
     super(layout, effectobj);
     this.clusters = {};
     let maxx = 0;
