@@ -159,12 +159,18 @@ class HexagonProfile extends Component {
         isClusterLoaded: true,
         isSelectedList: isSelectedList,
         selectedEffect: effectType
-      }, this.hexLength
+      }, this.handleEffect
     );
   })
 }
 
-
+  handleEffect = () => {
+    if (this.state.selectedEffect === "Wave") {
+      this.hexLength()
+    } else {
+      this.initPolygonFill();
+    }
+  }
   handleChange(color, event) {
     let rgbColor =
       "rgb(" + color.rgb.r + ", " + color.rgb.g + ", " + color.rgb.b + ")";
