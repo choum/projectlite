@@ -61,12 +61,14 @@ class HexagonProfile extends Component {
 
   componentDidMount() {
     this.dbref = this.getData();
+    this.dbColorPickerData = this.getColorPickerData();
     this.setState({
       isRendered: true
     });
   }
   componentWillUnmount() {
     this.dbref.off();
+    this.dbColorPickerData.off();
   }
 
   getColorPickerData() {
@@ -121,7 +123,6 @@ class HexagonProfile extends Component {
       }
       //get ids
       let clusterKeys = Object.keys(val);
-      console.log("clusterkeys", clusterKeys);
 
       let test = 0;
       //go through all ids

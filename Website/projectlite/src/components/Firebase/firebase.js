@@ -115,7 +115,7 @@ export default class Firebase {
   // @param string value - object value, hex
   setClusterEffect = (ID, coord, key, value) => {
     let selection = this.db.ref("clusters/" + ID + "/Effect/" + coord);
-    selection.update({ [key]: value });
+    selection.set({ [key]: value });
   };
 
   // @param string ID - cluster ID
