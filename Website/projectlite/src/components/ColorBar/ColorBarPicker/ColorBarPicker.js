@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { ChromePicker } from "react-color";
 
 import ColorBarPointer from "./ColorBarPointer";
 import * as logic from "./ColorBarLogic";
@@ -34,22 +35,17 @@ class ColorBarPicker extends Component {
     super(props);
     this.state = {
       pointerSelectedIndex: 0,
-      pointerLeftLocations: [
-        {
-          left: "30%"
-        },
-        {
-          left: "50%"
-        },
-        {
-          left: "65%"
-        },
-        {
-          left: "85%"
-        }
-      ],
-      pointerBackgroundColors: ["#42f483", "#F55FFF", "#FFFE3E", "#32E5F2"]
+      pointerLeftLocations: [],
+      pointerBackgroundColors: [],
+      lastLeftVal: 0
     };
+  }
+
+  componentDidMount() {
+    this.setState({
+      pointerLeftLocations: this.props.leftPositions,
+      pointerBackgroundColors: this.props.backgroundColors
+    });
   }
 
   componentWillUnmount() {
@@ -68,7 +64,8 @@ class ColorBarPicker extends Component {
     let newPointerLeftLocations = pointerLeftLocations.slice(0);
     newPointerLeftLocations[pointerSelectedIndex] = { left: leftVal };
     this.setState({
-      pointerLeftLocations: newPointerLeftLocations
+      pointerLeftLocations: newPointerLeftLocations,
+      lastLeftVal: parseFloat(leftVal)
     });
   };
 
@@ -80,7 +77,11 @@ class ColorBarPicker extends Component {
   };
 
   handleMouseUp = () => {
-    //console.log("handleMouseup");
+    const { pointerSelectedIndex, lastLeftVal } = this.state;
+
+    // update database left value
+    this.props.onMovePointer(pointerSelectedIndex, lastLeftVal);
+
     window.removeEventListener("mousemove", this.handleMouseMove);
     window.removeEventListener("mouseup", this.handleMouseUp);
   };
@@ -101,6 +102,10 @@ class ColorBarPicker extends Component {
       newPointerBackgroundColors[newPointerBackgroundColors.length - 1];
     newPointerLeftLocations.push({ left: "95%" });
     newPointerBackgroundColors.push(lastColor);
+
+    // add new pointer to db
+    this.props.onAddPointer(newPointerLeftLocations.length - 1, 95, lastColor);
+
     this.setState({
       pointerLeftLocations: newPointerLeftLocations,
       pointerBackgroundColors: newPointerBackgroundColors
@@ -113,22 +118,47 @@ class ColorBarPicker extends Component {
       pointerBackgroundColors,
       pointerSelectedIndex
     } = this.state;
+
     if (pointerLeftLocations.length < 2) {
       return;
     }
 
     let newPointerLeftLocations = pointerLeftLocations.splice(0);
     let newPointerBackgroundColors = pointerBackgroundColors.splice(0);
-    newPointerLeftLocations = newPointerLeftLocations.filter(function(val) {
-      return val !== newPointerLeftLocations[pointerSelectedIndex];
-    });
-    newPointerBackgroundColors = newPointerBackgroundColors.filter(function(
-      val
-    ) {
-      return val !== newPointerBackgroundColors[pointerSelectedIndex];
-    });
+
+    newPointerLeftLocations = newPointerLeftLocations.filter(
+      (val, index) => index !== pointerSelectedIndex
+    );
+    newPointerBackgroundColors = newPointerBackgroundColors.filter(
+      (val, index) => index !== pointerSelectedIndex
+    );
+
+    // update db
+    this.props.onDeletePointer(
+      newPointerLeftLocations,
+      newPointerBackgroundColors
+    );
+
     this.setState({
       pointerLeftLocations: newPointerLeftLocations,
+      pointerBackgroundColors: newPointerBackgroundColors
+    });
+  };
+
+  updatePointerColor = color => {
+    const { pointerBackgroundColors, pointerSelectedIndex } = this.state;
+    let newPointerBackgroundColors = pointerBackgroundColors.map(
+      (oldColor, index) =>
+        index === pointerSelectedIndex ? color.hex : oldColor
+    );
+
+    this.props.onChangeColor(
+      newPointerBackgroundColors,
+      pointerSelectedIndex,
+      color.hex
+    );
+
+    this.setState({
       pointerBackgroundColors: newPointerBackgroundColors
     });
   };
@@ -177,8 +207,8 @@ class ColorBarPicker extends Component {
           icon={faPlus}
           size="2x"
           style={{
-            marginLeft: "15px",
-            marginRight: "15px",
+            marginLeft: "30px",
+            marginRight: "10px",
             opacity: pointerLeftLocations.length > 5 ? 0.5 : 1
           }}
           onClick={this.onAddClick}
@@ -189,6 +219,12 @@ class ColorBarPicker extends Component {
           style={{ opacity: pointerLeftLocations.length > 1 ? 1 : 0.5 }}
           onClick={this.onDeleteClick}
         />
+        <div style={{ marginTop: 30 }}>
+          <ChromePicker
+            color={pointerBackgroundColors[pointerSelectedIndex]}
+            onChangeComplete={this.updatePointerColor}
+          />
+        </div>
       </div>
     );
   }

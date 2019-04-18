@@ -1,4 +1,5 @@
 import React from "react";
+import * as staticLogic from "./ColorBarStaticLogic";
 
 const styles = {
   outer: {
@@ -26,38 +27,19 @@ const styles = {
 
 const ColorBarStatic = props => {
   const { pointerPositions, pointerColors, onClick } = props;
-
+  console.log(staticLogic.getGradient(pointerPositions, pointerColors));
   return (
     <div style={styles.outer} onClick={onClick}>
       <div style={styles.inner}>
         <div
           style={{
             ...styles.container,
-            background: getGradient(pointerPositions, pointerColors)
+            background: staticLogic.getGradient(pointerPositions, pointerColors)
           }}
         />
       </div>
     </div>
   );
-};
-
-const getGradient = (pointerPositions, pointerColors) => {
-  let gradient = "linear-gradient(to right, ";
-  const suffix = ", ";
-
-  gradient = gradient.concat(pointerColors[0] + " 0" + suffix);
-
-  for (let i = 0; i < pointerPositions.length; i++) {
-    gradient = gradient.concat(
-      pointerColors[i] + " " + pointerPositions[i].left + suffix
-    );
-  }
-
-  gradient = gradient.concat(
-    pointerColors[pointerPositions.length - 1] + " 100%)"
-  );
-
-  return gradient;
 };
 
 export default ColorBarStatic;

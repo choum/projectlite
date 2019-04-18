@@ -48,10 +48,10 @@ export const calculatePercentChange = (
     ? parseFloat(locationList[selectedIndex + 1].left)
     : null;
 
-  if (leftLeft != null && leftCurrentConverted < leftLeft + 11) {
-    leftCurrentConverted = leftLeft + 11;
-  } else if (leftRight != null && leftCurrentConverted > leftRight - 11) {
-    leftCurrentConverted = leftRight - 11;
+  if (leftLeft != null && leftCurrentConverted < leftLeft + 10) {
+    leftCurrentConverted = leftLeft + 10;
+  } else if (leftRight != null && leftCurrentConverted > leftRight - 10) {
+    leftCurrentConverted = leftRight - 10;
   }
 
   if (leftCurrentConverted < 1) {

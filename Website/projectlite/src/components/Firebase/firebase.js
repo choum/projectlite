@@ -85,6 +85,23 @@ export default class Firebase {
   };
 
   // @param string ID - cluster ID
+  // @param function(object) callback - function to return data
+  // @return db ref
+  // @return callback({Effect})
+  getClusterEffectSortByKey = (ID, callback) => {
+    let data = this.db.ref("clusters/" + ID + "/Effect").orderByKey();
+    data.on("value", function(snapshot) {
+      callback(snapshot.val());
+    });
+    return data;
+  };
+
+  // @param string value - effect name
+  setEffectDrpDwn = (ID, value) => {
+    this.db.ref("clusters/" + ID + "/Effect").update({ Type: value });
+  };
+
+  // @param string ID - cluster ID
   // @param  bool value - pointy(true) or flat(false)
   // @return db ref & callback({Effect})
   setClusterOrientation = (ID, value) => {
@@ -98,7 +115,57 @@ export default class Firebase {
   // @param string value - object value, hex
   setClusterEffect = (ID, coord, key, value) => {
     let selection = this.db.ref("clusters/" + ID + "/Effect/" + coord);
-    selection.update({ [key]: value });
+    selection.set({ [key]: value });
+  };
+
+  // @param string ID - cluster ID
+  // @param num groupID - id within fake array
+  // @param string hex - hex pointer color
+  // @param num left - left value
+  addPointerWaveEffect = (ID, groupID, left, hex) => {
+    this.db
+      .ref("clusters/" + ID + "/Effect/Left/")
+      .update({ ["group" + groupID]: left });
+    this.db
+      .ref("clusters/" + ID + "/Effect/Hex/")
+      .update({ ["group" + groupID]: hex });
+  };
+
+  // @param string ID - cluster ID
+  // @param num index - group number
+  // @param num val - new left value
+  leftChangeWaveEffect = (ID, index, val) => {
+    this.db
+      .ref("clusters/" + ID + "/Effect/Left/")
+      .update({ ["group" + index]: val });
+  };
+
+  // @param string ID - cluster ID
+  // @param num index - group number
+  // @param num val - new left value
+  hexChangeWaveEffect = (ID, index, val) => {
+    this.db
+      .ref("clusters/" + ID + "/Effect/Hex/")
+      .update({ ["group" + index]: val });
+  };
+
+  // remove will at index and update all other indexes
+  // this includes both hex and left
+  // @param string ID - cluster ID
+  // @param num oldGroupCount
+  // @param obj newHex - new obj of hex values
+  // @param obj left - new obj of left numbers
+  removePointerWaveEffect = (ID, newHex, left) => {
+    let hexSend = {};
+    let leftSend = {};
+
+    for (let i = 0; i < newHex.length; i++) {
+      hexSend["group" + i] = newHex[i];
+      leftSend["group" + i] = parseFloat(left[i].left);
+    }
+
+    this.db.ref("clusters/" + ID + "/Effect/Left/").set(leftSend);
+    this.db.ref("clusters/" + ID + "/Effect/Hex/").set(hexSend);
   };
 }
 
