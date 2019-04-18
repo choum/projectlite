@@ -275,7 +275,7 @@ hexLength = () => {
     }
 
     for (let i = 0; i < hexLength; i++) { //render the dynamic linear gradient
-      console.log(colorBarPickerBackgroundColors);
+
       let arr = [];
       for (let k = 0; k < offset.length; k++) {
           let offsetFirst = offset[k].toString().charAt(0);
@@ -344,7 +344,6 @@ hexLength = () => {
         );
       }
 
-      console.log(test);
     this.setState(
       {
         gradientCode: newGradientCode
@@ -364,8 +363,11 @@ gradientFill() {
   }
   for (let j = 0; j < hexLength; j++) {
     for (let i = 0; i < clusterKeys.length; i++) {
+      let adjust = j;
       let numArr = clusterKeys[i].split(",");
-      let adjust = j - 1;
+      if (values[0] < 0) {
+        adjust = j + Math.round(values[0]);
+      }
       if (numArr[0] == adjust) {
         let element = document.getElementById(clusterKeys[i]);
         //look through the html snippet for a polygon element
