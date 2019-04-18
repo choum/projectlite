@@ -27,7 +27,6 @@ const styles = {
 
 const ColorBarStatic = props => {
   const { pointerPositions, pointerColors, onClick } = props;
-  console.log(staticLogic.getGradient(pointerPositions, pointerColors));
   return (
     <div style={styles.outer} onClick={onClick}>
       <div style={styles.inner}>

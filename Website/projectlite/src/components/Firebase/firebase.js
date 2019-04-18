@@ -101,6 +101,10 @@ export default class Firebase {
     this.db.ref("clusters/" + ID + "/Effect").update({ Type: value });
   };
 
+  setWaveSpeed = (ID, value) => {
+    this.db.ref("clusters/" + ID + "/Effect").update({ WaveSpeed: value });
+  };
+
   // @param string ID - cluster ID
   // @param  bool value - pointy(true) or flat(false)
   // @return db ref & callback({Effect})
