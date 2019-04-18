@@ -98,7 +98,7 @@ export default class Firebase {
 
   // @param string value - effect name
   setEffectDrpDwn = (ID, value) => {
-    this.db.ref("clusters/" + ID).update({ Type: value });
+    this.db.ref("clusters/" + ID + "/Effect").update({ Type: value });
   };
 
   // @param string ID - cluster ID
